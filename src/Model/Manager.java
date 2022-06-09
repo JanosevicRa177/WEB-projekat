@@ -20,7 +20,7 @@ public class Manager extends User {
 	}
 
 	public void setSportBuilding(String sportBuilding) {
-		this.sportBuilding = sportBuilding;
+		this.sportBuilding = sportBuilding;;
 	}
 	
 }
