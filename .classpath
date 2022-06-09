@@ -6,26 +6,26 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/WEB-project/lib/gson-2.2.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/WEB-project/lib/javax.servlet-api-3.1.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/WEB-project/lib/javaxt-core.jar"/>
-	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/WEB-project/lib/jetty-http-9.3.6.v20151106.jar"/>
-	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/WEB-project/lib/jetty-io-9.3.6.v20151106.jar"/>
-	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/WEB-project/lib/jetty-security-9.3.6.v20151106.jar"/>
-	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/WEB-project/lib/jetty-server-9.3.6.v20151106.jar"/>
-	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/WEB-project/lib/jetty-servlet-9.3.6.v20151106.jar"/>
-	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/WEB-project/lib/jetty-util-9.3.6.v20151106.jar"/>
-	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/WEB-project/lib/jetty-webapp-9.3.6.v20151106.jar"/>
-	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/WEB-project/lib/jetty-xml-9.3.6.v20151106.jar"/>
-	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/WEB-project/lib/opencv-310.jar"/>
-	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/WEB-project/lib/slf4j-api-1.7.13.jar"/>
-	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/WEB-project/lib/slf4j-api-1.7.21.jar"/>
-	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/WEB-project/lib/slf4j-simple-1.7.21.jar"/>
-	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/WEB-project/lib/spark-core-2.5.5.jar"/>
-	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/WEB-project/lib/websocket-api-9.3.6.v20151106.jar"/>
-	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/WEB-project/lib/websocket-client-9.3.6.v20151106.jar"/>
-	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/WEB-project/lib/websocket-common-9.3.6.v20151106.jar"/>
-	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/WEB-project/lib/websocket-server-9.3.6.v20151106.jar"/>
-	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/WEB-project/lib/websocket-servlet-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/lib/gson-2.2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/lib/javax.servlet-api-3.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/lib/javaxt-core.jar"/>
+	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/lib/jetty-http-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/lib/jetty-io-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/lib/jetty-security-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/lib/jetty-server-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/lib/jetty-servlet-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/lib/jetty-util-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/lib/jetty-webapp-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/lib/jetty-xml-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/lib/opencv-310.jar"/>
+	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/lib/slf4j-api-1.7.13.jar"/>
+	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/lib/slf4j-api-1.7.21.jar"/>
+	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/lib/slf4j-simple-1.7.21.jar"/>
+	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/lib/spark-core-2.5.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/lib/websocket-api-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/lib/websocket-client-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/lib/websocket-common-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/lib/websocket-server-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="C:/Users/duros/Desktop/WEB/WEB-projekat/lib/websocket-servlet-9.3.6.v20151106.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
