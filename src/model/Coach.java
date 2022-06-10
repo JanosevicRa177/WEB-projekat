@@ -3,7 +3,6 @@ package model;
 import java.time.LocalDate;
 
 import enums.Gender;
-import enums.Role;
 
 public class Coach extends User{
 	private WorkoutHistory workoutHistory;
@@ -12,9 +11,8 @@ public class Coach extends User{
 		super();
 	}
 
-	public Coach(String username, String password, String name, String surname, Gender gender, LocalDate birthDate,
-			Role role, WorkoutHistory workoutHistory) {
-		super(username, password, name, surname, gender, birthDate, role);
+	public Coach(String username, String password, String name, String surname, Gender gender, LocalDate birthDate, WorkoutHistory workoutHistory) {
+		super(username, password, name, surname, gender, birthDate);
 		this.workoutHistory = workoutHistory;
 	}
 

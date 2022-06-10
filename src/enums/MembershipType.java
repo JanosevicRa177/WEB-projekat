@@ -1,6 +1,6 @@
 package enums;
 
-public enum DuesType {
+public enum MembershipType {
 	Yearly,
 	Monthly
 }

@@ -1,35 +1,36 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import enums.Gender;
-import enums.Role;
 
 public class Customer extends User{
 	
-	private Dues dues;
+	private Membership membership;
 	private List<SportBuilding> visitedBuildings;
 	private int points;
 	
 	public Customer() {
 		super();
 	}
-
-	public Customer(String username, String password, String name, String surname, Gender gender, LocalDate birthDate,
-			Role role, Dues dues, List<SportBuilding> visitedBuildings, int points) {
-		super(username, password, name, surname, gender, birthDate, role);
-		this.dues = dues;
-		this.visitedBuildings = visitedBuildings;
-		this.points = points;
+	
+	public Customer(String username, String password, String name, String surname, Gender gender, LocalDate birthDate) {
+		super(username, password, name, surname, gender, birthDate);
+		initCustomer();
+	}
+	public void initCustomer() {
+		this.membership = new Membership();
+		this.visitedBuildings = new ArrayList<SportBuilding>();
+		this.points = 0;
+	}
+	public Membership getMembership() {
+		return membership;
 	}
 
-	public Dues getDues() {
-		return dues;
-	}
-
-	public void setDues(Dues dues) {
-		this.dues = dues;
+	public void setMembership(Membership membership) {
+		this.membership = membership;
 	}
 
 	public List<SportBuilding> getVisitedBuildings() {

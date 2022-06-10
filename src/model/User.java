@@ -3,7 +3,6 @@ package model;
 import java.time.LocalDate;
 
 import enums.Gender;
-import enums.Role;
 
 public class User {
 	
@@ -13,14 +12,12 @@ public class User {
 	private String surname;
 	private Gender gender;
 	private LocalDate birthDate;
-	private Role role;
 	
 	User () {
 		super();
 	}
 
-	public User(String username, String password, String name, String surname, Gender gender, LocalDate birthDate,
-			Role role) {
+	public User(String username, String password, String name, String surname, Gender gender, LocalDate birthDate) {
 		this();
 		this.username = username;
 		this.password = password;
@@ -28,7 +25,6 @@ public class User {
 		this.surname = surname;
 		this.gender = gender;
 		this.birthDate = birthDate;
-		this.role = role;
 	}
 
 
@@ -79,16 +75,6 @@ public class User {
 
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-	
-	
+	}	
 	
 }

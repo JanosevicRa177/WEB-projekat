@@ -1,7 +1,8 @@
 Vue.component("register", {
 	data: function () {
 		    return {
-		      user: {name:null,surname:null,username:null,password:null,gender:null,birthDate:null}
+		      user: {name:null,surname:null,username:null,password:null,gender:null},
+		      loginTitle: "Back to login"
 		    }
 	},
 	template: ` 
@@ -34,10 +35,11 @@ Vue.component("register", {
         </tr>
         <tr>
         <td>Birth Date:</td>
-        <td><input type="date" value="2000-05-15" v-model="user.birthDate" ></input></td>
+        <td><input type="date" value="2000-05-15"></input></td>
         </tr>
         <tr>
         	<td><button v-on:click="alert()"> Submit </button></td>
+        	<td><input type = "submit" v-on:click = "ShowLoginForm" v-bind:value = "this.loginTitle"></td>
         </tr>
     </table>
 </div> 
@@ -47,11 +49,14 @@ Vue.component("register", {
 		init : function() {
 			this.user = {};
 		}, 
+		ShowLoginForm : function () {
+			router.push(`/`);
+		},
 		alert : function () {
-			this.user.birthDate = new Date(this.user.birthDate).toLocaleDateString('fr-CA', { year: 'numeric', month: '2-digit', day: '2-digit' })
-			alert(this.user.birthDate);
+			//this.user.birthDate = new Date(this.user.birthDate).toLocaleDateString('fr-CA', { year: 'numeric', month: '2-digit', day: '2-digit' })
+			//alert(this.user.birthDate);
 				axios
-		          .post('test',this.user)
+		          .post('customer/add',this.user)
 		          .then(response => {alert(response.data)})
 		} 
 	},

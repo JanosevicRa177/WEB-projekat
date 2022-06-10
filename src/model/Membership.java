@@ -2,23 +2,23 @@ package model;
 
 import java.time.LocalDate;
 
-import enums.DuesStatus;
-import enums.DuesType;
+import enums.MembershipStatus;
+import enums.MembershipType;
 
-public class Dues {
+public class Membership {
 	private String id;
-	private DuesType type;
+	private MembershipType type;
 	private LocalDate paymentDate;
 	private LocalDate expires;
 	private int price;
 	private Customer customer;
-	private DuesStatus status;
+	private MembershipStatus status;
 	private int workoutNumber;
 	
-	public Dues() {
+	public Membership() {
 		super();
 	}
-	public Dues(String id, DuesType type, LocalDate paymentDate, LocalDate expires, int price,Customer customer,DuesStatus status
+	public Membership(String id, MembershipType type, LocalDate paymentDate, LocalDate expires, int price,Customer customer,MembershipStatus status
 			, int workoutNumber) {
 		super();
 		this.id = id;
@@ -36,10 +36,10 @@ public class Dues {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public DuesType getType() {
+	public MembershipType getType() {
 		return type;
 	}
-	public void setType(DuesType type) {
+	public void setType(MembershipType type) {
 		this.type = type;
 	}
 	public LocalDate getPaymentDate() {
@@ -66,10 +66,10 @@ public class Dues {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-	public DuesStatus getStatus() {
+	public MembershipStatus getStatus() {
 		return status;
 	}
-	public void setStatus(DuesStatus status) {
+	public void setStatus(MembershipStatus status) {
 		this.status = status;
 	}
 	public int getWorkoutNumber() {

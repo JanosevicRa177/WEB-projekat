@@ -1,11 +1,11 @@
 const Register = { template: '<register></register>' }
-//const ShoppingCart = { template: '<shopping-cart></shopping-cart>' }
+const Login = { template: '<login></login>' }
 
 const router = new VueRouter({
 	  mode: 'hash',
 	  routes: [
-	    { path: '/register', component: Register},
-	    //{ path: '/sc', component: ShoppingCart }
+		{ path: '/', component: Login },
+	    { path: '/register', component: Register}
 	  ]
 });
 
