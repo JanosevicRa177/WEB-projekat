@@ -4,7 +4,7 @@ Vue.component("login", {
 				registerTitle: "Register",
 				username:null,
 				password:null,
-				userType:null
+				userType:"Customer"
 		    }
 	},
 	template: ` 
@@ -19,11 +19,11 @@ Vue.component("login", {
             <td colspan="2"><input type="password" placeholder="Password" style="font-size: 25px;" v-model="password"></input></td>
         </tr>
         <tr>
-            <td colspan="2"><select v-model="userType">
+            <td colspan="2"><select v-model="userType" style="font-size: 25px; width: 322px;">
             	<option value="Customer">Customer</option>
             	<option value="Manager">Manager</option>
             	<option value="Coach">Coach</option>
-            	<option value="Coach">Coach</option>
+            	<option value="Admin">Admin</option>
             </select></td>
         </tr>
         <tr style="height:70px">
