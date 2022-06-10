@@ -1,51 +1,68 @@
 Vue.component("register", {
 	data: function () {
 		    return {
-		      user: null
+		      user: {name:null,surname:null,username:null,password:null,gender:null,birthDate:null}
 		    }
 	},
 	template: ` 
 <div>
         <h4>Registracija na sajt:</h4>
-        Username:
-        <input type="text"></input>
-        Password:
-        <input type="password"></input>
-        Name:
-        <input type="text"></input>
-        Surname:
-        <input type="text"></input>
-        Gender:
-        <select name="gender" id="gender">
-            <option value="male">Volvo</option>
-            <option value="female">Saab</option>
-            <option value="alien">Saab</option>
-          </select>
-        Birth Date:
-        <input type="date" value="2000-05-15"></input>
-    </div>	  
+        <table>
+        <tr>
+            <td>Username:</td>
+            <td><input type="text" v-model="user.username"></input></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+                <td><input type="password" v-model="user.password"></input></td>
+        </tr>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" v-model="user.name"></input></td>
+        </tr>
+        <tr>
+        <td>Surname:</td>
+        <td><input type="text" v-model="user.surname"></input></td>
+        </tr>
+        <tr>
+        <td>Gender:</td>
+            <td><select name="gender" id="gender" v-model="user.gender">
+            	<option value="Male">male</option>
+            	<option value="Female">female</option>
+            	<option value="Alien">alien</option>
+            </select></td>
+        </tr>
+        <tr>
+        <td>Birth Date:</td>
+        <td><input type="date" value="2000-05-15" v-model="user.birthDate" ></input></td>
+        </tr>
+        <tr>
+        	<td><button v-on:click="alert()"> Submit </button></td>
+        </tr>
+    </table>
+</div> 
 `
 	, 
 	methods : {
 		init : function() {
 			this.user = {};
 		}, 
-		clearSc : function () {
-			if (confirm('Da li ste sigurni?') == true) {
+		alert : function () {
+			this.user.birthDate = new Date(this.user.birthDate).toLocaleDateString('fr-CA', { year: 'numeric', month: '2-digit', day: '2-digit' })
+			alert(this.user.birthDate);
 				axios
-		          .post('rest/proizvodi/clearSc')
-		          .then(response => (this.init()))
-			}
+		          .post('test',this.user)
+		          .then(response => {alert(response.data)})
 		} 
 	},
 	mounted () {
-        axios
+        /*axios
           .get('rest/proizvodi/getJustSc')
           .then(response => {
         	  this.sc = response.data;
           });
         axios
         .get('rest/proizvodi/getTotal')
-        .then(response => (this.total = response.data));
+        .then(response => (this.total = response.data));*/
     }
 });

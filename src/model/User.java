@@ -18,8 +18,6 @@ public class User {
 	User () {
 		super();
 	}
-	
-	
 
 	public User(String username, String password, String name, String surname, Gender gender, LocalDate birthDate,
 			Role role) {
