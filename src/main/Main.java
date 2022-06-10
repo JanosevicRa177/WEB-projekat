@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		port(8080);
+		port(8090);
 		
 		staticFiles.externalLocation(new File("./static").getCanonicalPath());
 		
