@@ -1,45 +1,48 @@
 Vue.component("register", {
 	data: function () {
 		    return {
-		      user: {name:null,surname:null,username:null,password:null,gender:null},
-		      loginTitle: "Back to login"
+		      user: {name:null,surname:null,username:null,password:null,gender:null,birthDate:null},
+		      loginTitle: "Back to login",
+		      birthDateString: null
 		    }
 	},
 	template: ` 
-<div>
-        <h4>Registracija na sajt:</h4>
-        <table>
+<div style="text-align:center;">
+    <h2 style="font-size: 55px;">Registration</h2>
+        <table style="margin-left:auto; margin-right:auto;">
         <tr>
-            <td>Username:</td>
-            <td><input type="text" v-model="user.username"></input></td>
+            <td align="left"><strong style="font-size: 30px;">Username:</strong></td>
+            <td><input type="text" v-model="user.username" style="font-size: 25px;"></input></td>
         </tr>
         <tr>
-            <td>Password:</td>
-                <td><input type="password" v-model="user.password"></input></td>
+            <td align="left"><strong style="font-size: 30px;">Password:</strong></td>
+                <td><input type="password" v-model="user.password" style="font-size: 25px;"></input></td>
         </tr>
         <tr>
-            <td>Name:</td>
-            <td><input type="text" v-model="user.name"></input></td>
+            <td align="left"><strong style="font-size: 30px;">Name:</strong></td>
+            <td><input type="text" v-model="user.name" style="font-size: 25px;"></input></td>
         </tr>
         <tr>
-        <td>Surname:</td>
-        <td><input type="text" v-model="user.surname"></input></td>
+        <td align="left"><strong style="font-size: 30px;">Surname:</strong></td>
+        <td><input type="text" v-model="user.surname" style="font-size: 25px;"></input></td>
         </tr>
         <tr>
-        <td>Gender:</td>
-            <td><select name="gender" id="gender" v-model="user.gender">
+        <td align="left"><strong style="font-size: 30px;">Gender:</strong></td>
+            <td><select name="gender" id="gender" v-model="user.gender"  style="font-size: 25px; width: 100%;">
             	<option value="Male">male</option>
             	<option value="Female">female</option>
             	<option value="Alien">alien</option>
             </select></td>
         </tr>
         <tr>
-        <td>Birth Date:</td>
-        <td><input type="date" value="2000-05-15"></input></td>
+        <td align="left"><strong style="font-size: 30px;">Birth Date:</strong></td>
+        <td><input type="date" value="2000-05-15" v-model="user.birthDate" style="font-size: 25px; width: 98.3%;"></input></td>
         </tr>
-        <tr>
-        	<td><button v-on:click="alert()"> Submit </button></td>
-        	<td><input type = "submit" v-on:click = "ShowLoginForm" v-bind:value = "this.loginTitle"></td>
+        <tr style="height:70px">
+        	<td colspan="2">
+	        	<button v-on:click="alert()" style="font-size: 25px; width: 35%;margin: 0px 10px;"> Submit </button> 
+	        	<input type = "submit" v-on:click = "ShowLoginForm" v-bind:value = "this.loginTitle" style="font-size: 25px; width: 35%; margin: 0px 10px;">
+        	</td>
         </tr>
     </table>
 </div> 
@@ -53,8 +56,7 @@ Vue.component("register", {
 			router.push(`/`);
 		},
 		alert : function () {
-			//this.user.birthDate = new Date(this.user.birthDate).toLocaleDateString('fr-CA', { year: 'numeric', month: '2-digit', day: '2-digit' })
-			//alert(this.user.birthDate);
+			alert(this.user.birthDate);
 				axios
 		          .post('customer/add',this.user)
 		          .then(response => {alert(response.data)})

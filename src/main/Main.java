@@ -14,7 +14,7 @@ public class Main {
 		port(8090);
 		
 		staticFiles.externalLocation(new File("./static").getCanonicalPath());
-		
+		new CustomerController();
 		CustomerController.addCustomer();
 		CustomerController.getCustomer();
 	}
