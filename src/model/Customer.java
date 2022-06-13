@@ -7,7 +7,7 @@ import java.util.List;
 
 import enums.Gender;
 
-public class Customer extends User implements Serializable{
+public class Customer extends User{
 	
 	private Membership membership;
 	private List<SportBuilding> visitedBuildings;
@@ -49,10 +49,4 @@ public class Customer extends User implements Serializable{
 	public void setPoints(int points) {
 		this.points = points;
 	}
-	
-	@Override
-	public String toString() {
-		return this.getUsername();
-	}
-	
 }

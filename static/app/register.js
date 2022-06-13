@@ -36,7 +36,7 @@ Vue.component("register", {
         </tr>
         <tr>
         <td align="left"><strong style="font-size: 30px;">Birth Date:</strong></td>
-        <td><input type="date" value="2000-05-15" style="font-size: 25px; width: 98.3%;"></input></td>
+        <td><input type="date" v-model="user.birthDate" value="2000-5-15" style="font-size: 25px; width: 98.3%;"></input></td>
         </tr>
         <tr style="height:70px">
         	<td colspan="2">

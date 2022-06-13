@@ -39,7 +39,7 @@ public class CustomerFileStorage {
 			outputString += "Male" + ";";
 			else
 			outputString += "Alien" + ";";
-			outputString += "2000.20.2";
+			outputString += "2000.2.2";
 			output.println(outputString);
 		}
 		} catch (IOException e) {
