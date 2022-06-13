@@ -2,9 +2,10 @@ package fileStorages;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.ObjectOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -14,15 +15,39 @@ import model.Customer;
 
 public class CustomerFileStorage {
 	
-	public static ArrayList<Customer> cusList;
+	public ArrayList<Customer> cusList;
 	
 	public CustomerFileStorage() {
-		if(cusList == null) {
-			cusList = readCustomers();
-		}
-		
 	}
 	
+	public boolean writeCustomers() 
+	{
+		FileWriter fileWriter;
+		try {
+			fileWriter = new FileWriter("./customers.txt");
+		PrintWriter output = new PrintWriter(fileWriter, true);
+		for(Customer customer : cusList)
+		{
+			String outputString = "";
+			outputString += customer.getUsername() + ";";
+			outputString += customer.getPassword() + ";";
+			outputString += customer.getName() + ";";
+			outputString += customer.getSurname() + ";";
+			if(customer.getGender() == Gender.Male)
+			outputString += "Male" + ";";
+			else if(customer.getGender() == Gender.Female)
+			outputString += "Male" + ";";
+			else
+			outputString += "Alien" + ";";
+			outputString += "2000.20.2";
+			output.println(outputString);
+		}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
+	}
 	public ArrayList<Customer> readCustomers() {
 		ArrayList<Customer> customers = new ArrayList<Customer>();
 		BufferedReader in = null;
@@ -50,7 +75,7 @@ public class CustomerFileStorage {
 					if(gender.equals("Male")) gen = Gender.Male;
 					else if(gender.equals("Female")) gen = Gender.Female;
 					else gen = Gender.Alien;
-					Customer customer = new Customer(username,password,name,surname,gen, LocalDate.of(2000,5,15));
+					Customer customer = new Customer(username, password, name, surname, gen, LocalDate.of(2000,5,15));
 					customers.add(customer);
 				}
 			} catch (Exception ex) {
@@ -71,7 +96,9 @@ public class CustomerFileStorage {
 	}
 	
 	public String addCustomer(Customer cus) {
+		cusList = readCustomers();
 		cusList.add(cus);
+		writeCustomers();
 		return "SUCCESS";
 	}
 }
