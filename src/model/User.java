@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import enums.Gender;
@@ -11,13 +12,13 @@ public class User {
 	private String name;
 	private String surname;
 	private Gender gender;
-	private Date birthDate;
+	private LocalDate birthDate;
 	
 	User () {
 		super();
 	}
 
-	public User(String username, String password, String name, String surname, Gender gender, Date birthDate) {
+	public User(String username, String password, String name, String surname, Gender gender, LocalDate birthDate) {
 		this();
 		this.username = username;
 		this.password = password;
@@ -69,11 +70,11 @@ public class User {
 		this.gender = gender;
 	}
 
-	public Date getBirthDate() {
+	public LocalDate getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(Date birthDate) {
+	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}	
 	

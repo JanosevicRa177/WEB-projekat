@@ -36,11 +36,11 @@ Vue.component("register", {
         </tr>
         <tr>
         <td align="left"><strong style="font-size: 30px;">Birth Date:</strong></td>
-        <td><input type="date" value="2000-05-15" v-model="user.birthDate" style="font-size: 25px; width: 98.3%;"></input></td>
+        <td><input type="date" value="2000-05-15" style="font-size: 25px; width: 98.3%;"></input></td>
         </tr>
         <tr style="height:70px">
         	<td colspan="2">
-	        	<button v-on:click="alert()" style="font-size: 25px; width: 35%;margin: 0px 10px;"> Submit </button> 
+	        	<button v-on:click="addCustomer()" style="font-size: 25px; width: 35%;margin: 0px 10px;"> Submit </button> 
 	        	<input type = "submit" v-on:click = "ShowLoginForm" v-bind:value = "this.loginTitle" style="font-size: 25px; width: 35%; margin: 0px 10px;">
         	</td>
         </tr>
@@ -55,11 +55,10 @@ Vue.component("register", {
 		ShowLoginForm : function () {
 			router.push(`/`);
 		},
-		alert : function () {
-			alert(this.user.birthDate);
+		addCustomer : function () {
 				axios
 		          .post('customer/add',this.user)
-		          .then(response => {alert(response.data)})
+		          .then(response => (alert(response.data)))
 		} 
 	},
 	mounted () {

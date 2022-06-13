@@ -1,12 +1,13 @@
 package model;
 
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import enums.Gender;
 
-public class Customer extends User{
+public class Customer extends User implements Serializable{
 	
 	private Membership membership;
 	private List<SportBuilding> visitedBuildings;
@@ -16,7 +17,7 @@ public class Customer extends User{
 		super();
 	}
 	
-	public Customer(String username, String password, String name, String surname, Gender gender, Date birthDate) {
+	public Customer(String username, String password, String name, String surname, Gender gender, LocalDate birthDate) {
 		super(username, password, name, surname, gender, birthDate);
 		initCustomer();
 	}
@@ -49,6 +50,9 @@ public class Customer extends User{
 		this.points = points;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return this.getUsername();
+	}
 	
 }
