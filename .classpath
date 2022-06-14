@@ -26,6 +26,7 @@
 	<classpathentry kind="lib" path="lib/websocket-common-9.3.6.v20151106.jar"/>
 	<classpathentry kind="lib" path="lib/websocket-server-9.3.6.v20151106.jar"/>
 	<classpathentry kind="lib" path="lib/websocket-servlet-9.3.6.v20151106.jar"/>
+	<classpathentry kind="lib" path="/WebShopREST/WebContent/WEB-INF/lib/jackson-annotations-2.5.4.jar"/>
 	<classpathentry kind="lib" path="lib/gson-2.2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

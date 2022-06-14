@@ -3,7 +3,6 @@ package controller;
 import static spark.Spark.get;
 import static spark.Spark.post;
 
-import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -18,13 +17,15 @@ public class CustomerController {
 		gson = new GsonBuilder()
 		        .setPrettyPrinting()
 		        .setDateFormat("yyyy-MM-dd")
-		        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-		        .create();;
+		        .create();
 	}
 	
 	public static void addCustomer() {
 		post("customer/add",(req, res) -> {
+			res.type("application/json");
+			System.out.println(req.body());
 			Customer cus = gson.fromJson(req.body(), Customer.class);
+			System.out.println(cus.getBirthDate());
 			return customerService.addCustomer(cus);
 		});
 	}

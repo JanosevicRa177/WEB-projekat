@@ -1,6 +1,6 @@
 package model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import enums.Gender;
 
@@ -8,7 +8,7 @@ public class Manager extends User {
 	
 	private String sportBuilding;
 
-	public Manager(String username, String password, String name, String surname, Gender gender, LocalDate birthDate,String sportBuilding) {
+	public Manager(String username, String password, String name, String surname, Gender gender, Date birthDate,String sportBuilding) {
 		super(username, password, name, surname, gender, birthDate);
 		this.sportBuilding = sportBuilding;
 	}

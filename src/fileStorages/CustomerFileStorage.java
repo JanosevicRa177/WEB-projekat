@@ -6,8 +6,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.StringTokenizer;
 
 import enums.Gender;
@@ -25,25 +26,26 @@ public class CustomerFileStorage {
 		FileWriter fileWriter;
 		try {
 			fileWriter = new FileWriter("./customers.txt");
-		PrintWriter output = new PrintWriter(fileWriter, true);
-		for(Customer customer : cusList)
-		{
-			String outputString = "";
-			outputString += customer.getUsername() + ";";
-			outputString += customer.getPassword() + ";";
-			outputString += customer.getName() + ";";
-			outputString += customer.getSurname() + ";";
-			if(customer.getGender() == Gender.Male)
-			outputString += "Male" + ";";
-			else if(customer.getGender() == Gender.Female)
-			outputString += "Male" + ";";
-			else
-			outputString += "Alien" + ";";
-			outputString += "2000.2.2";
-			output.println(outputString);
-		}
+			PrintWriter output = new PrintWriter(fileWriter, true);
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy"); 
+			for(Customer customer : cusList)
+			{
+				String outputString = "";
+				outputString += customer.getUsername() + ";";
+				outputString += customer.getPassword() + ";";
+				outputString += customer.getName() + ";";
+				outputString += customer.getSurname() + ";";
+				if(customer.getGender() == Gender.Male)
+				outputString += "Male" + ";";
+				else if(customer.getGender() == Gender.Female)
+				outputString += "Male" + ";";
+				else
+				outputString += "Alien" + ";";
+				outputString += formatter.format(customer.getBirthDate());
+				output.println(outputString);
+			}
+			output.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return true;
@@ -75,7 +77,9 @@ public class CustomerFileStorage {
 					if(gender.equals("Male")) gen = Gender.Male;
 					else if(gender.equals("Female")) gen = Gender.Female;
 					else gen = Gender.Alien;
-					Customer customer = new Customer(username, password, name, surname, gen, LocalDate.of(2000,5,15));
+					SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy"); 
+					Date date = formatter.parse(locDate); 
+					Customer customer = new Customer(username, password, name, surname, gen, date);
 					customers.add(customer);
 				}
 			} catch (Exception ex) {
