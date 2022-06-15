@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 
 import controller.CustomerController;
+import controller.SportBuildingController;
 
 public class Main {
 
@@ -15,8 +16,10 @@ public class Main {
 		
 		staticFiles.externalLocation(new File("./static").getCanonicalPath());
 		new CustomerController();
+		new SportBuildingController();
 		CustomerController.addCustomer();
 		CustomerController.getCustomer();
+		SportBuildingController.getSportBuildings();
 	}
 
 }

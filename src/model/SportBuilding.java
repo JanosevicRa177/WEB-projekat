@@ -1,7 +1,5 @@
 package model;
 
-import java.awt.Image;
-
 import enums.SportBuildingStatus;
 import enums.SportBuildingType;
 
@@ -10,7 +8,7 @@ public class SportBuilding {
 	private SportBuildingType type;
 	private SportBuildingStatus status;
 	private Location location;
-	private Image image;
+	private String image;
 	private double averageGrade;
 	private String workTime;
 	
@@ -18,7 +16,7 @@ public class SportBuilding {
 		super();
 	}
 	public SportBuilding(String name, SportBuildingType type, SportBuildingStatus status, Location location,
-			Image image, double averageGrade, String workTime) {
+			String image, double averageGrade, String workTime) {
 		super();
 		this.name = name;
 		this.type = type;
@@ -52,10 +50,10 @@ public class SportBuilding {
 	public void setLocation(Location location) {
 		this.location = location;
 	}
-	public Image getImage() {
+	public String getImage() {
 		return image;
 	}
-	public void setImage(Image image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 	public double getAverageGrade() {

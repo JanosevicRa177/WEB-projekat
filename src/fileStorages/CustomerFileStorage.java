@@ -7,8 +7,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.StringTokenizer;
 
 import enums.Gender;
@@ -16,11 +16,17 @@ import model.Customer;
 
 public class CustomerFileStorage {
 	
-	public ArrayList<Customer> cusList;
+	public HashMap<String, Customer> customers;
 	
 	public CustomerFileStorage() {
 	}
 	
+	public String addCustomer(Customer cus) {
+		customers = readCustomers();
+		customers.put(cus.getUsername(),cus);
+		writeCustomers();
+		return "Registration successful!";
+	}
 	public boolean writeCustomers() 
 	{
 		FileWriter fileWriter;
@@ -28,8 +34,9 @@ public class CustomerFileStorage {
 			fileWriter = new FileWriter("./customers.txt");
 			PrintWriter output = new PrintWriter(fileWriter, true);
 			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy"); 
-			for(Customer customer : cusList)
+			for(String key : customers.keySet())
 			{
+				Customer customer = customers.get(key);
 				String outputString = "";
 				outputString += customer.getUsername() + ";";
 				outputString += customer.getPassword() + ";";
@@ -38,7 +45,7 @@ public class CustomerFileStorage {
 				if(customer.getGender() == Gender.Male)
 				outputString += "Male" + ";";
 				else if(customer.getGender() == Gender.Female)
-				outputString += "Male" + ";";
+				outputString += "Female" + ";";
 				else
 				outputString += "Alien" + ";";
 				outputString += formatter.format(customer.getBirthDate());
@@ -50,12 +57,11 @@ public class CustomerFileStorage {
 		}
 		return true;
 	}
-	public ArrayList<Customer> readCustomers() {
-		ArrayList<Customer> customers = new ArrayList<Customer>();
+	public HashMap<String, Customer> readCustomers() {
+		HashMap<String, Customer> customersInner = new HashMap<String, Customer>();
 		BufferedReader in = null;
 		try {
 			File file = new File("./customers.txt");
-			System.out.println(file.getCanonicalPath());
 			in = new BufferedReader(new FileReader(file));
 			String line, username = "", password = "", name = "",surname = "",gender = "", locDate = "";
 			StringTokenizer st;
@@ -80,7 +86,7 @@ public class CustomerFileStorage {
 					SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy"); 
 					Date date = formatter.parse(locDate); 
 					Customer customer = new Customer(username, password, name, surname, gen, date);
-					customers.add(customer);
+					customersInner.put(customer.getUsername(),customer);
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -96,13 +102,6 @@ public class CustomerFileStorage {
 				catch (Exception e) { }
 			}
 		}
-		return customers;
-	}
-	
-	public String addCustomer(Customer cus) {
-		cusList = readCustomers();
-		cusList.add(cus);
-		writeCustomers();
-		return "SUCCESS";
+		return customersInner;
 	}
 }

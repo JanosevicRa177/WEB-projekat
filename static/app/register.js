@@ -2,7 +2,7 @@ Vue.component("register", {
 	data: function () {
 		    return {
 		      user: {name:null,surname:null,username:null,password:null,gender:null,birthDate:null},
-		      loginTitle: "Back to login",
+		      backTitle: "Back main page",
 		      birthDateString: null
 		    }
 	},
@@ -40,8 +40,8 @@ Vue.component("register", {
         </tr>
         <tr style="height:70px">
         	<td colspan="2">
-	        	<button v-on:click="addCustomer()" style="font-size: 25px; width: 35%;margin: 0px 10px;"> Submit </button> 
-	        	<input type = "submit" v-on:click = "ShowLoginForm" v-bind:value = "this.loginTitle" style="font-size: 25px; width: 35%; margin: 0px 10px;">
+	        	<button v-on:click="addCustomer()" style="font-size: 25px; width: 42%;margin: 0px 10px;"> Submit </button> 
+	        	<input type = "submit" v-on:click = "ShowLoginForm" v-bind:value = "this.backTitle" style="font-size: 25px; width: 42%; margin: 0px 10px;">
         	</td>
         </tr>
     </table>
