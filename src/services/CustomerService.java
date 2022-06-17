@@ -21,4 +21,7 @@ public class CustomerService {
 		else if (!cus.getPassword().equals(u.getPassword())) return null;
 		return cus;
 	}
+	public Boolean isUniqueUsername(String username) {
+		return customerFileStorage.isUniqueUsername(username);
+	}
 }

@@ -9,7 +9,6 @@ import com.google.gson.GsonBuilder;
 import model.Customer;
 import model.User;
 import services.CustomerService;
-import spark.Route;
 import spark.Session;
 
 public class CustomerController {
@@ -27,9 +26,12 @@ public class CustomerController {
 		post("customer/add",(req, res) -> {
 			res.type("application/json");
 			System.out.println(req.body());
-			Customer cus = gson.fromJson(req.body(), Customer.class);
-			System.out.println(cus.getBirthDate());
-			return customerService.addCustomer(cus);
+			Customer customer = gson.fromJson(req.body(), Customer.class);
+			if(!customer.getName().matches("^[A-Z.-]+(\\s*[A-Za-z.-]+)*$") || !customer.getSurname().matches("^[A-Z.-]+(\\s*[A-Za-z.-]+)*$"))
+				return "Name and surname should start with uppercase without numbers";
+			if(!customerService.isUniqueUsername(customer.getUsername()))
+				return "Username is not unique";
+			return customerService.addCustomer(customer);
 		});
 	}
 	public static void getCustomer() {

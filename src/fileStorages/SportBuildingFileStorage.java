@@ -8,7 +8,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.TreeMap;
 
 import enums.SportBuildingStatus;
 import enums.SportBuildingType;
@@ -17,9 +19,11 @@ import model.Location;
 import model.SportBuilding;
 
 public class SportBuildingFileStorage {
-	private HashMap<String, SportBuilding> sportBuildings = new HashMap<String, SportBuilding>();
+	private Map<String, SportBuilding> sportBuildings;
+	
 	public SportBuildingFileStorage() {
 	}
+	
 	public Collection<SportBuilding> getSportBuildings(){
 		sportBuildings = readSportBuildings();
 		return sportBuildings.values();
@@ -65,8 +69,8 @@ public class SportBuildingFileStorage {
 		}
 		return true;
 	}
-	public HashMap<String, SportBuilding> readSportBuildings() {
-		HashMap<String, SportBuilding> sportBuildingsInner = new HashMap<String, SportBuilding>();
+	public Map<String, SportBuilding> readSportBuildings() {
+		Map<String, SportBuilding> sportBuildingsInner = new TreeMap<String, SportBuilding>(String.CASE_INSENSITIVE_ORDER);
 		BufferedReader in = null;
 		try {
 			File file = new File("./sportBuildings.txt");

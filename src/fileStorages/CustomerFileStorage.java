@@ -8,15 +8,16 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.TreeMap;
 
 import enums.Gender;
 import model.Customer;
 
 public class CustomerFileStorage {
 	
-	public HashMap<String, Customer> customers;
+	public Map<String, Customer> customers;
 	
 	public CustomerFileStorage() {
 	}
@@ -26,6 +27,12 @@ public class CustomerFileStorage {
 		customers.put(cus.getUsername(),cus);
 		writeCustomers();
 		return "Registration successful!";
+	}
+	public Boolean isUniqueUsername(String username) {
+		customers = readCustomers();
+		Customer customer = customers.get(username);
+		if(customer == null) return true;
+		return false;
 	}
 	public boolean writeCustomers() 
 	{
@@ -57,8 +64,9 @@ public class CustomerFileStorage {
 		}
 		return true;
 	}
-	public HashMap<String, Customer> readCustomers() {
-		HashMap<String, Customer> customersInner = new HashMap<String, Customer>();
+	
+	public Map<String, Customer> readCustomers() {
+		Map<String, Customer> customersInner = new TreeMap<String, Customer>(String.CASE_INSENSITIVE_ORDER);
 		BufferedReader in = null;
 		try {
 			File file = new File("./customers.txt");
@@ -84,7 +92,7 @@ public class CustomerFileStorage {
 					else if(gender.equals("Female")) gen = Gender.Female;
 					else gen = Gender.Alien;
 					SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy"); 
-					Date date = formatter.parse(locDate); 
+					Date date = formatter.parse(locDate);
 					Customer customer = new Customer(username, password, name, surname, gen, date);
 					customersInner.put(customer.getUsername(),customer);
 				}

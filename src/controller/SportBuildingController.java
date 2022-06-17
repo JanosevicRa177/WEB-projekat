@@ -19,7 +19,6 @@ public class SportBuildingController {
 	public static void getSportBuildings() {
 		get("sportBuilding/getAll", (req, res) -> {
 			res.type("application/json");
-			System.out.println(gson.toJson(sportBuildingService.getSportBuildings()));
 			return gson.toJson(sportBuildingService.getSportBuildings());
 		});
 	}
