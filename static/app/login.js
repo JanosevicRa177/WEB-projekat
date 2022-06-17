@@ -2,8 +2,9 @@ Vue.component("login", {
 	data: function () {
 		    return {
 				backTitle: "Back main page",
-				username:null,
-				password:null,
+				username:'',
+				password:'',
+				logbool:false,
 				userType:"Customer"
 		    }
 	},
@@ -26,7 +27,7 @@ Vue.component("login", {
             </select></td>
         </tr>
         <tr style="height:70px">
-        	<td><button v-on:click="alert" style="font-size: 30px;width: 240px;margin:5px"> Submit </button></td>
+        	<td><button v-on:click="login()" style="font-size: 30px;width: 240px;margin:5px"> Submit </button></td>
         	<td><input type = "submit" v-on:click = "ShowRegisterForm" v-bind:value = "this.backTitle" style="font-size: 30px;width: 240px;margin:5px"></td>
         </tr>
     </table>
@@ -39,10 +40,18 @@ Vue.component("login", {
 		ShowRegisterForm : function () {
 			router.push(`/`);
 		},
-		alert : function () {
-			alert(this.username);
-			alert(this.password);
+		checklogin : function(data){
+		        if(data == "wrong") {toast ("Wrong username and/or password, try again!");}
+		        else if(data == "logged") {router.push(`/`); alert("You are now logged in!");}
+		        else alert("User " + data + " already logged in!" );
+		},
+		login : function () {
+			axios
+				.post('customer/login',{"username":''+ this.username,"password":'' + this.password})
+		        .then(response => (this.checklogin(response.data)));
+		        
 		}
+
 	},
 	mounted () {
     }

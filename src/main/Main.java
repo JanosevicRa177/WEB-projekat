@@ -19,6 +19,9 @@ public class Main {
 		new SportBuildingController();
 		CustomerController.addCustomer();
 		CustomerController.getCustomer();
+		CustomerController.Login();
+		CustomerController.getLogged();
+		CustomerController.logOff();
 		SportBuildingController.getSportBuildings();
 	}
 

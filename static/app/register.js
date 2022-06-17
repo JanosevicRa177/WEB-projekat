@@ -1,7 +1,7 @@
 Vue.component("register", {
 	data: function () {
 		    return {
-		      user: {name:null,surname:null,username:null,password:null,gender:null,birthDate:null},
+		      user: {name:null,surname:null,username:null,password:null,gender:null,birthDate:"2000-05-15"},
 		      backTitle: "Back main page",
 		      birthDateString: null
 		    }
@@ -15,8 +15,10 @@ Vue.component("register", {
             <td><input type="text" v-model="user.username" style="font-size: 25px;"></input></td>
         </tr>
         <tr>
-            <td align="left"><strong style="font-size: 30px;">Password:</strong></td>
-                <td><input type="password" v-model="user.password" style="font-size: 25px;"></input></td>
+            <td align="left"><strong style="font-size: 30px;" >Password:</strong> </td>
+                <td>
+                <input type="password" id="mypass" v-model="user.password" style="font-size: 25px;" ></input> 
+                </td>
         </tr>
         <tr>
             <td align="left"><strong style="font-size: 30px;">Name:</strong></td>
@@ -59,7 +61,7 @@ Vue.component("register", {
 				axios
 		          .post('customer/add',this.user)
 		          .then(response => (alert(response.data)))
-		} 
+		}
 	},
 	mounted () {
         /*axios
