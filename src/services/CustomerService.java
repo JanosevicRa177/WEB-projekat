@@ -13,14 +13,7 @@ public class CustomerService {
 			return customerFileStorage.addCustomer(cus);
 	}
 	
-	public Customer loginCustomer(User u) {
-		Customer cus = customerFileStorage.readCustomers().get(u.getUsername());
-		if(cus == null) {
-			return null;
-		}
-		else if (!cus.getPassword().equals(u.getPassword())) return null;
-		return cus;
-	}
+	
 	public Boolean isUniqueUsername(String username) {
 		return customerFileStorage.isUniqueUsername(username);
 	}

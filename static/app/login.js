@@ -18,14 +18,6 @@ Vue.component("login", {
         <tr>
             <td colspan="2"><input type="password" placeholder="Password" style="font-size: 30px; width: 100%;" v-model="password"></input></td>
         </tr>
-        <tr>
-            <td colspan="2"><select v-model="userType" style="font-size: 30px; width: 101.6%;">
-            	<option value="Customer">Customer</option>
-            	<option value="Manager">Manager</option>
-            	<option value="Coach">Coach</option>
-            	<option value="Admin">Admin</option>
-            </select></td>
-        </tr>
         <tr style="height:70px">
         	<td><button v-on:click="login()" style="font-size: 30px;width: 240px;margin:5px"> Submit </button></td>
         	<td><input type = "submit" v-on:click = "ShowRegisterForm" v-bind:value = "this.backTitle" style="font-size: 30px;width: 240px;margin:5px"></td>
@@ -47,7 +39,7 @@ Vue.component("login", {
 		},
 		login : function () {
 			axios
-				.post('customer/login',{"username":''+ this.username,"password":'' + this.password})
+				.post('user/login',{"username":''+ this.username,"password":'' + this.password})
 		        .then(response => (this.checklogin(response.data)));
 		        
 		}

@@ -70,7 +70,7 @@ Vue.component("index", {
 			.get('sportBuilding/getAll')
 			.then(response => (this.sportObjects = response.data));
 		axios
-			.get('customer/getlogged')
+			.get('user/getlogged')
 			.then(response => (this.logchange(response.data)));
 		
     }
