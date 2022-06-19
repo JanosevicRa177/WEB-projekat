@@ -1,7 +1,7 @@
 Vue.component("register", {
 	data: function () {
 		    return {
-		      user: {name:null,surname:null,username:null,password:null,gender:null,birthDate:null},
+		      user: {name:null,surname:null,username:null,password:null,gender:null,birthDate:"2000-03-20"},
 		      backTitle: "Back main page",
 		      birthDateString: null,
 		      cantSubmit: true,
@@ -129,14 +129,22 @@ Vue.component("register", {
 		ShowLoginForm : function () {
 			router.push(`/`);
 		},
+		loginFinal : function(data){
+			if (data == "success"){
+				alert("You are now registered, please login.");
+				//router.push(`/login`);
+			}
+			else alert(data);
+		},
 		addCustomer : function () {
 				axios
 		          .post('customer/add',this.user)
-		          .then(response => (alert(response.data)))
+		          .then(response => (this.loginFinal(response.data)));
+		    
 		}
 	},
 	mounted () {
-		this.user.birthDate = new Date(Date.now()).toISOString().split('T')[0]
+		//this.user.birthDate = new Date(Date.now()).toISOString().split('T')[0]
 		this.user.gender = "Male";
     }
 });

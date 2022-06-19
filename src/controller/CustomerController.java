@@ -7,15 +7,24 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import model.Customer;
-import model.User;
+import services.AdminService;
+import services.CoachService;
 import services.CustomerService;
-import spark.Session;
+import services.ManagerService;
 
 public class CustomerController {
+	
 	public static Gson gson;
 	private static CustomerService customerService;
+	private static AdminService adminService;
+	private static ManagerService managerService;
+	private static CoachService coachService;
+	
 	public CustomerController() {
 		customerService = new CustomerService();
+		adminService = new AdminService();
+		managerService = new ManagerService();
+		coachService = new CoachService();
 		gson = new GsonBuilder()
 		        .setPrettyPrinting()
 		        .setDateFormat("yyyy-MM-dd")
@@ -25,13 +34,14 @@ public class CustomerController {
 	public static void addCustomer() {
 		post("customer/add",(req, res) -> {
 			res.type("application/json");
-			System.out.println(req.body());
 			Customer customer = gson.fromJson(req.body(), Customer.class);
 			if(!customer.getName().matches("^[A-Z.-]+(\\s*[A-Za-z.-]+)*$") || !customer.getSurname().matches("^[A-Z.-]+(\\s*[A-Za-z.-]+)*$"))
 				return "Name and surname should start with uppercase without numbers";
-			if(!customerService.isUniqueUsername(customer.getUsername()))
+			if(!customerService.isUniqueUsername(customer.getUsername()) || !adminService.isUniqueUsername(customer.getUsername())
+					|| !managerService.isUniqueUsername(customer.getUsername()) || !coachService.isUniqueUsername(customer.getUsername()))
 				return "Username is not unique";
-			return customerService.addCustomer(customer);
+			customerService.addCustomer(customer);
+			return "success";
 		});
 	}
 	public static void getCustomer() {
@@ -41,44 +51,5 @@ public class CustomerController {
 		});
 	}
 	
-	public static void getLogged() {
-		get("customer/getlogged", (req, res) -> {
-			res.type("application/json");
-			Session ss = req.session(true);
-			Customer loggedcustomer = ss.attribute("customer");
-			if(loggedcustomer != null) 
-			return true;
-			return false;
-		});
-	}
 	
-	public static void logOff() {
-		get("customer/logoff", (req, res) -> {
-			res.type("application/json");
-			Session ss = req.session(true);
-			Customer loggedcustomer = ss.attribute("customer");
-			if(loggedcustomer != null) 
-				ss.invalidate();
-			return "success";
-		});
-	}
-
-	public static void Login() {
-		post("customer/login",(req, res) -> {
-			res.type("application/json");
-			User ut = gson.fromJson(req.body(), User.class);
-			Session ss = req.session(true);
-			Customer loggedcustomer = ss.attribute("customer");
-			if (loggedcustomer == null) {
-				Customer cus = customerService.loginCustomer(ut);
-				if(cus != null) {
-					loggedcustomer = cus;
-					ss.attribute("customer", cus);
-					return "logged";
-				}
-				return "wrong";
-			}
-			return loggedcustomer.getUsername();
-		});
-	}
 }

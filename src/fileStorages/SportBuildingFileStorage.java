@@ -6,8 +6,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalTime;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
@@ -48,10 +48,6 @@ public class SportBuildingFileStorage {
 					outputString += "sportCenter" + ";";
 				else
 					outputString += "danceStudio" + ";";
-				if(sportBuilding.getStatus() == SportBuildingStatus.Open)
-					outputString += "Open" + ";";
-				else
-					outputString += "Closed" + ";";
 				outputString += sportBuilding.getLocation().getLatitude() + ";";
 				outputString += sportBuilding.getLocation().getLongitude() + ";";
 				outputString += sportBuilding.getLocation().getAddress().getStreet() + ";";
@@ -75,7 +71,7 @@ public class SportBuildingFileStorage {
 		try {
 			File file = new File("./sportBuildings.txt");
 			in = new BufferedReader(new FileReader(file));
-			String line, name = "", type = "", status = "",latitude = "",longitude = "", street = "", number = "", city = "", zipCode = "", image = "", averageGrade = "", workTime = "";
+			String line, name = "", type = "",latitude = "",longitude = "", street = "", number = "", city = "", zipCode = "", image = "", averageGrade = "", workTime = "";
 			StringTokenizer st;
 			try {
 				while ((line = in.readLine()) != null) {
@@ -86,7 +82,6 @@ public class SportBuildingFileStorage {
 					while (st.hasMoreTokens()) {
 						name = st.nextToken().trim();
 						type = st.nextToken().trim();
-						status = st.nextToken().trim();
 						latitude = st.nextToken().trim();
 						longitude = st.nextToken().trim();
 						street = st.nextToken().trim();
@@ -103,8 +98,23 @@ public class SportBuildingFileStorage {
 					else if(type.equals("sportCenter")) buildingType = SportBuildingType.sportCenter;
 					else buildingType = SportBuildingType.danceStudio;
 					SportBuildingStatus buildingStatus;
-					if(status.equals("Open")) buildingStatus = SportBuildingStatus.Open;
+					
+					String times[] = workTime.split("-");
+					String beginTime[] = times[0].split(":");
+					String endTime[] = times[1].split(":");
+					if(Integer.parseInt(beginTime[0]) == LocalTime.now().getHour()) {
+						if(Integer.parseInt(beginTime[1]) < LocalTime.now().getMinute()) buildingStatus = SportBuildingStatus.Open;
+						else buildingStatus = SportBuildingStatus.Closed;
+					}
+					else if(Integer.parseInt(endTime[0]) == LocalTime.now().getHour()) {
+						if(Integer.parseInt(endTime[1]) > LocalTime.now().getMinute()) buildingStatus = SportBuildingStatus.Open;
+						else buildingStatus = SportBuildingStatus.Closed;
+					}
+					else if(Integer.parseInt(beginTime[0]) < LocalTime.now().getHour() && Integer.parseInt(endTime[0]) > LocalTime.now().getHour()) {
+						buildingStatus = SportBuildingStatus.Open;
+					}
 					else buildingStatus = SportBuildingStatus.Closed;
+					
 					SportBuilding sportBuilding = new SportBuilding(name, buildingType, buildingStatus,
 							new Location(Double.parseDouble(longitude),Double.parseDouble(latitude),
 									new Address(street, number, city, zipCode)), image,Double.parseDouble(averageGrade), workTime);
