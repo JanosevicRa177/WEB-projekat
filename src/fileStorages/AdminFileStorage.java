@@ -14,9 +14,17 @@ import model.Admin;
 
 public class AdminFileStorage {
 	
+	public Map<String, Admin> admins;
+	
 	public AdminFileStorage() {
 	}
-
+	
+	public Boolean isUniqueUsername(String username) {
+		admins = readAdmins();
+		Admin admin = admins.get(username);
+		if(admin == null) return true;
+		return false;
+	}
 	
 	public Map<String, Admin> readAdmins() {
 		Map<String, Admin> adminsInner = new TreeMap<String, Admin>(String.CASE_INSENSITIVE_ORDER);

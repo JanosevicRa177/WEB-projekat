@@ -1,6 +1,6 @@
 package model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import enums.MembershipStatus;
 import enums.MembershipType;
@@ -8,8 +8,8 @@ import enums.MembershipType;
 public class Membership {
 	private String id;
 	private MembershipType type;
-	private LocalDate paymentDate;
-	private LocalDate expires;
+	private Date paymentDate;
+	private Date expires;
 	private int price;
 	private Customer customer;
 	private MembershipStatus status;
@@ -18,7 +18,7 @@ public class Membership {
 	public Membership() {
 		super();
 	}
-	public Membership(String id, MembershipType type, LocalDate paymentDate, LocalDate expires, int price,Customer customer,MembershipStatus status
+	public Membership(String id, MembershipType type, Date paymentDate, Date expires, int price,Customer customer,MembershipStatus status
 			, int workoutNumber) {
 		super();
 		this.id = id;
@@ -42,16 +42,16 @@ public class Membership {
 	public void setType(MembershipType type) {
 		this.type = type;
 	}
-	public LocalDate getPaymentDate() {
+	public Date getPaymentDate() {
 		return paymentDate;
 	}
-	public void setPaymentDate(LocalDate paymentDate) {
+	public void setPaymentDate(Date paymentDate) {
 		this.paymentDate = paymentDate;
 	}
-	public LocalDate getExpires() {
+	public Date getExpires() {
 		return expires;
 	}
-	public void setExpires(LocalDate expires) {
+	public void setExpires(Date expires) {
 		this.expires = expires;
 	}
 	public int getPrice() {

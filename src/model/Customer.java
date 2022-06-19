@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import enums.Gender;
+import enums.UserType;
 
 public class Customer extends User{
 	
@@ -17,7 +18,7 @@ public class Customer extends User{
 	}
 	
 	public Customer(String username, String password, String name, String surname, Gender gender, Date birthDate) {
-		super(username, password, name, surname, gender, birthDate);
+		super(username, password, name, surname, gender, birthDate,UserType.Customer);
 		initCustomer();
 	}
 	public void initCustomer() {

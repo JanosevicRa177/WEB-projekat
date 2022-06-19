@@ -3,6 +3,7 @@ package model;
 import java.util.Date;
 
 import enums.Gender;
+import enums.UserType;
 
 public class Coach extends User{
 	private WorkoutHistory workoutHistory;
@@ -12,7 +13,7 @@ public class Coach extends User{
 	}
 
 	public Coach(String username, String password, String name, String surname, Gender gender, Date birthDate) {
-		super(username, password, name, surname, gender, birthDate);
+		super(username, password, name, surname, gender, birthDate,UserType.Coach);
 	}
 
 	public WorkoutHistory getWorkoutHistory() {

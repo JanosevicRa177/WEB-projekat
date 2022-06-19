@@ -7,15 +7,24 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import model.Customer;
-import model.User;
+import services.AdminService;
+import services.CoachService;
 import services.CustomerService;
-import spark.Session;
+import services.ManagerService;
 
 public class CustomerController {
+	
 	public static Gson gson;
 	private static CustomerService customerService;
+	private static AdminService adminService;
+	private static ManagerService managerService;
+	private static CoachService coachService;
+	
 	public CustomerController() {
 		customerService = new CustomerService();
+		adminService = new AdminService();
+		managerService = new ManagerService();
+		coachService = new CoachService();
 		gson = new GsonBuilder()
 		        .setPrettyPrinting()
 		        .setDateFormat("yyyy-MM-dd")
@@ -25,14 +34,14 @@ public class CustomerController {
 	public static void addCustomer() {
 		post("customer/add",(req, res) -> {
 			res.type("application/json");
-			System.out.println(req.body());
 			Customer customer = gson.fromJson(req.body(), Customer.class);
 			if(!customer.getName().matches("^[A-Z.-]+(\\s*[A-Za-z.-]+)*$") || !customer.getSurname().matches("^[A-Z.-]+(\\s*[A-Za-z.-]+)*$"))
 				return "Name and surname should start with uppercase without numbers";
-			if(!customerService.isUniqueUsername(customer.getUsername()))
+			if(!customerService.isUniqueUsername(customer.getUsername()) || !adminService.isUniqueUsername(customer.getUsername())
+					|| !managerService.isUniqueUsername(customer.getUsername()) || !coachService.isUniqueUsername(customer.getUsername()))
 				return "Username is not unique";
-			customerService.addCustomer(customer); ///// ova linija ne znam da li je bila tu xd idk xd proveri mislim da jeste ali sam je slucajno izbrisao xd
-			return "success";//return customerService.addCustomer(customer); ///// OVO SAM STAVIO DA ZNAM DA GA PREUSMERIM NA LOGIN STRANICU AKO JE SVE OKEJ XD JER SVAKAKO NE KORSITIS USERA XD
+			customerService.addCustomer(customer);
+			return "success";
 		});
 	}
 	public static void getCustomer() {

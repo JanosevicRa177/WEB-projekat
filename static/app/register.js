@@ -132,7 +132,7 @@ Vue.component("register", {
 		loginFinal : function(data){
 			if (data == "success"){
 				alert("You are now registered, please login.");
-				router.push(`/login`);
+				//router.push(`/login`);
 			}
 			else alert(data);
 		},

@@ -14,7 +14,16 @@ import model.Coach;
 
 public class CoachFileStorage {
 	
+	public Map<String, Coach> coaches;
+	
 	public CoachFileStorage() {
+	}
+	
+	public Boolean isUniqueUsername(String username) {
+		coaches = readCoaches();
+		Coach coach = coaches.get(username);
+		if(coach == null) return true;
+		return false;
 	}
 	
 	public Map<String, Coach> readCoaches() {

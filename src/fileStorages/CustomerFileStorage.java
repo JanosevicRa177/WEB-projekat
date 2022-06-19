@@ -28,12 +28,14 @@ public class CustomerFileStorage {
 		writeCustomers();
 		return "Registration successful!";
 	}
+	
 	public Boolean isUniqueUsername(String username) {
 		customers = readCustomers();
 		Customer customer = customers.get(username);
 		if(customer == null) return true;
 		return false;
 	}
+	
 	public boolean writeCustomers() 
 	{
 		FileWriter fileWriter;

@@ -4,3 +4,7 @@
         color: #EA2900;
         font-size: 25px;
       }
+      input.checkbox{
+          width : 20px;
+    	height : 20px;
+      }

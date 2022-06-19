@@ -6,7 +6,6 @@ import static spark.Spark.post;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import model.Customer;
 import model.User;
 import services.UserService;
 import spark.Session;
@@ -29,8 +28,8 @@ public class UserController {
 		get("user/getlogged", (req, res) -> {
 			res.type("application/json");
 			Session ss = req.session(true);
-			User loggedcustomer = ss.attribute("user");
-			if(loggedcustomer != null) 
+			User loggeduser = ss.attribute("user");
+			if(loggeduser != null) 
 			return true;
 			return false;
 		});
@@ -53,7 +52,7 @@ public class UserController {
 			User ut = gson.fromJson(req.body(), User.class);
 			Session ss = req.session(true);
 			User loggeduser = ss.attribute("user");
-			if (loggeduser== null) {
+			if (loggeduser == null) {
 				User use = userService.loginUser(ut);
 				if(use != null) {
 					loggeduser = use;

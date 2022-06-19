@@ -14,6 +14,17 @@ import model.Manager;
 
 public class ManagerFileStorage {
 	
+	public Map<String, Manager> managers;
+	
+	public ManagerFileStorage() {
+	}
+	
+	public Boolean isUniqueUsername(String username) {
+		managers = readManagers();
+		Manager manager = managers.get(username);
+		if(manager == null) return true;
+		return false;
+	}
 	public Map<String, Manager> readManagers() {
 		Map<String, Manager> managersInner = new TreeMap<String, Manager>(String.CASE_INSENSITIVE_ORDER);
 		BufferedReader in = null;
