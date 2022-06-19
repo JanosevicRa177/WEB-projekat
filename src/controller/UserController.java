@@ -52,11 +52,18 @@ public class UserController {
 			User ut = gson.fromJson(req.body(), User.class);
 			Session ss = req.session(true);
 			User loggeduser = ss.attribute("user");
+			System.out.println(req.cookie("logincookie"));
 			if (loggeduser == null) {
 				User use = userService.loginUser(ut);
 				if(use != null) {
 					loggeduser = use;
 					ss.attribute("user", use);
+					if(req.cookie("logincookie") == null) {
+						String randCook = "";
+						for (int i =0; i<50;i++) randCook += Math.round(Math.random()*10);
+						res.cookie("logincookie", randCook); 
+						
+					}
 					return "logged";
 				}
 				return "wrong";
