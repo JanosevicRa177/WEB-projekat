@@ -72,7 +72,7 @@ Vue.component("index", {
 			    			<th style="max-width:125px;min-width:125px">Work time</th>
 			    		</tr>	
 		    		</thead>
-		    		<tbody style="width: calc(100% + 20px);height: 318px;display: inline-block; overflow: auto;">
+		    		<tbody style="width: calc(100% + 20px);height: 313px;display: inline-block; overflow: auto;">
 			    		<tr v-for="(object, index) in this.showSportObjects" v-on:click="Alert(object)">
 			    			<td style="max-width:170px;min-width:170px">{{object.name}}</td>
 			    			<td style="max-width:140px;min-width:140px">{{object.type}}</td>
@@ -129,30 +129,60 @@ Vue.component("index", {
   			}
   		return 0;
 		},
+		sortByLocationAscending : function (a, b){
+			if ( a.location.address.city.toLowerCase() < b.location.address.city.toLowerCase()){
+    			return -1;
+  			}
+  			if ( a.location.address.city.toLowerCase() > b.location.address.city.toLowerCase()){
+    			return 1;
+  			}
+  		return 0;
+		},
+		sortByLocationDescending : function (a, b){
+			if ( a.location.address.city.toLowerCase() < b.location.address.city.toLowerCase()){
+    			return 1;
+  			}
+  			if ( a.location.address.city.toLowerCase() > b.location.address.city.toLowerCase()){
+    			return -1;
+  			}
+  		return 0;
+		},
 		ShowRegisterForm : function () {
 			router.push(`/register`);
 		},
 		Alert : function (object) {
 			alert(object.name);
 		},
-		sortByAverageGrade : function (object) {
-			if(this.averageGradeSorted){
+		sortByLocation : function (object) {
+			this.nameSorted = false;
 			this.averageGradeSorted = false;
+			if(!this.locationSorted){
+			this.locationSorted = true;
+			this.showSportObjects.sort(this.sortByLocationAscending);
+			} else {
+			this.locationSorted = false;
+			this.showSportObjects.sort(this.sortByLocationDescending);
+			}
+		},
+		sortByAverageGrade : function (object) {
+			this.locationSorted = false;
+			this.nameSorted = false;
+			if(!this.averageGradeSorted){
+			this.averageGradeSorted = true;
 			this.showSportObjects.sort(this.sortByAverageGradeAscending);
 			} else {
-			this.averageGradeSorted = true;
+			this.averageGradeSorted = false;
 			this.showSportObjects.sort(this.sortByAverageGradeDescending);
 			}
 		},
-		sortByLocation : function (object) {
-			alert("LOKACIJA!");
-		},
 		sortByName : function (object) {
-			if(this.nameSorted){
-				this.nameSorted = false;
+			this.locationSorted = false;
+			this.averageGradeSorted = false;
+			if(!this.nameSorted){
+				this.nameSorted = true;
 				this.showSportObjects.sort(this.sortByNameAscending);
 			} else {
-				this.nameSorted = true;
+				this.nameSorted = false;
 				this.showSportObjects.sort(this.sortByNameDescending);
 			}
 		},
