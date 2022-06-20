@@ -68,7 +68,7 @@ Vue.component("index", {
 			    			<th style="max-width:140px;min-width:140px">Type</th>
 			    			<th style="max-width:150px;min-width:150px;cursor: pointer;" v-on:click="sortByLocation">Location &#x2191&#x2193</th>
 			    			<th style="max-width:285px;min-width:285px">Logo</th>
-			    			<th style="max-width:70px;min-width:75px;cursor: pointer;" v-on:click="sortByAverageGrade">Average grade &#x2191&#x2193</th>
+			    			<th style="max-width:70px;min-width:80px;cursor: pointer;" v-on:click="sortByAverageGrade">Average grade &#x2191&#x2193</th>
 			    			<th style="max-width:125px;min-width:125px">Work time</th>
 			    		</tr>	
 		    		</thead>
@@ -81,7 +81,7 @@ Vue.component("index", {
 			    			<p>{{object.location.address.street}}, {{object.location.address.number}}, {{object.location.address.city}}, {{object.location.address.zipCode}}</p>
 			    			</td>
 			    			<td style="max-width:285px;min-width:285px"><img :src="object.image" style="width:200px; height:200px;"></td>
-			    			<td style="max-width:70px;min-width:75px">{{object.averageGrade}}</td>
+			    			<td style="max-width:70px;min-width:80px">{{object.averageGrade}}</td>
 			    			<td style="max-width:125px;min-width:125px">{{object.workTime}}</td>
 			    		</tr>
 		    		</tbody>

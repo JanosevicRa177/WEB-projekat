@@ -19,7 +19,7 @@ Vue.component("login", {
             <td colspan="2"><input type="password" placeholder="Password" style="font-size: 30px; width: 100%;" v-model="password"></input></td>
         </tr>
         <tr style="height:70px">
-        	<td><button v-on:click="login()" style="font-size: 30px;width: 240px;margin:5px"> Submit </button></td>
+        	<td><button v-on:click="login()" v-on:keyup.enter="login()" style="font-size: 30px;width: 240px;margin:5px"> Submit </button></td>
         	<td><input type = "submit" v-on:click = "ShowRegisterForm" v-bind:value = "this.backTitle" style="font-size: 30px;width: 240px;margin:5px"></td>
         </tr>
     </table>
