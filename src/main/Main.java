@@ -24,6 +24,7 @@ public class Main {
 		UserController.Login();
 		UserController.getLogged();
 		UserController.logOff();
+		UserController.changeUser();
 		SportBuildingController.getSportBuildings();
 	}
 

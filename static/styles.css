@@ -8,3 +8,27 @@
           width : 20px;
     	height : 20px;
       }
+      table {
+      	font-size: 30px;
+      }
+      input {
+      	font-size: 30px; 
+      	width: 100%;
+      }
+      select {
+      	font-size: 30px;
+      	width: 100%;
+      }
+      button {
+      	font-size: 30px;
+      }
+      .hspace {
+  		width: 100px;
+  		height: auto;
+  		display: inline-block;
+	}
+	.vspace{
+		height: 100px;
+  		width: auto;
+  		display: inline-block;
+	}

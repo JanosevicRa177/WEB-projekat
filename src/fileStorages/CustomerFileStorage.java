@@ -14,6 +14,7 @@ import java.util.TreeMap;
 
 import enums.Gender;
 import model.Customer;
+import model.User;
 
 public class CustomerFileStorage {
 	
@@ -27,6 +28,15 @@ public class CustomerFileStorage {
 		customers.put(cus.getUsername(),cus);
 		writeCustomers();
 		return "Registration successful!";
+	}
+	
+	public Boolean changeUser(User us) {
+		customers = readCustomers();
+		Customer cus = customers.get(us.getUsername());
+		customers.remove(us.getUsername());
+		customers.put(us.getUsername(), cus.change(us));
+		this.writeCustomers();
+		return true;
 	}
 	
 	public Boolean isUniqueUsername(String username) {

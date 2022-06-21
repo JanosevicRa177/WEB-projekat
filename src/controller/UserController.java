@@ -24,6 +24,15 @@ public class UserController {
 		        .create();
 	}
 	
+	public static void changeUser() {
+		post("user/changeUser",(req, res) -> {
+			res.type("application/json");
+			User ut = gson.fromJson(req.body(), User.class);
+			userService.changeUser(ut);
+			return "OK";
+		});
+	}
+	
 	public static void getLogged() {
 		get("user/getlogged", (req, res) -> {
 			res.type("application/json");
@@ -32,6 +41,14 @@ public class UserController {
 			if(loggeduser != null) 
 			return true;
 			return false;
+		});
+		
+		
+		get("user/getLoggedUser", (req, res) -> {
+			res.type("application/json");
+			Session ss = req.session(true);
+			User loggeduser = ss.attribute("user");
+			return gson.toJson( userService.getUser(loggeduser.getUsername()));
 		});
 	}
 	
@@ -52,18 +69,11 @@ public class UserController {
 			User ut = gson.fromJson(req.body(), User.class);
 			Session ss = req.session(true);
 			User loggeduser = ss.attribute("user");
-			System.out.println(req.cookie("logincookie"));
 			if (loggeduser == null) {
-				User use = userService.loginUser(ut);
+				User use = userService.findUser(ut);
 				if(use != null) {
 					loggeduser = use;
 					ss.attribute("user", use);
-					if(req.cookie("logincookie") == null) {
-						String randCook = "";
-						for (int i =0; i<50;i++) randCook += Math.round(Math.random()*10);
-						res.cookie("logincookie", randCook); 
-						
-					}
 					return "logged";
 				}
 				return "wrong";

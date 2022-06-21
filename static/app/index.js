@@ -5,6 +5,7 @@ Vue.component("index", {
 			showSportObjects:null,
 			loggedin : null,
 			log: null,
+			regprof: null,
 			loggedUser: null,
 			name: "",
 			type: "",
@@ -59,7 +60,7 @@ Vue.component("index", {
 			<div style="text-align:center;">
 			<h1 style="font-size: 63px;">WELCOME TO SPORT ARENA</h1>
 	       	<button v-on:click="LoginLogofFunction" style="font-size: 35px; width: 200px;margin: 0px 10px;" >{{log}}</button>
-	        <button v-on:click="ShowRegisterForm" style="font-size: 35px; width: 200px;margin: 0px 10px;" :style="{visibility: loggedin ? 'hidden' : 'visible'}"> Register </button>
+	        <button v-on:click="ShowRegisterFormOrProfile" style="font-size: 35px; width: 200px;margin: 0px 10px;"> {{regprof}} </button>
 	        <h2>Sport objects:</h2>
 	    		<table border="3" style="margin-left:auto;margin-right:auto;height:50%;width:990px;display:block;">
 	    			<thead style="width: 100%;height: 56px; display: inline-block;margin-right:40px;">
@@ -147,8 +148,10 @@ Vue.component("index", {
   			}
   		return 0;
 		},
-		ShowRegisterForm : function () {
-			router.push(`/register`);
+		ShowRegisterFormOrProfile : function () {
+			if(this.loggedin == false)
+				router.push(`/register`);
+			else router.push(`/myprofile`);
 		},
 		Alert : function (object) {
 			alert(object.name);
@@ -247,14 +250,21 @@ Vue.component("index", {
 					axios
 						.get('user/logoff');
 					this.log = "Login";
+					this.regprof = "Register";
 				}
 			}
 			else router.push(`/login`);
 		},
 		logchange : function(data) {
 			this.loggedin = data;
-			if(this.loggedin) this.log = "Log off";
-			else this.log = "Login";
+			if(this.loggedin)  { 
+				this.log = "Log off";
+				this.regprof = "My profile";
+				}
+			else {
+				this.log = "Login";
+				this.regprof = "Register";
+			}
 		},
 		initialiseSportObjects : function (data) {
 		this.sportObjects = data;

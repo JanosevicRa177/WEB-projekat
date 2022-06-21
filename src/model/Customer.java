@@ -26,6 +26,16 @@ public class Customer extends User{
 		this.visitedBuildings = new ArrayList<SportBuilding>();
 		this.points = 0;
 	}
+	
+	public Customer change(User us) {
+		this.setPassword(us.getPassword());
+		this.setName(us.getName());
+		this.setSurname(us.getSurname());
+		this.setGender(us.getGender());
+		this.setBirthDate(us.getBirthDate());
+		return this;
+	}
+	
 	public Membership getMembership() {
 		return membership;
 	}
