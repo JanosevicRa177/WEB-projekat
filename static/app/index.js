@@ -6,6 +6,7 @@ Vue.component("index", {
 			loggedin : null,
 			log: null,
 			regprof: null,
+			userType:null ,
 			loggedUser: null,
 			name: "",
 			type: "",
@@ -61,6 +62,16 @@ Vue.component("index", {
 			<h1 style="font-size: 63px;">WELCOME TO SPORT ARENA</h1>
 	       	<button v-on:click="LoginLogofFunction" style="font-size: 35px; width: 200px;margin: 0px 10px;" >{{log}}</button>
 	        <button v-on:click="ShowRegisterFormOrProfile" style="font-size: 35px; width: 200px;margin: 0px 10px;"> {{regprof}} </button>
+  			<div v-if="userType == 'Admin'" class="dropdown">
+  				<button style=" border: 2px solid red;" class="dropbtn" v-on:click="myFunction()">Options
+    				<i class="fa fa-caret-down"></i>
+  				</button>
+ 				<div class="dropdown-content" id="myDropdown">
+    				<a href="#">Register coach/manager</a>
+    				<a href="#">All registered users</a>
+    				<a href="#">Empty</a>
+  				</div>
+  			</div> 
 	        <h2>Sport objects:</h2>
 	    		<table border="3" style="margin-left:auto;margin-right:auto;height:50%;width:990px;display:block;">
 	    			<thead style="width: 100%;height: 56px; display: inline-block;margin-right:40px;">
@@ -94,6 +105,9 @@ Vue.component("index", {
 `
 	,
 	methods : {
+		 myFunction : function() {
+ 		 document.getElementById("myDropdown").classList.toggle("show");
+		},
 		sortByAverageGradeAscending : function (a, b){
 			if ( a.averageGrade < b.averageGrade){
     			return -1;
@@ -278,5 +292,8 @@ Vue.component("index", {
 		axios
 			.get('user/getlogged')
 			.then(response => (this.logchange(response.data)));
+		axios
+			.get('user/userType')
+			.then(response=>(this.userType = response.data))
     }
 });

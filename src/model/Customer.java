@@ -28,7 +28,7 @@ public class Customer extends User{
 	}
 	
 	public Customer change(User us) {
-		this.setPassword(us.getPassword());
+		if(!us.getPassword().equals("")) this.setPassword(us.getPassword());
 		this.setName(us.getName());
 		this.setSurname(us.getSurname());
 		this.setGender(us.getGender());

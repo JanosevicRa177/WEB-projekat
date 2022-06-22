@@ -5,6 +5,8 @@ import static spark.Spark.post;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import model.User;
 import services.UserService;
@@ -31,6 +33,18 @@ public class UserController {
 			userService.changeUser(ut);
 			return "OK";
 		});
+		
+		post("user/checkPassword",(req, res) -> {
+			res.type("application/json");
+			JsonObject jsonObject = new JsonParser().parse(req.body()).getAsJsonObject();
+			String currPassword = jsonObject.get("pass").toString().substring(1, jsonObject.get("pass").toString().length()-1);
+			Session ss = req.session(true);
+			User u = ss.attribute("user");
+			if(currPassword.equals(userService.getUser(u.getUsername()).getPassword()))
+				return true;
+			return false;
+		});
+		
 	}
 	
 	public static void getLogged() {
@@ -48,8 +62,20 @@ public class UserController {
 			res.type("application/json");
 			Session ss = req.session(true);
 			User loggeduser = ss.attribute("user");
+			if(loggeduser != null)
 			return gson.toJson( userService.getUser(loggeduser.getUsername()));
+			return null;
 		});
+		
+		get("user/userType", (req, res) -> {
+			res.type("application/json");
+			Session ss = req.session(true);
+			User loggeduser = ss.attribute("user");
+			if(loggeduser != null)
+			return gson.toJson( userService.getUser(loggeduser.getUsername()).getUserType().toString());
+			return null;
+		});
+		
 	}
 	
 	public static void logOff() {
