@@ -30,11 +30,11 @@ public class CustomerFileStorage {
 		return "Registration successful!";
 	}
 	
-	public Boolean changeUser(User us) {
+	public Boolean changeUser(User user) {
 		customers = readCustomers();
-		Customer cus = customers.get(us.getUsername());
-		customers.remove(us.getUsername());
-		customers.put(us.getUsername(), cus.change(us));
+		Customer customer = customers.get(user.getUsername());
+		customers.remove(user.getUsername());
+		customers.put(user.getUsername(), customer.change(user));
 		this.writeCustomers();
 		return true;
 	}

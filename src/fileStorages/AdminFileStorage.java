@@ -14,8 +14,6 @@ import java.util.TreeMap;
 
 import enums.Gender;
 import model.Admin;
-import model.Coach;
-import model.Manager;
 import model.User;
 
 public class AdminFileStorage {
@@ -32,11 +30,11 @@ public class AdminFileStorage {
 		return false;
 	}
 	
-	public Boolean changeUser(User us) {
+	public Boolean changeUser(User user) {
 		admins = readAdmins();
-		Admin cus = admins.get(us.getUsername());
-		admins.remove(us.getUsername());
-		admins.put(us.getUsername(), cus.change(us));
+		Admin admin = admins.get(user.getUsername());
+		admins.remove(user.getUsername());
+		admins.put(user.getUsername(), admin.change(user));
 		this.writeAdmins();
 		return true;
 	}

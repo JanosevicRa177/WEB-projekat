@@ -13,9 +13,7 @@ import java.util.StringTokenizer;
 import java.util.TreeMap;
 
 import enums.Gender;
-import model.Admin;
 import model.Coach;
-import model.Manager;
 import model.User;
 
 public class CoachFileStorage {
@@ -32,11 +30,11 @@ public class CoachFileStorage {
 		return false;
 	}
 	
-	public Boolean changeUser(User us) {
+	public Boolean changeUser(User user) {
 		coaches = readCoaches();
-		Coach cus = coaches.get(us.getUsername());
-		coaches.remove(us.getUsername());
-		coaches.put(us.getUsername(), cus.change(us));
+		Coach coach = coaches.get(user.getUsername());
+		coaches.remove(user.getUsername());
+		coaches.put(user.getUsername(), coach.change(user));
 		this.writeCoaches();
 		return true;
 	}

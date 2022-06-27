@@ -20,7 +20,20 @@
       	width: 100%;
       }
       button {
-      	font-size: 30px;
+     	  font-size: 35px;
+		  color: red;
+		  background-color: #393636 ;
+		  text-align: center;
+		  text-decoration: none;
+		  padding: 14px 0px;
+      }
+      button:hover {
+     	  font-size: 35px;
+		  color: #9D0000;
+		  background-color: #818181 ;
+		  text-align: center;
+		  text-decoration: none;
+		  padding: 14px 0px;
       }
       .hspace {
   		width: 100px;
@@ -92,4 +105,24 @@
 
 .show {
   display: block;
+}
+
+.topnav {
+  background-color: #161515;
+  overflow: hidden;
+}
+
+.topnav button {
+  float: right;
+  color: red;
+  background-color: #161515;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.topnav button:hover {
+  background-color: red;
+  color: #161515;
 }
