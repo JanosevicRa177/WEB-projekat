@@ -20,7 +20,7 @@ Vue.component("login", {
         </tr>
         <tr style="height:70px">
         	<td><button v-on:click="login()" v-on:keyup.enter="login()" style="font-size: 30px;width: 240px;margin:5px"> Submit </button></td>
-        	<td><input type = "submit" v-on:click = "ShowRegisterForm" v-bind:value = "this.backTitle" style="font-size: 30px;width: 240px;margin:5px"></td>
+        	<td><button v-on:click="ShowRegisterForm" style="font-size: 30px;width: 240px;margin:5px">Back main page</button></td>
         </tr>
     </table>
 </div> 
@@ -39,7 +39,7 @@ Vue.component("login", {
 		},
 		login : function () {
 			axios
-				.post('user/login',{"username":''+ this.username,"password":'' + this.password})
+				.get('user/login',{params: {username: '' + this.username, password: '' + this.password}})
 		        .then(response => (this.checklogin(response.data)));
 		        
 		}

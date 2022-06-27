@@ -2,7 +2,6 @@ Vue.component("register", {
 	data: function () {
 		    return {
 		      user: {name:null,surname:null,username:null,password:null,gender:null,birthDate:"2000-03-20"},
-		      backTitle: "Back main page",
 		      birthDateString: null,
 		      cantSubmit: true,
 		      nameNotValid: true,
@@ -17,25 +16,25 @@ Vue.component("register", {
         <table style="margin-left:auto; margin-right:auto;">
         <tr>
             <td align="left"><strong style="font-size: 30px;">Username:</strong></td>
-            <td><input type="text" v-model="user.username" style="font-size: 25px;" v-on:change = "validateUsername" name="username"></input></td>
+            <td><input type="text" v-model="user.username" style="font-size: 25px;width: 342px;" v-on:change = "validateUsername" name="username"></input></td>
         </tr>
         <tr>
             <td align="left"><strong style="font-size: 30px;" >Password:</strong> </td>
                 <td>
-                <input type="password" v-model="user.password" style="font-size: 25px;" v-on:change = "validatePassword" name="password"></input> 
+                <input type="password" v-model="user.password" style="font-size: 25px;width: 342px;" v-on:change = "validatePassword" name="password"></input> 
                 </td>
         </tr>
         <tr>
             <td align="left"><strong style="font-size: 30px;">Name:</strong></td>
-            <td><input type="text" v-model="user.name" style="font-size: 25px;" v-on:change = "validateName" name="name"></input></td>
+            <td><input type="text" v-model="user.name" style="font-size: 25px;width: 342px;" v-on:change = "validateName" name="name"></input></td>
         </tr>
         <tr>
         <td align="left"><strong style="font-size: 30px;">Surname:</strong></td>
-        <td><input type="text" v-model="user.surname" style="font-size: 25px;" v-on:change = "validateSurname" name="surname"></input></td>
+        <td><input type="text" v-model="user.surname" style="font-size: 25px;width: 342px;" v-on:change = "validateSurname" name="surname"></input></td>
         </tr>
         <tr>
         <td align="left"><strong style="font-size: 30px;">Gender:</strong></td>
-            <td><select name="gender" id="gender" v-model="user.gender" style="font-size: 25px; width: 100%;">
+            <td><select name="gender" id="gender" v-model="user.gender" style="font-size: 25px; width: 350px;">
             	<option value="Male">male</option>
             	<option value="Female">female</option>
             	<option value="Alien">alien</option>
@@ -43,12 +42,12 @@ Vue.component("register", {
         </tr>
         <tr>
         <td align="left"><strong style="font-size: 30px;">Birth Date:</strong></td>
-        <td><input type="date" v-model="user.birthDate" style="font-size: 25px; width: 98.3%;"></input></td>
+        <td><input type="date" v-model="user.birthDate" style="font-size: 25px; width: 345px;"></input></td>
         </tr>
         <tr style="height:70px">
         	<td colspan="2">
 	        	<button v-on:click="addCustomer()" :disabled="cantSubmit" style="font-size: 25px; width: 42%;margin: 0px 10px;"> Submit </button> 
-	        	<input type = "submit" v-on:click = "ShowLoginForm" v-bind:value = "this.backTitle" style="font-size: 25px; width: 42%; margin: 0px 10px;">
+	        	<button v-on:click="ShowLoginForm()"style="font-size: 25px; width: 42%; margin: 0px 10px;">Back main page</button>
         	</td>
         </tr>
     </table>
@@ -132,7 +131,6 @@ Vue.component("register", {
 		loginFinal : function(data){
 			if (data == "success"){
 				alert("You are now registered, please login.");
-				//router.push(`/login`);
 			}
 			else alert(data);
 		},

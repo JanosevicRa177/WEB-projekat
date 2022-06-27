@@ -3,6 +3,9 @@ package fileStorages;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -11,6 +14,7 @@ import java.util.TreeMap;
 
 import enums.Gender;
 import model.Manager;
+import model.User;
 
 public class ManagerFileStorage {
 	
@@ -25,6 +29,47 @@ public class ManagerFileStorage {
 		if(manager == null) return true;
 		return false;
 	}
+	
+	public Boolean changeUser(User user) {
+		managers = readManagers();
+		Manager manager = managers.get(user.getUsername());
+		managers.remove(user.getUsername());
+		managers.put(user.getUsername(), manager.change(user));
+		this.writeManagers();
+		return true;
+	}
+	
+	public boolean writeManagers() 
+	{
+		FileWriter fileWriter;
+		try {
+			fileWriter = new FileWriter("managers.txt");
+			PrintWriter output = new PrintWriter(fileWriter, true);
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy"); 
+			for(String key : managers.keySet())
+			{
+				Manager customer = managers.get(key);
+				String outputString = "";
+				outputString += customer.getUsername() + ";";
+				outputString += customer.getPassword() + ";";
+				outputString += customer.getName() + ";";
+				outputString += customer.getSurname() + ";";
+				if(customer.getGender() == Gender.Male)
+				outputString += "Male" + ";";
+				else if(customer.getGender() == Gender.Female)
+				outputString += "Female" + ";";
+				else
+				outputString += "Alien" + ";";
+				outputString += formatter.format(customer.getBirthDate());
+				output.println(outputString);
+			}
+			output.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
 	public Map<String, Manager> readManagers() {
 		Map<String, Manager> managersInner = new TreeMap<String, Manager>(String.CASE_INSENSITIVE_ORDER);
 		BufferedReader in = null;

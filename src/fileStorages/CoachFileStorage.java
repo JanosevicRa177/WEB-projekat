@@ -3,6 +3,9 @@ package fileStorages;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -11,6 +14,7 @@ import java.util.TreeMap;
 
 import enums.Gender;
 import model.Coach;
+import model.User;
 
 public class CoachFileStorage {
 	
@@ -24,6 +28,46 @@ public class CoachFileStorage {
 		Coach coach = coaches.get(username);
 		if(coach == null) return true;
 		return false;
+	}
+	
+	public Boolean changeUser(User user) {
+		coaches = readCoaches();
+		Coach coach = coaches.get(user.getUsername());
+		coaches.remove(user.getUsername());
+		coaches.put(user.getUsername(), coach.change(user));
+		this.writeCoaches();
+		return true;
+	}
+	
+	public boolean writeCoaches() 
+	{
+		FileWriter fileWriter;
+		try {
+			fileWriter = new FileWriter("coaches.txt");
+			PrintWriter output = new PrintWriter(fileWriter, true);
+			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy"); 
+			for(String key : coaches.keySet())
+			{
+				Coach customer = coaches.get(key);
+				String outputString = "";
+				outputString += customer.getUsername() + ";";
+				outputString += customer.getPassword() + ";";
+				outputString += customer.getName() + ";";
+				outputString += customer.getSurname() + ";";
+				if(customer.getGender() == Gender.Male)
+				outputString += "Male" + ";";
+				else if(customer.getGender() == Gender.Female)
+				outputString += "Female" + ";";
+				else
+				outputString += "Alien" + ";";
+				outputString += formatter.format(customer.getBirthDate());
+				output.println(outputString);
+			}
+			output.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return true;
 	}
 	
 	public Map<String, Coach> readCoaches() {

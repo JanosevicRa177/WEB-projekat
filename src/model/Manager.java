@@ -21,4 +21,13 @@ public class Manager extends User {
 		this.sportBuilding = sportBuilding;;
 	}
 	
+	public Manager change(User us) {
+		if(!us.getPassword().equals("")) this.setPassword(us.getPassword());
+		this.setName(us.getName());
+		this.setSurname(us.getSurname());
+		this.setGender(us.getGender());
+		this.setBirthDate(us.getBirthDate());
+		return this;
+	}
+	
 }
