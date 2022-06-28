@@ -126,3 +126,17 @@
   background-color: red;
   color: #161515;
 }
+
+.showa {
+  background-color: #161515;
+  overflow: hidden;
+}
+
+.showa tr {
+  color: red;
+  background-color: #161515;
+}
+
+.showa tr:hover {
+  background-color: #363434;
+}

@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
 
+import enums.CustomerType;
 import enums.Gender;
 import model.Customer;
 import model.User;
@@ -67,7 +68,8 @@ public class CustomerFileStorage {
 				outputString += "Female" + ";";
 				else
 				outputString += "Alien" + ";";
-				outputString += formatter.format(customer.getBirthDate());
+				outputString += formatter.format(customer.getBirthDate()) + ";";
+				outputString += customer.getPoints();
 				output.println(outputString);
 			}
 			output.close();
@@ -83,7 +85,7 @@ public class CustomerFileStorage {
 		try {
 			File file = new File("./customers.txt");
 			in = new BufferedReader(new FileReader(file));
-			String line, username = "", password = "", name = "",surname = "",gender = "", locDate = "";
+			String line, username = "", password = "", name = "",surname = "",gender = "", locDate = "", points = "";
 			StringTokenizer st;
 			try {
 				while ((line = in.readLine()) != null) {
@@ -98,15 +100,24 @@ public class CustomerFileStorage {
 						surname = st.nextToken().trim();
 						gender = st.nextToken().trim();
 						locDate = st.nextToken().trim();
+						points = st.nextToken().trim();
 					}
+					
 					Gender gen;
 					if(gender.equals("Male")) gen = Gender.Male;
 					else if(gender.equals("Female")) gen = Gender.Female;
 					else gen = Gender.Alien;
+					
+					CustomerType customerType;
+					if(Integer.parseInt(points) < 1500) customerType = CustomerType.Bronze;
+					else if(Integer.parseInt(points) < 3000) customerType = CustomerType.Silver;
+					else customerType = CustomerType.Gold;
+					
 					SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy"); 
 					Date date = formatter.parse(locDate);
 					Customer customer = new Customer(username, password, name, surname, gen, date);
 					customersInner.put(customer.getUsername(),customer);
+					customer.setCustomerType(customerType);
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();

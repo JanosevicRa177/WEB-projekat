@@ -31,8 +31,8 @@ Vue.component("index", {
 						<tr colspan ="5">{{usernameText}}</tr>
 						<tr v-if="isAdmin">
 							<div class="topnav">
-							  <button>Admin</button>
-							  <button>Admin</button>
+							  <button v-on:click="adminUserShowAndRegister">Show/Register users</button>
+							  <button>Register building</button>
 							  <button>Admin</button>
 							  <button>Admin</button>
 							</div>
@@ -66,13 +66,12 @@ Vue.component("index", {
 			</tr>
 			<tr>
 				<table style="text-align:center;">
-					<td>
 						<tr colspan ="2"><p style="font-size: 20px;"></p></tr>
-						<tr style="font-size: 40px;"><td colspan ="2">Search/Filter<td></tr>
-						<tr style="font-size: 20px;"><td colspan ="2">==========================<td></tr>
+						<tr style="font-size: 40px;"><td colspan ="2">Search/Filter</td></tr>
+						<tr style="font-size: 20px;"><td colspan ="2">================================</td></tr>
 						<tr style="font-size: 30px;"><td colspan ="2">Name:</td></tr>
 						<tr><td colspan ="2"><input type="text" v-model="name" style="font-size: 25px; width: 250px;" name="name"></input></td></tr>
-						<tr style="font-size: 30px;"><td colspan ="2">Type<td></tr>
+						<tr style="font-size: 30px;"><td colspan ="2">Type</td></tr>
 						<tr>
 							<td colspan ="2">
 								<select name="type" v-model="type" style="font-size: 25px; width: 259px;">
@@ -87,14 +86,13 @@ Vue.component("index", {
 						<tr style="font-size: 30px;"><td colspan ="2">City:</td></tr>
 						<tr><td colspan ="2"><input type="text" v-model="city" style="font-size: 25px; width: 250px;" name="city"></input></td></tr>
 						<tr style="font-size: 30px;"><td colspan ="2">Average grade:</td></tr>
-						<tr><td colspan ="2"><input type="text" v-model="averageGrade" style="font-size: 25px; width: 250px;" name="grade"></input><p></td></tr>
+						<tr><td colspan ="2"><input type="text" v-model="averageGrade" style="font-size: 25px; width: 250px;" name="grade"></input><p></p></td></tr>
 						<tr>
 							<td>
 								<button style="font-size: 20px; width: 145px;margin: 0px 5px 0px 0px;" v-on:click="Search">Search buildings</button>
 							</td>
 							<td style="font-size: 20px;"><input type="checkbox" v-model="showJustOpen" class="checkbox">Show just open buildings</input></td>
 						</tr>
-					</td>
 				</table>
 			</tr>
 		</td>
@@ -106,7 +104,7 @@ Vue.component("index", {
 	        <button v-on:click="ShowRegisterFormOrProfile" style="font-size: 25px; width: 200px;margin: 0px 10px;"> {{regprof}} </button>
 	        </div>
 	        <h2>Sport objects:</h2>
-	    		<table border="3" style="margin-left:auto;margin-right:auto;height:50%;width:990px;display:block;font-size:25px">
+	    		<table border="3" style="margin-left:auto;margin-right:auto;height:50%;width:995px;display:block;font-size:25px">
 	    			<thead style="width: 100%;height: 56px; display: inline-block;margin-right:40px;">
 			    		<tr bgcolor="grey" style="width:100%;font-size: 20px;">
 			    			<th style="max-width:170px;min-width:170px;cursor: pointer;" v-on:click="sortByName">Name &#x2191&#x2193</th>
@@ -117,7 +115,7 @@ Vue.component("index", {
 			    			<th style="max-width:125px;min-width:123px">Work time</th>
 			    		</tr>	
 		    		</thead>
-		    		<tbody style="width: calc(100% + 20px);height: 313px;display: inline-block; overflow: auto;">
+		    		<tbody style="width: calc(100% + 25px);height: 313px;display: inline-block; overflow: auto;" class="showa">
 			    		<tr v-for="(object, index) in this.showSportObjects" v-on:click="Alert(object)">
 			    			<td style="max-width:170px;min-width:170px">{{object.name}}</td>
 			    			<td style="max-width:140px;min-width:140px">{{object.type}}</td>
@@ -306,12 +304,12 @@ Vue.component("index", {
 			}
 			else router.push(`/login`);
 		},
-	 	logchange : async function(data) {
+	 	logchange : function(data) {
 			this.loggedin = data;
 			if(this.loggedin)  { 
 				this.log = "Log off";
 				this.regprof = "My profile";
-				await axios
+				axios
 					.get('user/getUsername')
 					.then(response => this.usernameText = "Welcome " + response.data + "!");
 				}
@@ -319,6 +317,9 @@ Vue.component("index", {
 				this.log = "Login";
 				this.regprof = "Register";
 			}
+		},
+		adminUserShowAndRegister : function() {
+			router.push(`/adminShowRegisterUsers`);
 		},
 		initialiseSportObjects : function (data) {
 		this.sportObjects = data;
