@@ -256,7 +256,7 @@ Vue.component("index", {
 						}
 					}
 					if(this.type != ""){
-						if(this.sportObjects[i].type !== this.type){
+						if(this.sportObjects[i].type != this.type){
 							shouldAddbyType = false;
 						}
 					}

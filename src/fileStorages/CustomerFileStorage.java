@@ -118,6 +118,7 @@ public class CustomerFileStorage {
 					Customer customer = new Customer(username, password, name, surname, gen, date);
 					customersInner.put(customer.getUsername(),customer);
 					customer.setCustomerType(customerType);
+					customer.setPoints(Integer.parseInt(points));
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();

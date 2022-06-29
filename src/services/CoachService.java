@@ -1,6 +1,9 @@
 package services;
 
+import java.util.Collection;
+
 import fileStorages.CoachFileStorage;
+import model.Coach;
 
 public class CoachService {
 	
@@ -14,4 +17,7 @@ public class CoachService {
 		return coachFileStorage.isUniqueUsername(username);
 	}
 	
+	public Collection<Coach> GetAllCoaches(){
+		return coachFileStorage.readCoaches().values();
+	}
 }

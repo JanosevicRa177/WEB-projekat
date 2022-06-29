@@ -6,7 +6,10 @@ import static spark.Spark.staticFiles;
 import java.io.File;
 import java.io.IOException;
 
+import controller.AdminController;
+import controller.CoachController;
 import controller.CustomerController;
+import controller.ManagerController;
 import controller.SportBuildingController;
 import controller.UserController;
 
@@ -18,9 +21,11 @@ public class Main {
 		staticFiles.externalLocation(new File("./static").getCanonicalPath());
 		
 		new CustomerController();
+		new ManagerController();
+		new AdminController();
+		new CoachController();
 		new SportBuildingController();
 		new UserController();
-		
 		CustomerController.addCustomer();
 		UserController.Login();
 		UserController.GetLoggedUser();
@@ -31,6 +36,10 @@ public class Main {
 		UserController.CheckUserPassword();
 		UserController.GetLoggedUsername();
 		SportBuildingController.getSportBuildings();
+		CustomerController.GetAllCustomers();
+		ManagerController.GetAllManagers();
+		CoachController.GetAllCoaches();
+		AdminController.GetAllAdmins();
 	}
 
 }

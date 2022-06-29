@@ -1,6 +1,9 @@
 package services;
 
+import java.util.Collection;
+
 import fileStorages.ManagerFileStorage;
+import model.Manager;
 
 public class ManagerService {
 	
@@ -14,4 +17,7 @@ public class ManagerService {
 		return managerFileStorage.isUniqueUsername(username);
 	}
 	
+	public Collection<Manager> GetAllManagers(){
+		return managerFileStorage.readManagers().values();
+	}
 }
