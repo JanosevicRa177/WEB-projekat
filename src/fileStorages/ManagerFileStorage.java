@@ -13,7 +13,6 @@ import java.util.StringTokenizer;
 import java.util.TreeMap;
 
 import enums.Gender;
-import model.Customer;
 import model.Manager;
 import model.User;
 
@@ -31,11 +30,11 @@ public class ManagerFileStorage {
 		return false;
 	}
 	
-	public Boolean changeUser(User us) {
+	public Boolean changeUser(User user) {
 		managers = readManagers();
-		Manager cus = managers.get(us.getUsername());
-		managers.remove(us.getUsername());
-		managers.put(us.getUsername(), cus.change(us));
+		Manager manager = managers.get(user.getUsername());
+		managers.remove(user.getUsername());
+		managers.put(user.getUsername(), manager.change(user));
 		this.writeManagers();
 		return true;
 	}

@@ -16,15 +16,20 @@ public class Main {
 		port(8090);
 		
 		staticFiles.externalLocation(new File("./static").getCanonicalPath());
+		
 		new CustomerController();
 		new SportBuildingController();
 		new UserController();
+		
 		CustomerController.addCustomer();
-		CustomerController.getCustomer();
 		UserController.Login();
-		UserController.getLogged();
-		UserController.logOff();
-		UserController.changeUser();
+		UserController.GetLoggedUser();
+		UserController.IsUserLogged();
+		UserController.GetUserType();
+		UserController.LogOff();
+		UserController.ChangeUser();
+		UserController.CheckUserPassword();
+		UserController.GetLoggedUsername();
 		SportBuildingController.getSportBuildings();
 	}
 

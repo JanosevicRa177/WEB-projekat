@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import enums.CustomerType;
 import enums.Gender;
 import enums.UserType;
 
 public class Customer extends User{
 	
 	private Membership membership;
+	private CustomerType customerType;
 	private List<SportBuilding> visitedBuildings;
 	private int points;
 	
@@ -35,7 +37,13 @@ public class Customer extends User{
 		this.setBirthDate(us.getBirthDate());
 		return this;
 	}
-	
+	public CustomerType getCustomerType() {
+		return customerType;
+	}
+
+	public void setCustomerType(CustomerType customerType) {
+		this.customerType = customerType;
+	}
 	public Membership getMembership() {
 		return membership;
 	}

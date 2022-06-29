@@ -1,6 +1,5 @@
 package controller;
 
-import static spark.Spark.get;
 import static spark.Spark.post;
 
 import com.google.gson.Gson;
@@ -44,12 +43,5 @@ public class CustomerController {
 			return "success";
 		});
 	}
-	public static void getCustomer() {
-		get("customer/get", (req, res) -> {
-			res.type("application/json");
-			return "SUCCESS";
-		});
-	}
-	
 	
 }
