@@ -18,24 +18,24 @@ Vue.component("myprofile", {
     <table style="margin-left:auto; margin-right:auto;text-align:left;">
         <tr>
             <td>Username:<td>
-                <td><input v-model="user.username" disabled/></td>
+                <td><input style="width:392px;" v-model="user.username" disabled/></td>
         </tr>
         <tr>
             <td>New password:<td>
-                <td><input type="password" placeholder="New password" v-model="user.password" v-on:change = "validatePassword" name="password"  v-bind:disabled="mode=='achange'"/></td>
+                <td><input style="width:392px;" type="password" placeholder="New password" v-model="user.password" v-on:change = "validatePassword" name="password"  v-bind:disabled="mode=='achange'"/></td>
         </tr>
         <tr>
             <td text-align:right>Name:<td>
-                <td><input v-model="user.name" name="name" v-on:change="validateName" v-bind:disabled="mode=='achange'"/></td>
+                <td><input style="width:392px;" v-model="user.name" name="name" v-on:change="validateName" v-bind:disabled="mode=='achange'"/></td>
         </tr>
         <tr>
             <td>Surname:<td>
-                <td><input v-model="user.surname" name="surname" v-on:change = "validateSurname" v-bind:disabled="mode=='achange'"/></td>
+                <td><input style="width:392px;" v-model="user.surname" name="surname" v-on:change = "validateSurname" v-bind:disabled="mode=='achange'"/></td>
         </tr>
         <tr>
             <td>Gender:<td>
                 <td>
-                <select name="gender" id="gender" v-model="user.gender"  v-bind:disabled="mode=='achange'">
+                <select style="width:400px;" name="gender" id="gender" v-model="user.gender"  v-bind:disabled="mode=='achange'">
                     <option value="Male">male</option>
                     <option value="Female">female</option>
                     <option value="Alien">alien</option>
@@ -44,7 +44,7 @@ Vue.component("myprofile", {
         </tr>
         <tr>
             <td>Birth Date:<td>
-                <td><input type="date" v-model="user.birthDate"  v-bind:disabled="mode=='achange'"/></td>
+                <td><input style="width:395px;" type="date" v-model="user.birthDate"  v-bind:disabled="mode=='achange'"/></td>
         </tr>
         
         <tr>
@@ -53,7 +53,7 @@ Vue.component("myprofile", {
  
  		 <tr>
             <td>Current password:<td>
-                <td><input type="password" v-model="currentPassword" name="Cpassword"  v-bind:disabled="mode!='achange'"/></td>
+                <td><input style="width:392px;" type="password" v-model="currentPassword" name="Cpassword"  v-bind:disabled="mode!='achange'"/></td>
         </tr>
     </table>
     <div class="vspace"></div>
@@ -76,14 +76,14 @@ Vue.component("myprofile", {
 		},
 		change : function () {
 			axios
-				.post('user/checkPassword',{pass: this.currentPassword})
+				.get('user/checkPassword', { params: {currentPassword: this.currentPassword} })
 				.then(response => (this.checkpass(response.data)));
 		},
 		save : function() {
 			if (!confirm('Are you sure you wanna save changes?'));			
 				else {
 					axios
-						.post('user/changeUser', this.user);
+						.put('user/changeUser', this.user);
 					this.mode = "achange";
 				}
 			},

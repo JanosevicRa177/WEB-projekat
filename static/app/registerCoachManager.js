@@ -4,6 +4,7 @@ Vue.component("registerCoachManager", {
 		      user: {name:null,surname:null,username:null,password:null,gender:null,birthDate:"2000-03-20"},
 		      backTitle: "Back main page",
 		      birthDateString: null,
+		      test:false,
 		      cantSubmit: true,
 		      nameNotValid: true,
 		      surnameNotValid: true,

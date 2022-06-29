@@ -3,6 +3,7 @@ const Login = { template: '<login></login>' }
 const Index = { template: '<index></index>' }
 const MyProfile = { template: '<myprofile></myprofile>' }
 const RegisterCoMan = { template: '<registerCoachManager></registerCoachManager>' }
+const AdminShowRegisterUsers = { template: '<adminShowRegisterUsers></adminShowRegisterUsers>' }
 
 const router = new VueRouter({
 	  mode: 'hash',	
@@ -11,7 +12,8 @@ const router = new VueRouter({
 	    { path: '/register', component: Register},
 	    { path: '/', component: Index},
 	    { path: '/myprofile', component: MyProfile},
-	    { path: '/registerCoachManager', component:RegisterCoMan }
+	    { path: '/registerCoachManager', component:RegisterCoMan },
+	    { path: '/adminShowRegisterUsers', component: AdminShowRegisterUsers}
 	  ]
 });
 
@@ -29,8 +31,20 @@ router.beforeEach((to,from,next) => {
 						return next({path:to});
 					}
             });
-	}
-	else {
+	} else if(to.path == '/adminShowRegisterUsers'){
+				axios
+			.get('user/userType')
+			.then(response => (Type = response.data))
+			.finally(() => {
+                    if(Type == "Admin") {
+						return next({path:to});
+					}
+					else {
+						alert("You have no rights to be here! >:(");
+						return next({path:'/'});
+					}
+            });
+	} else {
 		return next({path:to});	
 	}
 });
