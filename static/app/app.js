@@ -2,6 +2,7 @@ const Register = { template: '<register></register>' }
 const Login = { template: '<login></login>' }
 const Index = { template: '<index></index>' }
 const MyProfile = { template: '<myprofile></myprofile>' }
+const RegisterCoMan = { template: '<registerCoachManager></registerCoachManager>' }
 
 const router = new VueRouter({
 	  mode: 'hash',	
@@ -9,7 +10,8 @@ const router = new VueRouter({
 		{ path: '/login', component: Login },
 	    { path: '/register', component: Register},
 	    { path: '/', component: Index},
-	    { path: '/myprofile', component: MyProfile}
+	    { path: '/myprofile', component: MyProfile},
+	    { path: '/registerCoachManager', component:RegisterCoMan }
 	  ]
 });
 

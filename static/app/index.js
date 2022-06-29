@@ -67,7 +67,7 @@ Vue.component("index", {
     				<i class="fa fa-caret-down"></i>
   				</button>
  				<div class="dropdown-content" id="myDropdown">
-    				<a href="#">Register coach/manager</a>
+    				<a v-on:click="regCoach()" style="cursor: pointer;">Register coach/manager</a>
     				<a href="#">All registered users</a>
     				<a href="#">Empty</a>
   				</div>
@@ -105,6 +105,9 @@ Vue.component("index", {
 `
 	,
 	methods : {
+		regCoach : function() {
+			router.push('/registerCoachManager');
+		},
 		 myFunction : function() {
  		 document.getElementById("myDropdown").classList.toggle("show");
 		},
@@ -264,6 +267,7 @@ Vue.component("index", {
 					axios
 						.get('user/logoff');
 					this.log = "Login";
+					this.userType = "none";
 					this.regprof = "Register";
 				}
 			}
