@@ -14,6 +14,7 @@ import java.util.TreeMap;
 
 import enums.Gender;
 import model.Coach;
+import model.Customer;
 import model.User;
 
 public class CoachFileStorage {
@@ -28,6 +29,13 @@ public class CoachFileStorage {
 		Coach coach = coaches.get(username);
 		if(coach == null) return true;
 		return false;
+	}
+	
+	public String addCoach(Coach coa) {
+		coaches = readCoaches();
+		coaches.put(coa.getUsername(),coa);
+		writeCoaches();
+		return "Coach registered successfuly!";
 	}
 	
 	public Boolean changeUser(User user) {

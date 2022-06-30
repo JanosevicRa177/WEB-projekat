@@ -1,10 +1,11 @@
 Vue.component("registerCoachManager", {
 	data: function () {
 		    return {
-		      user: {name:null,surname:null,username:null,password:null,gender:null,birthDate:"2000-03-20"},
+			  user: {name:null,surname:null,username:null,password:null,gender:null,birthDate:"2000-03-20",userType:null,sportBuilding:null},
 		      backTitle: "Back main page",
 		      birthDateString: null,
 		      test:false,
+		      allsportBuildings: null,
 		      cantSubmit: true,
 		      nameNotValid: true,
 		      surnameNotValid: true,
@@ -17,26 +18,41 @@ Vue.component("registerCoachManager", {
     <h2 style="font-size: 55px;">Registration of coaches and managers</h2>
         <table style="margin-left:auto; margin-right:auto;">
         <tr>
-            <td align="left"><strong style="font-size: 30px;">Username:</strong></td>
-            <td><input type="text" v-model="user.username" style="font-size: 25px;" v-on:change = "validateUsername" name="username"></input></td>
+        <td align="left"><strong style="font-size: 30px;">Role:</strong></td>
+            <td><select name="usertype" id="utype" v-model="user.userType" style="font-size: 25px; width: 350px;">
+            	<option value="Coach">coach</option>
+            	<option value="Manager">manager</option>
+            </select></td>
         </tr>
+        <tr>
+        <td align="left"><strong style="font-size: 30px;">Sport Building:</strong></td>
+            <td><select name="sportB" id="sportB" v-model="user.sportBuilding" style="font-size: 25px; width: 350px;">
+            	<option v-for="(object, index) in this.allsportBuildings">{{object.name}}</option>
+            </select></td>
+        </tr>
+        <div class = vspace style="height: 10px;" > </div>
+        <tr>
+            <td align="left"><strong style="font-size: 30px;">Username:</strong></td>
+            <td><input type="text" v-model="user.username" style="font-size: 25px;width: 342px;" v-on:change = "validateUsername" name="username"></input></td>
+        </tr>
+
         <tr>
             <td align="left"><strong style="font-size: 30px;" >Password:</strong> </td>
                 <td>
-                <input type="password" v-model="user.password" style="font-size: 25px;" v-on:change = "validatePassword" name="password"></input> 
+                <input type="password" v-model="user.password" style="font-size: 25px;width: 342px;" v-on:change = "validatePassword" name="password"></input> 
                 </td>
         </tr>
         <tr>
             <td align="left"><strong style="font-size: 30px;">Name:</strong></td>
-            <td><input type="text" v-model="user.name" style="font-size: 25px;" v-on:change = "validateName" name="name"></input></td>
+            <td><input type="text" v-model="user.name" style="font-size: 25px;width: 342px;" v-on:change = "validateName" name="name"></input></td>
         </tr>
         <tr>
         <td align="left"><strong style="font-size: 30px;">Surname:</strong></td>
-        <td><input type="text" v-model="user.surname" style="font-size: 25px;" v-on:change = "validateSurname" name="surname"></input></td>
+        <td><input type="text" v-model="user.surname" style="font-size: 25px;width: 342px;" v-on:change = "validateSurname" name="surname"></input></td>
         </tr>
         <tr>
         <td align="left"><strong style="font-size: 30px;">Gender:</strong></td>
-            <td><select name="gender" id="gender" v-model="user.gender" style="font-size: 25px; width: 100%;">
+            <td><select name="gender" id="gender" v-model="user.gender" style="font-size: 25px; width: 350px;">
             	<option value="Male">male</option>
             	<option value="Female">female</option>
             	<option value="Alien">alien</option>
@@ -44,14 +60,15 @@ Vue.component("registerCoachManager", {
         </tr>
         <tr>
         <td align="left"><strong style="font-size: 30px;">Birth Date:</strong></td>
-        <td><input type="date" v-model="user.birthDate" style="font-size: 25px; width: 98.3%;"></input></td>
+        <td><input type="date" v-model="user.birthDate" style="font-size: 25px; width: 345px;"></input></td>
         </tr>
         <tr style="height:70px">
         	<td colspan="2">
 	        	<button v-on:click="addCustomer()" :disabled="cantSubmit" style="font-size: 25px; width: 42%;margin: 0px 10px;"> Submit </button> 
-	        	<input type = "submit" v-on:click = "ShowLoginForm" v-bind:value = "this.backTitle" style="font-size: 25px; width: 42%; margin: 0px 10px;">
+	        	<button v-on:click="ShowLoginForm()"style="font-size: 25px; width: 42%; margin: 0px 10px;">Back main page</button>
         	</td>
         </tr>
+        
     </table>
     <div style="text-align:left;">
 	    <p style="font-size:20px;" v-show=usernameNotValid>You should enter username</p>
@@ -59,6 +76,7 @@ Vue.component("registerCoachManager", {
 	    <p style="font-size:20px;" v-show=nameNotValid>You should valid enter name(first letter uppercase without numbers)</p>
 	    <p style="font-size:20px;" v-show=surnameNotValid>You valid should enter surname(first letter uppercase without numbers)</p>
     </div>
+    </table>
 </div> 
 `
 	, 
@@ -138,14 +156,23 @@ Vue.component("registerCoachManager", {
 			else alert(data);
 		},
 		addCustomer : function () {
+			if(this.user.userType == "Coach")
+			{
 				axios
-		          .post('customer/add',this.user)
+		          .post('coach/add',this.user)
+		          .then(response => (this.loginFinal(response.data)));
+		    }
+		    else axios
+		          .post('manager/add',this.user)
 		          .then(response => (this.loginFinal(response.data)));
 		    
 		}
 	},
 	mounted () {
-		//this.user.birthDate = new Date(Date.now()).toISOString().split('T')[0]
+		axios
+			.get('sportBuilding/getAllNoManager')
+			.then(response => (this.allsportBuildings = response.data));
 		this.user.gender = "Male";
+		this.user.userType = "Coach";
     }
 });

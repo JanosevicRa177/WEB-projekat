@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import fileStorages.CoachFileStorage;
 import model.Coach;
+import model.Customer;
 
 public class CoachService {
 	
@@ -15,6 +16,10 @@ public class CoachService {
 	
 	public Boolean isUniqueUsername(String username) {
 		return coachFileStorage.isUniqueUsername(username);
+	}
+	
+	public String addCoach(Coach coa) {
+		return coachFileStorage.addCoach(coa);
 	}
 	
 	public Collection<Coach> GetAllCoaches(){

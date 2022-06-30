@@ -28,6 +28,25 @@ public class SportBuildingFileStorage {
 		sportBuildings = readSportBuildings();
 		return sportBuildings.values();
 	}
+	
+	public Collection<SportBuilding> getSportBuildingsNoManager(){
+		Map<String, SportBuilding> map = new TreeMap<String, SportBuilding>(String.CASE_INSENSITIVE_ORDER);
+		this.readSportBuildings();
+		for(SportBuilding sb : this.readSportBuildings().values()) {
+			if(sb.getManager().equals("none")) {
+				map.put(sb.getName(), sb);
+			}
+		}
+		return map.values();
+	}
+	
+	public void setManager(String manager,String sportBuilding) {
+		sportBuildings = readSportBuildings();
+		SportBuilding sp = sportBuildings.get(sportBuilding);
+		sp.setManager(manager);
+		this.writeSportBuildings();
+	}
+	
 	public boolean writeSportBuildings() 
 	{
 		FileWriter fileWriter;
@@ -57,6 +76,7 @@ public class SportBuildingFileStorage {
 				outputString += sportBuilding.getImage() + ";";
 				outputString += sportBuilding.getAverageGrade() + ";";
 				outputString += sportBuilding.getWorkTime() + ";";
+				outputString += sportBuilding.getManager() + ";";
 				output.println(outputString);
 			}
 			output.close();
@@ -71,7 +91,7 @@ public class SportBuildingFileStorage {
 		try {
 			File file = new File("./sportBuildings.txt");
 			in = new BufferedReader(new FileReader(file));
-			String line, name = "", type = "",latitude = "",longitude = "", street = "", number = "", city = "", zipCode = "", image = "", averageGrade = "", workTime = "";
+			String line, name = "", type = "",latitude = "",longitude = "", street = "", number = "", city = "", zipCode = "", image = "", averageGrade = "", workTime = "",manager ="";
 			StringTokenizer st;
 			try {
 				while ((line = in.readLine()) != null) {
@@ -91,6 +111,7 @@ public class SportBuildingFileStorage {
 						image = st.nextToken().trim();
 						averageGrade = st.nextToken().trim();
 						workTime = st.nextToken().trim();
+						manager = st.nextToken().trim();
 					}
 					SportBuildingType buildingType;
 					if(type.equals("Gym")) buildingType = SportBuildingType.Gym;
@@ -114,10 +135,9 @@ public class SportBuildingFileStorage {
 						buildingStatus = SportBuildingStatus.Open;
 					}
 					else buildingStatus = SportBuildingStatus.Closed;
-					
 					SportBuilding sportBuilding = new SportBuilding(name, buildingType, buildingStatus,
 							new Location(Double.parseDouble(longitude),Double.parseDouble(latitude),
-									new Address(street, number, city, zipCode)), image,Double.parseDouble(averageGrade), workTime);
+									new Address(street, number, city, zipCode)), image,Double.parseDouble(averageGrade), workTime,manager);
 					sportBuildingsInner.put(sportBuilding.getName(),sportBuilding);
 				}
 			} catch (Exception ex) {

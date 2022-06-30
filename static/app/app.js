@@ -44,7 +44,21 @@ router.beforeEach((to,from,next) => {
 						return next({path:'/'});
 					}
             });
-	} else {
+	} else if(to.path == '/registerCoachManager'){
+				axios
+			.get('user/userType')
+			.then(response => (Type = response.data))
+			.finally(() => {
+                    if(Type == "Admin") {
+						return next({path:to});
+					}
+					else {
+						alert("You have no rights to be here! >:(");
+						return next({path:'/'});
+					}
+            });
+       }
+    else {
 		return next({path:to});	
 	}
 });

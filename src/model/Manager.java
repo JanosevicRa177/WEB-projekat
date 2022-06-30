@@ -9,8 +9,9 @@ public class Manager extends User {
 	
 	private String sportBuilding;
 
-	public Manager(String username, String password, String name, String surname, Gender gender, Date birthDate) {
+	public Manager(String username, String password, String name, String surname, Gender gender, Date birthDate,String sportBuilding) {
 		super(username, password, name, surname, gender, birthDate,UserType.Manager);
+		this.sportBuilding = sportBuilding;
 	}
 
 	public String getSportBuilding() {

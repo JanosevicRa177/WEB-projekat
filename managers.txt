@@ -1,5 +1,2 @@
-drgi;ivi12;Dragan;Ivetic;Alien;25-02-2001
-mat;mat123;Nebojsa;Ralevic;Male;14-06-2022
-asdasd;dsadsa;dadadada;asasasasa;Male;20-03-2000
-xcvxcvcx;xcvxcvxc;vxvxvxvxvx;xcvxcvxc;Male;20-03-2000
-zyt;xzyvxc;vzzvxvx;xcvlllc;Male;20-03-2000
+123;123;Das;Dsx;Alien;20-03-2000;ime2
+21321dfsa;asdfq3rf3;Xdasrf;DWdsad;Female;20-03-2000;ime1

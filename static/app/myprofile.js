@@ -75,6 +75,10 @@ Vue.component("myprofile", {
 			else toast("Enter your current password!");
 		},
 		change : function () {
+			if(this.currentPassword == null) { 
+				toast("Enter your current password!");
+				return;
+			}
 			axios
 				.get('user/checkPassword', { params: {currentPassword: this.currentPassword} })
 				.then(response => (this.checkpass(response.data)));

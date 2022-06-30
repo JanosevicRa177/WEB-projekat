@@ -24,7 +24,7 @@ Vue.component("adminShowRegisterUsers", {
 	    	<td colspan="3" style="font-size: 65px;padding: 40px 0px;">Users</td>
 	    	<td>
 	    	<div style="text-align:right;">
-	    	<button style="font-size: 25px; width: 300px; height: 100px; margin: 0px 10px;" >Register managers / coaches</button>
+	    	<button v-on:click="registerCoachManager" style="font-size: 25px; width: 300px; height: 100px; margin: 0px 10px;" >Register managers / coaches</button>
 	    	</div> 
 			</td>
 	    </tr>
@@ -80,7 +80,7 @@ Vue.component("adminShowRegisterUsers", {
 			    			<th style="max-width:150px;min-width:150px;cursor: pointer;" v-on:click="sortByUsername">Username &#x2191&#x2193</th>
 			    			<th style="max-width:120px;min-width:120px;">Birth date</th>
 			    			<th style="max-width:70px;min-width:70px;">Gender</th>
-			    			<th style="max-width:120px;min-width:120px;" v-on:click="sortByPoints">Points &#x2191&#x2193</th>
+			    			<th style="max-width:120px;min-width:120px;cursor: pointer;" v-on:click="sortByPoints">Points &#x2191&#x2193</th>
 			    			<th style="max-width:125px;min-width:123px;">Customer Type</th>
 			    			<th style="max-width:125px;min-width:123px">User Type</th>
 			    		</tr>	
@@ -106,6 +106,9 @@ Vue.component("adminShowRegisterUsers", {
 	, 
 	methods : {
 		init : function() {
+		},
+		registerCoachManager : function() {
+			router.push('/registerCoachManager');
 		},
 		Search : function () {
 			this.allUsers = [];

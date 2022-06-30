@@ -36,10 +36,18 @@ public class Main {
 		UserController.ChangeUser();
 		UserController.CheckUserPassword();
 		UserController.GetLoggedUsername();
+		
 		SportBuildingController.getSportBuildings();
+		SportBuildingController.getSportBuildingsNoManager();
+		
 		CustomerController.GetAllCustomers();
+		
 		ManagerController.GetAllManagers();
+		ManagerController.addManager();
+		
 		CoachController.GetAllCoaches();
+		CoachController.addCoach();
+		
 		AdminController.GetAllAdmins();
 	}
 

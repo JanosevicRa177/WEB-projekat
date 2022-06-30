@@ -13,6 +13,7 @@ import java.util.StringTokenizer;
 import java.util.TreeMap;
 
 import enums.Gender;
+import model.Customer;
 import model.Manager;
 import model.User;
 
@@ -28,6 +29,13 @@ public class ManagerFileStorage {
 		Manager manager = managers.get(username);
 		if(manager == null) return true;
 		return false;
+	}
+	
+	public String addManager(Manager man) {
+		managers = readManagers();
+		managers.put(man.getUsername(),man);
+		writeManagers();
+		return "Manager registered successfuly!";
 	}
 	
 	public Boolean changeUser(User user) {
@@ -60,7 +68,8 @@ public class ManagerFileStorage {
 				outputString += "Female" + ";";
 				else
 				outputString += "Alien" + ";";
-				outputString += formatter.format(customer.getBirthDate());
+				outputString += formatter.format(customer.getBirthDate()) + ";";
+				outputString += customer.getSportBuilding();
 				output.println(outputString);
 			}
 			output.close();
@@ -76,7 +85,7 @@ public class ManagerFileStorage {
 		try {
 			File file = new File("./managers.txt");
 			in = new BufferedReader(new FileReader(file));
-			String line, username = "", password = "", name = "",surname = "",gender = "", locDate = "";
+			String line, username = "", password = "", name = "",surname = "",gender = "", locDate = "", sportBuilding = "";
 			StringTokenizer st;
 			try {
 				while ((line = in.readLine()) != null) {
@@ -91,6 +100,7 @@ public class ManagerFileStorage {
 						surname = st.nextToken().trim();
 						gender = st.nextToken().trim();
 						locDate = st.nextToken().trim();
+						sportBuilding = st.nextToken().trim();
 					}
 					Gender gen;
 					if(gender.equals("Male")) gen = Gender.Male;
@@ -98,7 +108,7 @@ public class ManagerFileStorage {
 					else gen = Gender.Alien;
 					SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy"); 
 					Date date = formatter.parse(locDate);
-					Manager Manager = new Manager(username, password, name, surname, gen, date);
+					Manager Manager = new Manager(username, password, name, surname, gen, date,sportBuilding);
 					managersInner.put(Manager.getUsername(),Manager);
 				}
 			} catch (Exception ex) {

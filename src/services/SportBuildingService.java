@@ -13,4 +13,9 @@ public class SportBuildingService {
 	public Collection<SportBuilding> getSportBuildings(){
 		return sportBuildingFileStorage.getSportBuildings();
 	}
+	
+	public Collection<SportBuilding> getSportBuildingsNoManager(){
+		return sportBuildingFileStorage.getSportBuildingsNoManager();
+	}
+	
 }

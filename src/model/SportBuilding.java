@@ -11,6 +11,7 @@ public class SportBuilding {
 	private String image;
 	private double averageGrade;
 	private String workTime;
+	private String manager;
 	
 	public SportBuilding() {
 		super();
@@ -25,6 +26,20 @@ public class SportBuilding {
 		this.image = image;
 		this.averageGrade = averageGrade;
 		this.workTime = workTime;
+		this.manager = "none";
+	}
+	
+	public SportBuilding(String name, SportBuildingType type, SportBuildingStatus status, Location location,
+			String image, double averageGrade, String workTime,String manager) {
+		super();
+		this.name = name;
+		this.type = type;
+		this.status = status;
+		this.location = location;
+		this.image = image;
+		this.averageGrade = averageGrade;
+		this.workTime = workTime;
+		this.manager = manager;
 	}
 	public String getName() {
 		return name;
@@ -68,6 +83,13 @@ public class SportBuilding {
 	public void setWorkTime(String workTime) {
 		this.workTime = workTime;
 	}
+	public String getManager() {
+		return manager;
+	}
+	public void setManager(String manager) {
+		this.manager = manager;
+	}
+	
 	
 	
 }

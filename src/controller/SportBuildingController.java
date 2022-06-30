@@ -22,4 +22,11 @@ public class SportBuildingController {
 			return gson.toJson(sportBuildingService.getSportBuildings());
 		});
 	}
+	
+	public static void getSportBuildingsNoManager() {
+		get("sportBuilding/getAllNoManager", (req, res) -> {
+			res.type("application/json");
+			return gson.toJson(sportBuildingService.getSportBuildingsNoManager());
+		});
+	}
 }
