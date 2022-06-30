@@ -85,7 +85,7 @@ Vue.component("adminShowRegisterUsers", {
 			    			<th style="max-width:125px;min-width:123px">User Type</th>
 			    		</tr>	
 		    		</thead>
-		    		<tbody style="width: calc(100% + 20px);height: 500px;display: inline-block; overflow: auto;" class="showa">
+		    		<tbody style="width: calc(100% + 20px);height: 480px;display: inline-block; overflow: auto;" class="showa">
 			    		<tr v-for="(object, index) in this.allUsers">
 			    			<td style="max-width:140px;min-width:140px">{{object.name}}</td>
 			    			<td style="max-width:170px;min-width:170px">{{object.surname}}</td>

@@ -82,9 +82,42 @@
 }
 
 
+topnav {
+  background-color: #333;
+  overflow: hidden;
+}
+
+.topnav button {
+  float: left;
+  color: #8c2222;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
 .topnav button:hover {
-  background-color: red;
-  color: #161515;
+  background-color: #8c2222;
+  color: black;
+}
+
+topnavbar {
+  background-color: #333;
+  overflow: hidden;
+}
+
+.topnavbar button {
+  float: right;
+  color: #8c2222;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnavbar button:hover {
+  background-color: #8c2222;
+  color: black;
 }
 
 .showa {
@@ -100,4 +133,10 @@
 
 .showa tr:hover {
   background-color: #363434;
+}
+
+.bar {
+	 background-color: #8c2222;
+	border-width: 10px 0px 0px 0px;
+	border-color: red;
 }

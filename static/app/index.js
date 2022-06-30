@@ -3,13 +3,6 @@ Vue.component("index", {
 		return {
 			sportObjects: null,
 			showSportObjects:null,
-			loggedin : null,
-			log: null,
-			regprof: null,
-			isAdmin:false,
-			isCoach:false,
-			isCustomer:false,
-			isManager:false,
 			usernameText: null,
 			name: "",
 			type: "",
@@ -18,7 +11,8 @@ Vue.component("index", {
 			showJustOpen: false,
 			nameSorted: false,
 			locationSorted: false,
-			averageGradeSorted:false
+			averageGradeSorted:false,
+			loggedin : null,
 		}
 	},
 	template: ` 
@@ -26,43 +20,7 @@ Vue.component("index", {
 	<table style="margin-left:auto; margin-right:auto;" >
 		<td style="padding: 0 40px;">
 			<tr>
-				<table v-if="loggedin" style="text-align:center;">
-					<td>
-						<tr colspan ="5">{{usernameText}}</tr>
-						<tr v-if="isAdmin">
-							<div class="topnav">
-							  <button v-on:click="adminUserShowAndRegister">Show/Register users</button>
-							  <button>Register building</button>
-							  <button>Admin</button>
-							  <button>Admin</button>
-							</div>
-						</tr>
-						<tr v-if="isManager">
-							<div class="topnav">
-							  <button>Manager</button>
-							  <button>Manager</button>
-							  <button>Manager</button>
-							  <button>Manager</button>
-							</div>
-						</tr>
-						<tr v-if="isCustomer">
-							<div class="topnav">
-							  <button>Customer</button>
-							  <button>Customer</button>
-							  <button>Customer</button>
-							  <button>Customer</button>
-							</div>
-						</tr>
-						<tr v-if="isCoach">
-							<div class="topnav">
-							  <button>Coach</button>
-							  <button>Coach</button>
-							  <button>Coach</button>
-							  <button>Coach</button>
-							</div>
-						</tr>
-					</td>
-				</table>
+				<p>{{usernameText}}</p>
 			</tr>
 			<tr>
 				<table style="text-align:center;">
@@ -100,8 +58,6 @@ Vue.component("index", {
 			<div style="text-align:center;">
 			<h1 style="font-size: 63px;">WELCOME TO SPORT ARENA</h1>
 			<div style="text-align:right;">
-	       	<button v-on:click="LoginLogofFunction" style="font-size: 25px; width: 200px;margin: 0px 10px;" >{{log}}</button>
-	        <button v-on:click="ShowRegisterFormOrProfile" style="font-size: 25px; width: 200px;margin: 0px 10px;"> {{regprof}} </button>
 	        </div>
 	        <h2>Sport objects:</h2>
 	    		<table border="3" style="margin-left:auto;margin-right:auto;height:50%;width:995px;display:block;font-size:25px">
@@ -136,9 +92,6 @@ Vue.component("index", {
 `
 	,
 	methods : {
-		regCoach : function() {
-			router.push('/registerCoachManager');
-		},
 		 myFunction : function() {
  		 document.getElementById("myDropdown").classList.toggle("show");
 		},
@@ -195,11 +148,6 @@ Vue.component("index", {
     			return -1;
   			}
   		return 0;
-		},
-		ShowRegisterFormOrProfile : function () {
-			if(this.loggedin == false)
-				router.push(`/register`);
-			else router.push(`/myprofile`);
 		},
 		Alert : function (object) {
 			alert(object.name);
@@ -290,41 +238,6 @@ Vue.component("index", {
 				}
 			}
 		},
-		LoginLogofFunction : function(){
-			if(this.loggedin) {
-				if (!confirm('Are you sure you wanna log off?'));				
-				else {
-					this.loggedin = false;
-					axios
-						.get('user/logoff');
-					this.log = "Login";
-					this.userType = "none";
-					this.regprof = "Register";
-					this.isAdmin = false;
-					this.isManager = false;
-					this.isCoach = false;
-					this.isCustomer = false;
-				}
-			}
-			else router.push(`/login`);
-		},
-	 	logchange : function(data) {
-			this.loggedin = data;
-			if(this.loggedin)  { 
-				this.log = "Log off";
-				this.regprof = "My profile";
-				axios
-					.get('user/getUsername')
-					.then(response => this.usernameText = "Welcome " + response.data + "!");
-				}
-			else {
-				this.log = "Login";
-				this.regprof = "Register";
-			}
-		},
-		adminUserShowAndRegister : function() {
-			router.push(`/adminShowRegisterUsers`);
-		},
 		initialiseSportObjects : function (data) {
 		this.sportObjects = data;
 		this.showSportObjects = data;
@@ -334,7 +247,15 @@ Vue.component("index", {
 			else if(data == "Manager") this.isManager = true;
 			else if(data == "Coach") this.isCoach = true;
 			else if(data == "Customer") this.isCustomer = true;
-		}
+		},
+		logchange : function(data) {
+			this.loggedin = data;
+			if(this.loggedin)  { 
+				axios
+					.get('user/getUsername')
+					.then(response => this.usernameText = "Welcome " + response.data + "!");
+			}else this.usernameText = null;
+		},
 	},
 	mounted () {
 		axios
@@ -343,9 +264,6 @@ Vue.component("index", {
 		axios
 			.get('user/getlogged')
 			.then(response => (this.logchange(response.data)));
-		axios
-			.get('user/userType')
-			.then(response => (this.initialiseUserType(response.data)));
 	
     }
 });

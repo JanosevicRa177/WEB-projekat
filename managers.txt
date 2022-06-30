@@ -1,2 +1,6 @@
-123;123;Das;Dsx;Alien;20-03-2000;ime2
-21321dfsa;asdfq3rf3;Xdasrf;DWdsad;Female;20-03-2000;ime1
+123;123;Das;Dsx;Alien;20-03-2000;None
+21321dfsa;asdfq3rf3;Xdasrf;DWdsad;Female;20-03-2000;None
+DarkoLazic;darkoni;Darko;Lazic;Male;20-03-2000;None
+Miki;mikoni;Mika;Mikic;Male;20-03-2000;ime1
+Simi;simko;Sima;Simic;Male;20-03-2000;ime2
+Tarzance;taki123;Tarzan;Tarzanovic;Male;11-07-2000;ime3

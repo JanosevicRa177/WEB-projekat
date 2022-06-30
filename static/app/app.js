@@ -4,16 +4,47 @@ const Index = { template: '<index></index>' }
 const MyProfile = { template: '<myprofile></myprofile>' }
 const RegisterCoMan = { template: '<registerCoachManager></registerCoachManager>' }
 const AdminShowRegisterUsers = { template: '<adminShowRegisterUsers></adminShowRegisterUsers>' }
+const BarShow = { template: '<showbar></showbar>' }
 
 const router = new VueRouter({
 	  mode: 'hash',	
 	 routes: [
-		{ path: '/login', component: Login },
-	    { path: '/register', component: Register},
-	    { path: '/', component: Index},
-	    { path: '/myprofile', component: MyProfile},
-	    { path: '/registerCoachManager', component:RegisterCoMan },
-	    { path: '/adminShowRegisterUsers', component: AdminShowRegisterUsers}
+		{ path: '/login', 
+		components: {
+			default: Login,
+			Bar: BarShow
+			}
+		},
+	    { path: '/register',
+	    components: {
+			default: Register,
+			Bar: BarShow
+		    }
+	    },
+	    { path: '/', 
+	    components: {
+			default: Index,
+			Bar: BarShow
+			}
+		},
+	    { path: '/myprofile', 
+	    components: {
+			default: MyProfile,
+			Bar: BarShow
+			}
+		},
+	    { path: '/registerCoachManager',
+	    components: {
+			default: RegisterCoMan,
+			Bar: BarShow
+			}
+		},
+	    { path: '/adminShowRegisterUsers', 
+	    components: {
+			default: AdminShowRegisterUsers,
+			Bar: BarShow
+			}
+		},
 	  ]
 });
 

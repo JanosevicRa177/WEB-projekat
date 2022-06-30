@@ -13,7 +13,6 @@ import java.util.StringTokenizer;
 import java.util.TreeMap;
 
 import enums.Gender;
-import model.Customer;
 import model.Manager;
 import model.User;
 
@@ -56,20 +55,20 @@ public class ManagerFileStorage {
 			SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy"); 
 			for(String key : managers.keySet())
 			{
-				Manager customer = managers.get(key);
+				Manager manager = managers.get(key);
 				String outputString = "";
-				outputString += customer.getUsername() + ";";
-				outputString += customer.getPassword() + ";";
-				outputString += customer.getName() + ";";
-				outputString += customer.getSurname() + ";";
-				if(customer.getGender() == Gender.Male)
+				outputString += manager.getUsername() + ";";
+				outputString += manager.getPassword() + ";";
+				outputString += manager.getName() + ";";
+				outputString += manager.getSurname() + ";";
+				if(manager.getGender() == Gender.Male)
 				outputString += "Male" + ";";
-				else if(customer.getGender() == Gender.Female)
+				else if(manager.getGender() == Gender.Female)
 				outputString += "Female" + ";";
 				else
 				outputString += "Alien" + ";";
-				outputString += formatter.format(customer.getBirthDate()) + ";";
-				outputString += customer.getSportBuilding();
+				outputString += formatter.format(manager.getBirthDate()) + ";";
+				outputString += manager.getSportBuilding();
 				output.println(outputString);
 			}
 			output.close();

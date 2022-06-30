@@ -29,6 +29,12 @@ public class ManagerController {
 	public static void addManager() {
 		post("manager/add",(req, res) -> {
 			res.type("application/json");
+			Session ss = req.session(true);
+			User user = ss.attribute("user");
+			if(user == null)
+				return "You are not logged in!";
+			if(user.getUserType() != UserType.Admin)
+				return "You are not admin!";
 			Manager manager = gson.fromJson(req.body(), Manager.class);
 			if(!manager.getName().matches("^[A-Z.-]+(\\s*[A-Za-z.-]+)*$") || !manager.getSurname().matches("^[A-Z.-]+(\\s*[A-Za-z.-]+)*$"))
 				return "Name and surname should start with uppercase without numbers";

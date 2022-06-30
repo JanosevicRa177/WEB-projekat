@@ -21,7 +21,9 @@ public class ManagerService {
 	}
 	
 	public String addManager(Manager man) {
-		sportBuildingFileStorage.setManager(man.getUsername(),man.getSportBuilding());
+		if(!man.getSportBuilding().equals("None")) {
+			sportBuildingFileStorage.setManager(man.getUsername(),man.getSportBuilding());
+		}
 		return managerFileStorage.addManager(man);
 	}
 	
