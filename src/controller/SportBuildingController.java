@@ -16,14 +16,21 @@ public class SportBuildingController {
 		gson = new GsonBuilder()
 		        .create();
 	}
-	public static void getSportBuildings() {
+	public static void GetSportBuildings() {
 		get("sportBuilding/getAll", (req, res) -> {
 			res.type("application/json");
 			return gson.toJson(sportBuildingService.getSportBuildings());
 		});
 	}
+	public static void GetSportBuilding() {
+		get("sportBuilding/get", (req, res) -> {
+			res.type("application/json");
+			String sportBuildingName = req.queryParams("sportBuildingName");
+			return gson.toJson(sportBuildingService.GetSportBuilding(sportBuildingName));
+		});
+	}
 	
-	public static void getSportBuildingsNoManager() {
+	public static void GetSportBuildingsNoManager() {
 		get("sportBuilding/getAllNoManager", (req, res) -> {
 			res.type("application/json");
 			return gson.toJson(sportBuildingService.getSportBuildingsNoManager());

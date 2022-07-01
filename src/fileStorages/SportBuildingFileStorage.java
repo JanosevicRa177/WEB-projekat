@@ -28,6 +28,10 @@ public class SportBuildingFileStorage {
 		sportBuildings = readSportBuildings();
 		return sportBuildings.values();
 	}
+	public SportBuilding GetSportBuilding(String sportBuildingName){
+		sportBuildings = readSportBuildings();
+		return sportBuildings.get(sportBuildingName);
+	}
 	
 	public Collection<SportBuilding> getSportBuildingsNoManager(){
 		Map<String, SportBuilding> map = new TreeMap<String, SportBuilding>(String.CASE_INSENSITIVE_ORDER);

@@ -20,7 +20,7 @@ Vue.component("login", {
         </tr>
         <tr style="height:70px">
         	<td><button v-on:click="login()" v-on:keyup.enter="login()" style="font-size: 30px;width: 240px;margin:5px"> Submit </button></td>
-        	<td><button v-on:click="ShowRegisterForm" style="font-size: 30px;width: 240px;margin:5px">Back main page</button></td>
+        	<td><button v-on:click="BackButton" style="font-size: 30px;width: 240px;margin:5px">Back main page</button></td>
         </tr>
     </table>
 </div> 
@@ -29,12 +29,12 @@ Vue.component("login", {
 	methods : {
 		init : function() {
 		}, 
-		ShowRegisterForm : function () {
+		BackButton : function () {
 			router.push(`/`);
 		},
 		checklogin : function(data){
 		        if(data == "wrong") {toast ("Wrong username and/or password, try again!");}
-		        else if(data == "logged") {router.push(`/`); alert("You are now logged in!");}
+		        else if(data == "logged") {router.push(`/logged`); alert("You are now logged in!");}
 		        else alert("User " + data + " already logged in!" );
 		},
 		login : function () {

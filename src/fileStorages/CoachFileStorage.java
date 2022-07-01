@@ -14,7 +14,6 @@ import java.util.TreeMap;
 
 import enums.Gender;
 import model.Coach;
-import model.Customer;
 import model.User;
 
 public class CoachFileStorage {

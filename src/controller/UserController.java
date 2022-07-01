@@ -1,13 +1,11 @@
 package controller;
 
 import static spark.Spark.get;
-import static spark.Spark.post;
 import static spark.Spark.put;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import model.Customer;
 import model.User;
 import services.UserService;
 import spark.Session;

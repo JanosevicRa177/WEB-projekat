@@ -1,23 +1,20 @@
 package model;
-
-import java.awt.Image;
-
 import enums.WorkoutType;
 
 public class Workout {
 	private String name;
 	private WorkoutType type;
-	private SportBuilding sportBuilding;
+	private String sportBuilding;
 	private int duration; // u minutima
 	private Coach coach;
 	private String description;
-	private Image image;
+	private String image;
 	
 	public Workout() {
 		super();
 	}
-	public Workout(String name, WorkoutType type, SportBuilding sportBuilding, int duration, Coach coach,
-			String description, Image image) {
+	public Workout(String name, WorkoutType type, String sportBuilding, int duration, Coach coach,
+			String description, String image) {
 		super();
 		this.name = name;
 		this.type = type;
@@ -39,10 +36,10 @@ public class Workout {
 	public void setType(WorkoutType type) {
 		this.type = type;
 	}
-	public SportBuilding getSportBuilding() {
+	public String getSportBuilding() {
 		return sportBuilding;
 	}
-	public void setSportBuilding(SportBuilding sportBuilding) {
+	public void setSportBuilding(String sportBuilding) {
 		this.sportBuilding = sportBuilding;
 	}
 	public int getDuration() {
@@ -63,10 +60,10 @@ public class Workout {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Image getImage() {
+	public String getImage() {
 		return image;
 	}
-	public void setImage(Image image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 	
