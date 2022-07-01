@@ -21,14 +21,9 @@ Vue.component("adminShowRegisterUsers", {
 <div style="text-align:center;">
     <table style="margin-left:auto;margin-right:auto;">
 	    <tr>
-	    	<td colspan="3" style="font-size: 65px;padding: 40px 0px;">Users</td>
-	    	<td>
-	    	<div style="text-align:right;">
-	    	<button v-on:click="registerCoachManager" style="font-size: 25px; width: 300px; height: 100px; margin: 0px 10px;" >Register managers / coaches</button>
-	    	</div> 
-			</td>
+	    	<td style="font-size: 65px;padding: 40px 0px;">Users</td>
 	    </tr>
-	    <tr>
+	    <tr rowspan= "2">
 	    	<td>
 	    		<table style="text-align:center;padding: 0px 30px;">
 					<tr colspan ="2"><p style="font-size: 20px;"></p></tr>
@@ -106,9 +101,6 @@ Vue.component("adminShowRegisterUsers", {
 	, 
 	methods : {
 		init : function() {
-		},
-		registerCoachManager : function() {
-			router.push('/registerCoachManager');
 		},
 		Search : function () {
 			this.allUsers = [];

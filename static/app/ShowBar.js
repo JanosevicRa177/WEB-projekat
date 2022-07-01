@@ -25,24 +25,24 @@ Vue.component("showbar", {
 				  <span v-if="isAdmin" class="topnavbar">
 				  <button v-on:click="adminUserShowAndRegister">Show Registered users</button>
 				  <button>Register building</button>
-				  <button>Admin</button>
+				  <button v-on:click="registerCoachManager">Register managers / coaches </button>
 				  <button>Admin</button>
 				  <button>Admin</button>
 				  </span>
 				  <span v-if="isManager" class="topnavbar">
-				  <button>Manager</button>
-				  <button>Manager</button>
-				  <button>Manager</button>
-				  <button>Manager</button>
+				  <button>Add new content</button>
+				  <button>Change sport object content</button>
+				  <button>Show all trainings</button>
+				  <button>Check customer tranining</button>
 				  </span>
 				  <span v-if="isCustomer" class="topnavbar">
-				  <button>Customer</button>
+				  <button>Show my trainings</button>
 				  <button>Customer</button>
 				  <button>Customer</button>
 				  <button>Customer</button>
 				  </span>
 				  <span v-if="isCoach" class="topnavbar">
-				  <button>Coach</button>
+				  <button>Show my trainings</button>
 				  <button>Coach</button>
 				  <button>Coach</button>
 				  <button>Coach</button>
@@ -78,6 +78,9 @@ Vue.component("showbar", {
 		},
 		adminUserShowAndRegister : function() {
 			router.push(`/adminShowRegisterUsers`);
+		},
+		registerCoachManager : function() {
+			router.push('/registerCoachManager');
 		},
 		ShowHome : function() {
 			router.push(`/`);

@@ -72,7 +72,7 @@ Vue.component("index", {
 			    		</tr>	
 		    		</thead>
 		    		<tbody style="width: calc(100% + 25px);height: 313px;display: inline-block; overflow: auto;" class="showa">
-			    		<tr v-for="(object, index) in this.showSportObjects" v-on:click="Alert(object)">
+			    		<tr v-for="(object, index) in this.showSportObjects" v-on:click="ShowSportBuiling(object)">
 			    			<td style="max-width:170px;min-width:170px">{{object.name}}</td>
 			    			<td style="max-width:140px;min-width:140px">{{object.type}}</td>
 			    			<td style="max-width:150px;min-width:150px">
@@ -149,8 +149,8 @@ Vue.component("index", {
   			}
   		return 0;
 		},
-		Alert : function (object) {
-			alert(object.name);
+		ShowSportBuiling : function (object) {
+			router.push({ path: '/ShowSportBuilding', query: { sportBuildingName: object.name } });
 		},
 		sortByLocation : function () {
 			this.nameSorted = false;
