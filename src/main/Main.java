@@ -37,8 +37,9 @@ public class Main {
 		UserController.CheckUserPassword();
 		UserController.GetLoggedUsername();
 		
-		SportBuildingController.getSportBuildings();
-		SportBuildingController.getSportBuildingsNoManager();
+		SportBuildingController.GetSportBuildings();
+		SportBuildingController.GetSportBuildingsNoManager();
+		SportBuildingController.GetSportBuilding();
 		
 		CustomerController.GetAllCustomers();
 		

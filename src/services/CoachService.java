@@ -4,7 +4,6 @@ import java.util.Collection;
 
 import fileStorages.CoachFileStorage;
 import model.Coach;
-import model.Customer;
 
 public class CoachService {
 	
