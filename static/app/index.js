@@ -60,26 +60,26 @@ Vue.component("index", {
 			<div style="text-align:right;">
 	        </div>
 	        <h2>Sport objects:</h2>
-	    		<table border="3" style="margin-left:auto;margin-right:auto;height:50%;width:995px;display:block;font-size:25px">
+	    		<table border="3" style="margin-left:auto;margin-right:auto;height:50%;width:1010px;display:block;font-size:25px">
 	    			<thead style="width: 100%;height: 56px; display: inline-block;margin-right:40px;">
 			    		<tr bgcolor="grey" style="width:100%;font-size: 20px;">
 			    			<th style="max-width:170px;min-width:170px;cursor: pointer;" v-on:click="sortByName">Name &#x2191&#x2193</th>
 			    			<th style="max-width:140px;min-width:140px">Type</th>
-			    			<th style="max-width:150px;min-width:150px;cursor: pointer;" v-on:click="sortByLocation">Location &#x2191&#x2193</th>
-			    			<th style="max-width:285px;min-width:285px">Logo</th>
+			    			<th style="max-width:154px;min-width:154px;cursor: pointer;" v-on:click="sortByLocation">Location &#x2191&#x2193</th>
+			    			<th style="max-width:300px;min-width:300px">Logo</th>
 			    			<th style="max-width:70px;min-width:80px;cursor: pointer;" v-on:click="sortByAverageGrade">Average grade &#x2191&#x2193</th>
 			    			<th style="max-width:125px;min-width:123px">Work time</th>
 			    		</tr>	
 		    		</thead>
-		    		<tbody style="width: calc(100% + 25px);height: 313px;display: inline-block; overflow: auto;" class="showa">
+		    		<tbody style="width: calc(100% + 20px);height: 313px;display: inline-block; overflow: auto;" class="showa">
 			    		<tr v-for="(object, index) in this.showSportObjects" v-on:click="ShowSportBuiling(object)">
 			    			<td style="max-width:170px;min-width:170px">{{object.name}}</td>
 			    			<td style="max-width:140px;min-width:140px">{{object.type}}</td>
-			    			<td style="max-width:150px;min-width:150px">
+			    			<td style="max-width:152px;min-width:152px">
 			    			<p>{{object.location.longitude}}, {{object.location.latitude}}</p>
 			    			<p>{{object.location.address.street}}, {{object.location.address.number}}, {{object.location.address.city}}, {{object.location.address.zipCode}}</p>
 			    			</td>
-			    			<td style="max-width:285px;min-width:285px"><img :src="object.image" style="width:200px; height:200px;"></td>
+			    			<td style="max-width:300px;min-width:300px"><img :src="object.image" style="width:200px; height:200px;"></td>
 			    			<td style="max-width:70px;min-width:80px">{{object.averageGrade}}</td>
 			    			<td style="max-width:125px;min-width:125px">{{object.workTime}}</td>
 			    		</tr>

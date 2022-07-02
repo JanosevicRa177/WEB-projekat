@@ -105,8 +105,8 @@ public class CoachFileStorage {
 					else gen = Gender.Alien;
 					SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy"); 
 					Date date = formatter.parse(locDate);
-					Coach Coach = new Coach(username, password, name, surname, gen, date);
-					coachesInner.put(Coach.getUsername(),Coach);
+					Coach coach = new Coach(username, password, name, surname, gen, date);
+					coachesInner.put(coach.getUsername(),coach);
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();

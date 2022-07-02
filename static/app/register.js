@@ -54,8 +54,8 @@ Vue.component("register", {
     <div style="text-align:left;">
 	    <p style="font-size:20px;" v-show=usernameNotValid>You should enter username</p>
 	    <p style="font-size:20px;" v-show=passwordNotValid>You should enter password</p>
-	    <p style="font-size:20px;" v-show=nameNotValid>You should valid enter name(first letter uppercase without numbers)</p>
-	    <p style="font-size:20px;" v-show=surnameNotValid>You valid should enter surname(first letter uppercase without numbers)</p>
+	    <p style="font-size:20px;" v-show=nameNotValid>You should enter valid name(first letter uppercase without numbers)</p>
+	    <p style="font-size:20px;" v-show=surnameNotValid>You should enter valid surname(first letter uppercase without numbers)</p>
     </div>
 </div> 
 `

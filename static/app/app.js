@@ -7,6 +7,7 @@ const AdminShowRegisterUsers = { template: '<adminShowRegisterUsers></adminShowR
 const BarShow = { template: '<showbar></showbar>' }
 const ShowSportBuilding = { template: '<showBuilding></showBuilding>' }
 const CreateSportBuilding = { template: '<createSportBuilding></createSportBuilding>'}
+const CreateSportBuildingContent = { template: '<createContent></createContent>'}
 
 const router = new VueRouter({
 	  mode: 'hash',	
@@ -20,6 +21,12 @@ const router = new VueRouter({
 		{ path: '/createSportBuilding',
 	    components: {
 			default: CreateSportBuilding,
+			Bar: BarShow
+		    }
+	    },
+		{ path: '/createContent',
+	    components: {
+			default: CreateSportBuildingContent,
 			Bar: BarShow
 		    }
 	    },
@@ -101,6 +108,20 @@ router.beforeEach((to,from,next) => {
 			.then(response => (Type = response.data))
 			.finally(() => {
                     if(Type == "Admin") {
+						return next({path:to});
+					}
+					else {
+						alert("You have no rights to be here! >:(");
+						return next({path:'/'});
+					}
+            });
+       }
+        else if(to.path == '/createContent'){
+				axios
+			.get('user/userType')
+			.then(response => (Type = response.data))
+			.finally(() => {
+                    if(Type == "Manager") {
 						return next({path:to});
 					}
 					else {

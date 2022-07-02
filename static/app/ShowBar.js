@@ -30,7 +30,7 @@ Vue.component("showbar", {
 				  <button>Admin</button>
 				  </span>
 				  <span v-if="isManager" class="topnavbar">
-				  <button>Add new content</button>
+				  <button v-on:click="createContent">Add new content</button>
 				  <button>Change sport object content</button>
 				  <button>Show all trainings</button>
 				  <button>Check customer tranining</button>
@@ -64,6 +64,9 @@ Vue.component("showbar", {
 		},
 		createSportBuilding : function () {
 			router.push('/createSportBuilding');
+		},
+		createContent : function () {
+			router.push('/createContent');
 		},
 		logchange : function(data) {
 			this.loggedin = data;

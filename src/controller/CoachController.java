@@ -45,7 +45,7 @@ public class CoachController {
 			res.type("application/json");
 			Session ss = req.session(true);
 			User user = ss.attribute("user");
-			if(user.getUserType() == UserType.Admin)
+			if(user.getUserType() == UserType.Admin || user.getUserType() == UserType.Manager)
 				return gson.toJson(coachService.GetAllCoaches());
 			else return null;
 		});
