@@ -3,6 +3,9 @@ package controller;
 import static spark.Spark.get;
 import static spark.Spark.post;
 
+import java.util.Collection;
+import java.util.Map;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -49,8 +52,11 @@ public class ManagerController {
 			res.type("application/json");
 			Session ss = req.session(true);
 			User user = ss.attribute("user");
-			if(user.getUserType() == UserType.Admin)
+			if(user.getUserType() == UserType.Admin) {
+				Collection<Manager> cMan = managerService.GetAllManagers();
+				if(cMan.size() == 0) return null;
 				return gson.toJson(managerService.GetAllManagers());
+			}
 			else return null;
 		});
 	}

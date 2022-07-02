@@ -24,7 +24,7 @@ Vue.component("showbar", {
 			<td>
 				  <span v-if="isAdmin" class="topnavbar">
 				  <button v-on:click="adminUserShowAndRegister">Show Registered users</button>
-				  <button>Register building</button>
+				  <button v-on:click="createSportBuilding">Register building</button>
 				  <button v-on:click="registerCoachManager">Register managers / coaches </button>
 				  <button>Admin</button>
 				  <button>Admin</button>
@@ -61,6 +61,9 @@ Vue.component("showbar", {
 			else if(data == "Manager") this.isManager = true;
 			else if(data == "Coach") this.isCoach = true;
 			else if(data == "Customer") this.isCustomer = true;
+		},
+		createSportBuilding : function () {
+			router.push('/createSportBuilding');
 		},
 		logchange : function(data) {
 			this.loggedin = data;

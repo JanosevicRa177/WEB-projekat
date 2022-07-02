@@ -6,6 +6,7 @@ const RegisterCoMan = { template: '<registerCoachManager></registerCoachManager>
 const AdminShowRegisterUsers = { template: '<adminShowRegisterUsers></adminShowRegisterUsers>' }
 const BarShow = { template: '<showbar></showbar>' }
 const ShowSportBuilding = { template: '<showBuilding></showBuilding>' }
+const CreateSportBuilding = { template: '<createSportBuilding></createSportBuilding>'}
 
 const router = new VueRouter({
 	  mode: 'hash',	
@@ -16,6 +17,12 @@ const router = new VueRouter({
 			Bar: BarShow
 			}
 		},
+		{ path: '/createSportBuilding',
+	    components: {
+			default: CreateSportBuilding,
+			Bar: BarShow
+		    }
+	    },
 		{ path: '/ShowSportBuilding',
 	    components: {
 			default: ShowSportBuilding,
