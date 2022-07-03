@@ -2,13 +2,16 @@ package services;
 
 import java.util.Collection;
 
+import fileStorages.ManagerFileStorage;
 import fileStorages.SportBuildingFileStorage;
 import model.SportBuilding;
 
 public class SportBuildingService {
 	public static SportBuildingFileStorage sportBuildingFileStorage;
+	public static ManagerFileStorage managerFileStorage;
 	public SportBuildingService() {
 		sportBuildingFileStorage = new SportBuildingFileStorage();
+		managerFileStorage = new ManagerFileStorage();
 	}
 	public Collection<SportBuilding> getSportBuildings(){
 		return sportBuildingFileStorage.getSportBuildings();
@@ -26,6 +29,7 @@ public class SportBuildingService {
 	}
 	
 	public boolean addSportBuilding(SportBuilding spB) {
+		managerFileStorage.setSportBuilding(spB.getManager(), spB.getName());
 		return sportBuildingFileStorage.addSportBuilding(spB);
 	}
 	

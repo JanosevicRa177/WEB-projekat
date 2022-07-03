@@ -49,6 +49,7 @@ public class Main {
 		ManagerController.GetAllManagers();
 		ManagerController.addManager();
 		ManagerController.CheckSportBuilding();
+		ManagerController.getAllNoSportBuilding();
 		
 		CoachController.GetAllCoaches();
 		CoachController.addCoach();

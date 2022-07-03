@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import fileStorages.ManagerFileStorage;
@@ -20,6 +21,7 @@ public class ManagerService {
 		return managerFileStorage.isUniqueUsername(username);
 	}
 	
+	
 	public String addManager(Manager man) {
 		if(!man.getSportBuilding().equals("None")) {
 			sportBuildingFileStorage.setManager(man.getUsername(),man.getSportBuilding());
@@ -30,6 +32,17 @@ public class ManagerService {
 	public Collection<Manager> GetAllManagers(){
 		return managerFileStorage.readManagers().values();
 	}
+	
+	public Collection<Manager> GetAllManagersNoSportBuilding(){
+		Collection<Manager> mans = new  ArrayList<Manager>();
+		for(Manager man : managerFileStorage.readManagers().values()) {
+			if(man.getSportBuilding().equals("None")) {
+				mans.add(man);
+			}
+		}
+		return mans;
+	}
+	
 	
 	public String CheckSportBuilding(String managerUsername) {
 		return managerFileStorage.CheckSportBuilding(managerUsername);

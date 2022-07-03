@@ -1,7 +1,7 @@
 Vue.component("createSportBuilding", {
 	data: function () {
 		    return {
-			user: {name:null,surname:null,username:null,password:null,gender:null,birthDate:"2000-03-20"},
+			user: {name:null,surname:null,username:null,password:null,gender:"Male",birthDate:"2000-03-20",userType:"Manager",sportBuilding:"None"},
 			  sportBuilding: {name:null,type:null,image:null,manager:null,location:{longitude:0,latitude:0,address:{city:null,street:null,number:null,zipCode:null}}},
 			  allManagers:[],
 		      birthDateString: null,
@@ -14,7 +14,11 @@ Vue.component("createSportBuilding", {
 		      zipCodeNotValid:true,
 		      cantAllSubmit:true,
 		      notSelectedManager:true,
-		      urlNotValid:true
+		      urlNotValid:true,
+		      usernameNotValid:true,
+		      nameNotValid:true,
+		      surnameNotValid:true,
+		      passwordNotValid:true,
 		    }	
 	},
 	template: ` 
@@ -65,9 +69,10 @@ Vue.component("createSportBuilding", {
 			        <tr>
 			        	<td align="left"><strong style="font-size: 30px;">Manager:</strong></td>
 			            <td>
-				            <select name="sportB" id="sportB" v-model="sportBuilding.manager" v-on:change = "selectedManager" style="font-size: 25px; width: 350px;">
+				            <select v-if="regMan == false" name="managers" id="managers" v-model="sportBuilding.manager" v-on:change = "selectedManager" style="font-size: 25px; width: 350px;">
 				            	<option v-for="(object, index) in this.allManagers">{{object.username}}</option>
 				            </select>
+				            <input readonly v-if="regMan" type="text" v-model="user.username" style="font-size: 25px;width: 342px;" name="c"></input>
 			            </td>
 			        </tr>
 			        <tr style="height:70px">
@@ -76,7 +81,7 @@ Vue.component("createSportBuilding", {
 			        	</td>
 			        </tr>
 	    		</table>
-	<p style="font-size:20px;" v-show=nameNotValid>You should enter valid name(first letter uppercase without numbers)</p>
+	    		 <p style="font-size:20px;" v-show=nameNotValid>You should enter valid name(first letter uppercase without numbers)</p>
     <p align="left" style="font-size:20px;" v-show=cityNotValid>You should enter valid city(first letter uppercase without numbers)</p>
     <p style="font-size:20px;" v-show=streetNotValid>You should enter valid street(first letter uppercase without numbers)</p>
     <p style="font-size:20px;" v-show=numberNotValid>You should enter valid number(no special characters)</p>
@@ -85,7 +90,7 @@ Vue.component("createSportBuilding", {
     <p style="font-size:20px;" v-show=notSelectedManager>Please select manager!</p>
 	    	</td>
 			<td>
-				<div style="text-align:center;">
+				<div style="text-align:top;">
 	        		<table style="margin-left:auto; margin-right:auto;" v-if="regMan">
 			            <tr>
 			                <td colspan = "2"> There is no avalible manager, register new one </td>
@@ -124,21 +129,19 @@ Vue.component("createSportBuilding", {
 	        			</tr>
 			        	<tr style="height:70px">
 				        	<td colspan="2">
-					        	<button v-on:click="addCustomer()" :disabled="cantSubmit" style="font-size: 25px; width: 42%;margin: 0px 10px;"> Submit </button> 
+					        	<button v-on:click="addManager()" :disabled="cantSubmit" style="font-size: 25px; width: 42%;margin: 0px 10px;"> Submit </button> 
 				        	</td>
 			        	</tr>
 	        		</table>
 	    		</div> 
-	    	</td>
-	    </tr>
-    </table>
-    <p :style="{visibility: regMan ? 'visible' : 'hidden'}" style="font-size:20px;" v-show=usernameNotValid>You should enter username</p>
+	    		    <p :style="{visibility: regMan ? 'visible' : 'hidden'}" style="font-size:20px;" v-show=usernameNotValid>You should enter username</p>
     <p :style="{visibility: regMan ? 'visible' : 'hidden'}" style="font-size:20px;" v-show=passwordNotValid>You should enter password</p>
     <p :style="{visibility: regMan ? 'visible' : 'hidden'}" style="font-size:20px;" v-show=nameNotValid>You should enter valid name(first letter uppercase without numbers)</p>
     <p :style="{visibility: regMan ? 'visible' : 'hidden'}" style="font-size:20px;" v-show=surnameNotValid>You should enter valid surname(first letter uppercase without numbers)</p>
-	<div style="text-align:left;">
-	
-	</div>
+	    	</td>
+	    </tr>
+    </table>
+
 </div>
 `
 	, 
@@ -151,14 +154,30 @@ Vue.component("createSportBuilding", {
 			else this.cantSubmit = true;
 		},
 		checkCanSubmit: function() {
-			if(this.regMan & this.cantSubmit) {
-				this.cantAllSubmit = true;
-				return;
-			}
 			if(!this.cityNotValid & !this.streetNotValid & !this.numberNotValid & !this.zipCodeNotValid & !this.urlNotValid & (this.sportBuilding.manager != null))
 				this.cantAllSubmit = false;
 			else this.cantAllSubmit = true;
 		},
+		selectedManager : function() {
+			this.notSelectedManager = false;
+			this.checkCanSubmit();
+		},
+		bruh : function(data){
+			if (data == "Manager registered successfuly!"){
+				alert("Manager registered.");
+				this.notSelectedManager = false;
+				this.cantSubmit = true;
+				this.sportBuilding.manager = this.user.username;
+				this.checkCanSubmit();
+			}
+			else alert(data);
+		},
+		addManager : function () {
+				axios
+		          .post('manager/add',this.user)
+		          .then(response => (this.bruh(response.data)));
+		}
+		,
 		urlCheck :function() {
 			let name = document.getElementsByName('url')[0].value;
 			name = name + "e";
@@ -170,10 +189,6 @@ Vue.component("createSportBuilding", {
 			{
 				this.urlNotValid = true;
 			}
-			this.checkCanSubmit();
-		},
-		selectedManager :function() {
-			this.notSelectedManager = false;
 			this.checkCanSubmit();
 		},
 		validateName: function(){
@@ -257,9 +272,9 @@ Vue.component("createSportBuilding", {
 		},
 		init : function (data) {
 		this.allManagers = data;
-		    if(this.allManagers.length == 0) {
+		    if(data == null) {
 			this.regMan = true;
-		}
+			}
 		},
 		validateUsername: function(){
 			let username = document.getElementsByName('username')[0].value;
@@ -272,10 +287,7 @@ Vue.component("createSportBuilding", {
 			{
 				this.usernameNotValid = true;
 			}
-			if(regMan)
 			this.checkCanConfirm();
-			else this.cantSubmit = false;
-			this.checkCanSubmit();
 		},
 		validatePassword: function(){
 			let password = document.getElementsByName('password')[0].value;
@@ -288,10 +300,7 @@ Vue.component("createSportBuilding", {
 			{
 				this.passwordNotValid = true;
 			}
-			if(regMan)
 			this.checkCanConfirm();
-			else this.cantSubmit = false;
-			this.checkCanSubmit();
 		},
 		validateManName: function(){
 			const regex = new RegExp('^[A-Z.-]+(\s*[A-Za-z.-]+)*$');
@@ -305,10 +314,7 @@ Vue.component("createSportBuilding", {
 			{
 				this.nameNotValid = true;
 			}
-			if(regMan)
 			this.checkCanConfirm();
-			else this.cantSubmit = false;
-			this.checkCanSubmit();
 		},
 		validateSurname: function(){
 			const regex = new RegExp('^[A-Z.-]+(\s*[A-Za-z.-]+)*$');
@@ -322,10 +328,7 @@ Vue.component("createSportBuilding", {
 			{
 				this.surnameNotValid = true;
 			}
-			if(regMan)
 			this.checkCanConfirm();
-			else this.cantSubmit = false;
-			this.checkCanSubmit();
 		},
 		end: function(data) {
 			if(data == "success")
@@ -345,7 +348,7 @@ Vue.component("createSportBuilding", {
 		//this.user.birthDate = new Date(Date.now()).toISOString().split('T')[0]
 		this.sportBuilding.type = "Gym";
 		axios
-			.get('manager/getAll')
+			.get('manager/getAllNoSportBuilding')
 			.then(response => (this.init(response.data)));
     }
     });

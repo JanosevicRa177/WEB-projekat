@@ -59,6 +59,23 @@ public class ManagerController {
 			else return null;
 		});
 	}
+	
+	public static void getAllNoSportBuilding() {
+		get("manager/getAllNoSportBuilding",(req, res) -> {
+			res.type("application/json");
+			Session ss = req.session(true);
+			User user = ss.attribute("user");
+			if(user.getUserType() == UserType.Admin) {
+				Collection<Manager> cMan = managerService.GetAllManagersNoSportBuilding();
+				if(cMan.size() == 0) return gson.toJson(null);
+				return gson.toJson(managerService.GetAllManagersNoSportBuilding());
+			}
+			else return gson.toJson(null);
+		});
+	}
+	
+	
+
 	public static void CheckSportBuilding() {
 		get("manager/checkSportBuilding",(req, res) -> {
 			res.type("application/json");
