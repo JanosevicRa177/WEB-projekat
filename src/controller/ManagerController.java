@@ -59,4 +59,16 @@ public class ManagerController {
 			else return null;
 		});
 	}
+	public static void CheckSportBuilding() {
+		get("manager/checkSportBuilding",(req, res) -> {
+			res.type("application/json");
+			Session ss = req.session(true);
+			User user = ss.attribute("user");
+			if(user == null)
+				return "You are not logged in!";
+			if(user.getUserType() != UserType.Manager)
+				return "You are not manager!";
+			return managerService.CheckSportBuilding(user.getUsername());
+		});
+	}
 }

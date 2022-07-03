@@ -30,4 +30,8 @@ public class ManagerService {
 	public Collection<Manager> GetAllManagers(){
 		return managerFileStorage.readManagers().values();
 	}
+	
+	public String CheckSportBuilding(String managerUsername) {
+		return managerFileStorage.CheckSportBuilding(managerUsername);
+	}
 }

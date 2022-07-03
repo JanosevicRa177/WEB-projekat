@@ -66,7 +66,16 @@ Vue.component("showbar", {
 			router.push('/createSportBuilding');
 		},
 		createContent : function () {
-			router.push('/createContent');
+		      axios
+		      .get('manager/checkSportBuilding')
+		      .then(response => (this.CheckManagerValidity(response.data)));
+		},
+		CheckManagerValidity : function (data) {
+			if(data == "True") 
+			{
+				router.push('/createContent');
+			}
+			else alert("You have no sport building signed for you!");
 		},
 		logchange : function(data) {
 			this.loggedin = data;

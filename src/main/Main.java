@@ -12,6 +12,7 @@ import controller.CustomerController;
 import controller.ManagerController;
 import controller.SportBuildingController;
 import controller.UserController;
+import controller.WorkoutController;
 
 public class Main {
 
@@ -26,6 +27,7 @@ public class Main {
 		new CoachController();
 		new SportBuildingController();
 		new UserController();
+		new WorkoutController();
 		
 		CustomerController.addCustomer();
 		UserController.Login();
@@ -46,11 +48,14 @@ public class Main {
 		
 		ManagerController.GetAllManagers();
 		ManagerController.addManager();
+		ManagerController.CheckSportBuilding();
 		
 		CoachController.GetAllCoaches();
 		CoachController.addCoach();
 		
 		AdminController.GetAllAdmins();
+		
+		WorkoutController.AddWorkout();
 	}
 
 }

@@ -29,4 +29,8 @@ public class SportBuildingService {
 		return sportBuildingFileStorage.addSportBuilding(spB);
 	}
 	
+	public String GetSportBuildingNameByManager(String managerName) {
+		return sportBuildingFileStorage.GetSportBuildingNameByManager(managerName);
+	}
+	
 }

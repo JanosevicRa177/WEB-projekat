@@ -10,7 +10,7 @@ public class WorkoutService {
 		workoutFileStorage = new WorkoutFileStorage();
 	}
 	
-	public Boolean isUniqueName(String name) {
+	public Boolean IsUniqueName(String name) {
 		return workoutFileStorage.isUniqueName(name);
 	}
 	

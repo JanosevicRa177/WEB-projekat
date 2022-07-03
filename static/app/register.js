@@ -142,7 +142,6 @@ Vue.component("register", {
 		}
 	},
 	mounted () {
-		//this.user.birthDate = new Date(Date.now()).toISOString().split('T')[0]
 		this.user.gender = "Male";
     }
 });

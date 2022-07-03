@@ -17,8 +17,12 @@ public class CoachService {
 		return coachFileStorage.isUniqueUsername(username);
 	}
 	
-	public String addCoach(Coach coa) {
-		return coachFileStorage.addCoach(coa);
+	public String addCoach(Coach coach) {
+		return coachFileStorage.addCoach(coach);
+	}
+	
+	public Boolean IsValidCoach(String coachUsername) {
+		return coachFileStorage.IsValidCoach(coachUsername);
 	}
 	
 	public Collection<Coach> GetAllCoaches(){

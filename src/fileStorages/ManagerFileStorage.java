@@ -30,11 +30,18 @@ public class ManagerFileStorage {
 		return false;
 	}
 	
-	public String addManager(Manager man) {
+	public String addManager(Manager manager) {
 		managers = readManagers();
-		managers.put(man.getUsername(),man);
+		managers.put(manager.getUsername(),manager);
 		writeManagers();
 		return "Manager registered successfuly!";
+	}
+	
+	public String CheckSportBuilding(String managerUsername) {
+		managers = readManagers();
+		if(!managers.get(managerUsername).getSportBuilding().equals("None"))
+			return "True";
+		return "False";
 	}
 	
 	public Boolean changeUser(User user) {

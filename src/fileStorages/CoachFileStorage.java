@@ -30,11 +30,17 @@ public class CoachFileStorage {
 		return false;
 	}
 	
-	public String addCoach(Coach coa) {
+	public String addCoach(Coach coach) {
 		coaches = readCoaches();
-		coaches.put(coa.getUsername(),coa);
+		coaches.put(coach.getUsername(),coach);
 		writeCoaches();
 		return "Coach registered successfuly!";
+	}
+	public Boolean IsValidCoach(String coachUsername) {
+		coaches = readCoaches();
+		if(coaches.get(coachUsername) != null)
+			return true;
+		return false;
 	}
 	
 	public Boolean changeUser(User user) {

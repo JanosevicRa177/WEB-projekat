@@ -21,8 +21,7 @@ public class WorkoutFileStorage {
 	
 	public Boolean isUniqueName(String name) {
 		workouts = readWorkouts();
-		Workout workout = workouts.get(name);
-		if(workout == null) return true;
+		if(workouts.get(name) == null) return true;
 		return false;
 	}
 	
@@ -45,7 +44,7 @@ public class WorkoutFileStorage {
 				String outputString = "";
 				outputString += workout.getName() + ";";
 				outputString += workout.getSportBuildingName() + ";";
-				outputString += workout.getCoachName() + ";";
+				outputString += workout.getCoachUsername() + ";";
 				outputString += workout.getImage() + ";";
 				outputString += workout.getDescription() + ";";
 				outputString += workout.getDuration() + ";";
@@ -70,9 +69,9 @@ public class WorkoutFileStorage {
 		Map<String, Workout> workoutsInner = new TreeMap<String, Workout>(String.CASE_INSENSITIVE_ORDER);
 		BufferedReader in = null;
 		try {
-			File file = new File("./workouts.txt");
+			File file = new File("workouts.txt");
 			in = new BufferedReader(new FileReader(file));
-			String line, name = "", type = "", sportBuildingName = "",duration = "",coachName = "", description = "", image = "";
+			String line, name = "", type = "", sportBuildingName = "",duration = "",coachUsername = "", description = "", image = "";
 			StringTokenizer st;
 			try {
 				while ((line = in.readLine()) != null) {
@@ -82,19 +81,19 @@ public class WorkoutFileStorage {
 					st = new StringTokenizer(line, ";");
 					while (st.hasMoreTokens()) {
 						name = st.nextToken().trim();
-						type = st.nextToken().trim();
 						sportBuildingName = st.nextToken().trim();
-						duration = st.nextToken().trim();
-						coachName = st.nextToken().trim();
-						description = st.nextToken().trim();
+						coachUsername = st.nextToken().trim();
 						image = st.nextToken().trim();
+						description = st.nextToken().trim();
+						duration = st.nextToken().trim();
+						type = st.nextToken().trim();
 					}
 					WorkoutType workoutType;
 					if(type.equals("Group")) workoutType = WorkoutType.Group;
 					else if(type.equals("Gym")) workoutType = WorkoutType.Gym;
 					else if(type.equals("Personal")) workoutType = WorkoutType.Personal;
 					else workoutType = WorkoutType.Sauna;
-					Workout workout = new Workout(name, workoutType, sportBuildingName, Integer.parseInt(duration), coachName, description, image);
+					Workout workout = new Workout(name, workoutType, sportBuildingName, duration, coachUsername, description, image);
 					workoutsInner.put(workout.getName(),workout);
 				}
 			} catch (Exception ex) {

@@ -5,22 +5,22 @@ public class Workout {
 	private String name;
 	private WorkoutType type;
 	private String sportBuildingName;
-	private int duration; // in minutes
-	private String coachName;
+	private String duration; // in minutes
+	private String coachUsername;
 	private String description;
 	private String image;
 	
 	public Workout() {
 		super();
 	}
-	public Workout(String name, WorkoutType type, String sportBuildingName, int duration, String coachName,
+	public Workout(String name, WorkoutType type, String sportBuildingName, String duration, String coachUsername,
 			String description, String image) {
 		super();
 		this.name = name;
 		this.type = type;
 		this.sportBuildingName = sportBuildingName;
 		this.duration = duration;
-		this.coachName = coachName;
+		this.coachUsername = coachUsername;
 		this.description = description;
 		this.image = image;
 	}
@@ -42,17 +42,17 @@ public class Workout {
 	public void setSportBuildingName(String sportBuildingName) {
 		this.sportBuildingName = sportBuildingName;
 	}
-	public int getDuration() {
+	public String getDuration() {
 		return duration;
 	}
-	public void setDuration(int duration) {
+	public void setDuration(String duration) {
 		this.duration = duration;
 	}
-	public String getCoachName() {
-		return coachName;
+	public String getCoachUsername() {
+		return coachUsername;
 	}
-	public void setCoachName(String coachName) {
-		this.coachName = coachName;
+	public void setCoachUsername(String coachUsername) {
+		this.coachUsername = coachUsername;
 	}
 	public String getDescription() {
 		return description;
