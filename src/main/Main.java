@@ -40,6 +40,7 @@ public class Main {
 		SportBuildingController.GetSportBuildings();
 		SportBuildingController.GetSportBuildingsNoManager();
 		SportBuildingController.GetSportBuilding();
+		SportBuildingController.addSportBuilding();
 		
 		CustomerController.GetAllCustomers();
 		

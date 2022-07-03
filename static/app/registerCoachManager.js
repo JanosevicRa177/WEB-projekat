@@ -67,7 +67,6 @@ Vue.component("registerCoachManager", {
         <tr style="height:70px">
         	<td colspan="2">
 	        	<button v-on:click="addCustomer()" :disabled="cantSubmit" style="font-size: 25px; width: 42%;margin: 0px 10px;"> Submit </button> 
-	        	<button v-on:click="back()"style="font-size: 25px; width: 42%; margin: 0px 10px;">Back main page</button>
         	</td>
         </tr>
     </table>

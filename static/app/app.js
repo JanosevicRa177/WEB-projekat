@@ -89,7 +89,7 @@ router.beforeEach((to,from,next) => {
 						return next({path:to});
 					}
             });
-	} else if(to.path == '/adminShowRegisterUsers'){
+	} else if(to.path == '/adminShowRegisterUsers' || to.path == '/registerCoachManager' || to.path == '/createSportBuilding'){
 				axios
 			.get('user/userType')
 			.then(response => (Type = response.data))
@@ -102,20 +102,7 @@ router.beforeEach((to,from,next) => {
 						return next({path:'/'});
 					}
             });
-	} else if(to.path == '/registerCoachManager'){
-				axios
-			.get('user/userType')
-			.then(response => (Type = response.data))
-			.finally(() => {
-                    if(Type == "Admin") {
-						return next({path:to});
-					}
-					else {
-						alert("You have no rights to be here! >:(");
-						return next({path:'/'});
-					}
-            });
-       }
+	}
         else if(to.path == '/createContent'){
 				axios
 			.get('user/userType')

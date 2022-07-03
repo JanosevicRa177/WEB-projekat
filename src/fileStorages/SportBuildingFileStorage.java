@@ -44,11 +44,25 @@ public class SportBuildingFileStorage {
 		return map.values();
 	}
 	
+	public boolean addSportBuilding(SportBuilding spB) {
+		sportBuildings = this.readSportBuildings();
+		sportBuildings.put(spB.getName(), spB);
+		this.writeSportBuildings();
+		return true;
+	}
+	
 	public void setManager(String manager,String sportBuilding) {
 		sportBuildings = readSportBuildings();
 		SportBuilding sp = sportBuildings.get(sportBuilding);
 		sp.setManager(manager);
 		this.writeSportBuildings();
+	}
+	
+	public boolean isNameUnique(String name) {
+		sportBuildings = this.readSportBuildings();
+		SportBuilding sp = sportBuildings.get(name);
+		if(sp == null) return true;
+		return false;
 	}
 	
 	public boolean writeSportBuildings() 
@@ -79,7 +93,9 @@ public class SportBuildingFileStorage {
 				outputString += sportBuilding.getLocation().getAddress().getZipCode() + ";";
 				outputString += sportBuilding.getImage() + ";";
 				outputString += sportBuilding.getAverageGrade() + ";";
+				if(!(sportBuilding.getWorkTime() == null))
 				outputString += sportBuilding.getWorkTime() + ";";
+				else outputString += "00:00-00:00;";
 				outputString += sportBuilding.getManager() + ";";
 				output.println(outputString);
 			}

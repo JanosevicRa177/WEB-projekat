@@ -21,4 +21,12 @@ public class SportBuildingService {
 		return sportBuildingFileStorage.getSportBuildingsNoManager();
 	}
 	
+	public boolean isNameUnique(String name) {
+		return sportBuildingFileStorage.isNameUnique(name);
+	}
+	
+	public boolean addSportBuilding(SportBuilding spB) {
+		return sportBuildingFileStorage.addSportBuilding(spB);
+	}
+	
 }

@@ -24,8 +24,8 @@ public class SportBuilding {
 		this.status = status;
 		this.location = location;
 		this.image = image;
-		this.averageGrade = averageGrade;
 		this.workTime = workTime;
+		this.averageGrade = averageGrade;
 		this.manager = "none";
 	}
 	
@@ -37,8 +37,8 @@ public class SportBuilding {
 		this.status = status;
 		this.location = location;
 		this.image = image;
-		this.averageGrade = averageGrade;
 		this.workTime = workTime;
+		this.averageGrade = averageGrade;
 		this.manager = manager;
 	}
 	public String getName() {

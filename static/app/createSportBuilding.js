@@ -2,13 +2,20 @@ Vue.component("createSportBuilding", {
 	data: function () {
 		    return {
 			user: {name:null,surname:null,username:null,password:null,gender:null,birthDate:"2000-03-20"},
-			  sportBuilding: {name:null,type:null,logo:null,manager:null},
+			  sportBuilding: {name:null,type:null,image:null,manager:null,location:{longitude:0,latitude:0,address:{city:null,street:null,number:null,zipCode:null}}},
 			  allManagers:[],
 		      birthDateString: null,
 		      cantSubmit: true,
 		      nameNotValid: true,
-		      regMan:false
-		    }
+		      regMan:false,
+		      cityNotValid:true,
+		      streetNotValid:true,
+		      numberNotValid:true,
+		      zipCodeNotValid:true,
+		      cantAllSubmit:true,
+		      notSelectedManager:true,
+		      urlNotValid:true
+		    }	
 	},
 	template: ` 
 <div style="text-align:center;">
@@ -19,16 +26,31 @@ Vue.component("createSportBuilding", {
 	        	<table style="margin-left:auto; margin-right:auto;">
 	            	<tr>
 	            		<td align="left"><strong style="font-size: 30px;">Name:</strong></td>
-	            		<td><input type="text" v-model="sportBuilding.name" style="font-size: 25px;width: 342px;" v-on:change = "validateName" name="username"></input></td>
-	        		</tr>
-	         		<tr>
-	        			<td align="left"><strong style="font-size: 30px;">Location? xd:</strong></td>
-	        			<td><input type="text" style="font-size: 25px;width: 342px;" placeholder="nisam znao kako ovo da odradim pa sam ostavio za kasnije xd"  name="surname"></input></td>
+	            		<td><input type="text" v-model="sportBuilding.name" style="font-size: 25px;width: 342px;" v-on:change = "validateName" name="name"></input></td>
 	        		</tr>
 	        		<tr>
-			        	<td align="left"><strong style="font-size: 30px;">Type:</strong></td>
+	        			<td align="left"><strong style="font-size: 30px;"> Location:</strong></td>
+	        			</tr>
+	         		<tr>
+	        			<td align="right"><strong style="font-size: 30px;"> City:</strong></td>
+	        			<td><input type="text"  v-model="sportBuilding.location.address.city" style="font-size: 25px;width: 342px;" name="city" v-on:change = "validateCity"></input></td>
+	        		</tr>
+	        		<tr>
+	        			<td align="right"><strong style="font-size: 30px;">		Street:</strong></td>
+	        			<td><input type="text" v-model="sportBuilding.location.address.street" style="font-size: 25px;width: 342px;" name="street" v-on:change = "validateStreet"></input></td>
+	        		</tr>
+	        		<tr>
+	        			<td align="right"><strong style="font-size: 30px;">		Number:</strong></td>
+	        			<td><input type="text" v-model="sportBuilding.location.address.number" style="font-size: 25px;width: 342px;"  name="number" v-on:change = "validateNumber"></input></td>
+	        		</tr>
+	        		<tr>
+	        			<td align="right"><strong style="font-size: 30px;">		Zip Code:</strong></td>
+	        			<td><input type="text" v-model="sportBuilding.location.address.zipCode" style="font-size: 25px;width: 342px;"  name="zipcode" v-on:change = "validateZipCode"></input></td>
+	        		</tr>
+	        		<tr>
+			        	<td align="left"><strong  style="font-size: 30px;">Type:</strong></td>
 			            <td>
-				             <select style="font-size: 25px; width: 350px;">
+				             <select v-model="sportBuilding.type" style="font-size: 25px; width: 350px;">
 				            	<option value="Gym">Gym</option>
 				            	<option value="Pool">Pool</option>
 				            	<option value="sportCenter">SportCenter</option>
@@ -38,23 +60,29 @@ Vue.component("createSportBuilding", {
 			        </tr>
 	        		<tr>
 						<td align="left"><strong style="font-size: 30px;">URL of logo image:</strong></td>
-						<td><input type="text" v-model="sportBuilding.logo" style="font-size: 25px;width: 342px;" name="surname"></input></td>
+						<td><input type="text" v-model="sportBuilding.image" style="font-size: 25px;width: 342px;" v-on:change = "urlCheck" name="url"></input></td>
 					</tr>
 			        <tr>
 			        	<td align="left"><strong style="font-size: 30px;">Manager:</strong></td>
 			            <td>
-				            <select name="sportB" id="sportB" v-model="sportBuilding.manager" style="font-size: 25px; width: 350px;">
+				            <select name="sportB" id="sportB" v-model="sportBuilding.manager" v-on:change = "selectedManager" style="font-size: 25px; width: 350px;">
 				            	<option v-for="(object, index) in this.allManagers">{{object.username}}</option>
 				            </select>
 			            </td>
 			        </tr>
 			        <tr style="height:70px">
 			        	<td colspan="2">
-				        	<button v-on:click="addCustomer()" :disabled="cantSubmit" style="font-size: 25px; width: 42%;margin: 0px 10px;"> Submit </button> 
-				        	<button v-on:click="ShowLoginForm()"style="font-size: 25px; width: 42%; margin: 0px 10px;">Back main page</button>
+				        	<button v-on:click="Submit()" :disabled="cantAllSubmit" style="font-size: 25px; width: 42%;margin: 0px 10px;"> Submit </button> 
 			        	</td>
 			        </tr>
 	    		</table>
+	<p style="font-size:20px;" v-show=nameNotValid>You should enter valid name(first letter uppercase without numbers)</p>
+    <p align="left" style="font-size:20px;" v-show=cityNotValid>You should enter valid city(first letter uppercase without numbers)</p>
+    <p style="font-size:20px;" v-show=streetNotValid>You should enter valid street(first letter uppercase without numbers)</p>
+    <p style="font-size:20px;" v-show=numberNotValid>You should enter valid number(no special characters)</p>
+    <p style="font-size:20px;" v-show=zipCodeNotValid>You should enter valid zipCode(numbers only)</p>
+    <p style="font-size:20px;" v-show=urlNotValid>Please enter url for logo!</p>
+    <p style="font-size:20px;" v-show=notSelectedManager>Please select manager!</p>
 	    	</td>
 			<td>
 				<div style="text-align:center;">
@@ -109,7 +137,7 @@ Vue.component("createSportBuilding", {
     <p :style="{visibility: regMan ? 'visible' : 'hidden'}" style="font-size:20px;" v-show=nameNotValid>You should enter valid name(first letter uppercase without numbers)</p>
     <p :style="{visibility: regMan ? 'visible' : 'hidden'}" style="font-size:20px;" v-show=surnameNotValid>You should enter valid surname(first letter uppercase without numbers)</p>
 	<div style="text-align:left;">
-	<p style="font-size:20px;" v-show=nameNotValid>You should enter valid name(first letter uppercase without numbers)</p>
+	
 	</div>
 </div>
 `
@@ -121,6 +149,32 @@ Vue.component("createSportBuilding", {
 				this.cantSubmit = false;
 			}
 			else this.cantSubmit = true;
+		},
+		checkCanSubmit: function() {
+			if(this.regMan & this.cantSubmit) {
+				this.cantAllSubmit = true;
+				return;
+			}
+			if(!this.cityNotValid & !this.streetNotValid & !this.numberNotValid & !this.zipCodeNotValid & !this.urlNotValid & (this.sportBuilding.manager != null))
+				this.cantAllSubmit = false;
+			else this.cantAllSubmit = true;
+		},
+		urlCheck :function() {
+			let name = document.getElementsByName('url')[0].value;
+			name = name + "e";
+			if(!(name === "e"))
+			{
+				this.urlNotValid = false;
+			}
+			else
+			{
+				this.urlNotValid = true;
+			}
+			this.checkCanSubmit();
+		},
+		selectedManager :function() {
+			this.notSelectedManager = false;
+			this.checkCanSubmit();
 		},
 		validateName: function(){
 			const regex = new RegExp('^[A-Z.-]+(\s*[A-Za-z.-]+)*$');
@@ -134,7 +188,63 @@ Vue.component("createSportBuilding", {
 			{
 				this.nameNotValid = true;
 			}
-			this.checkCanConfirm();
+			this.checkCanSubmit();
+		},
+		validateCity : function() {
+			const regex = new RegExp('^[A-Z.-]+(\s*[A-Za-z.-]+)*$');
+			let name = document.getElementsByName('city')[0].value;
+			name = name + "e";
+			if(regex.test(name) & !(name === "e"))
+			{
+				this.cityNotValid = false;
+			}
+			else
+			{
+				this.cityNotValid = true;
+			}
+			this.checkCanSubmit();
+		},
+		validateStreet : function() {
+			const regex = new RegExp('^[A-Z.-]+(\ *\s*[A-Za-z.-]+)*$');
+			let name = document.getElementsByName('street')[0].value;
+			name = name + "e";
+			if(regex.test(name) & !(name === "e"))
+			{
+				this.streetNotValid = false;
+			}
+			else
+			{
+				this.streetNotValid = true;
+			}
+			this.checkCanSubmit();
+		},
+		validateNumber : function() {
+			const regex = new RegExp('^(\s*[A-Za-z0-9.-]+)*$');
+			let name = document.getElementsByName('number')[0].value;
+			name = name + "e";
+			if(regex.test(name) & !(name === "e"))
+			{
+				this.numberNotValid = false;
+			}
+			else
+			{
+				this.numberNotValid = true;
+			}
+			this.checkCanSubmit();
+		},
+		validateZipCode : function () {
+			const regex = new RegExp("^\\d+$");
+			let name = document.getElementsByName('zipcode')[0].value;
+			name = name + "0";
+			if(regex.test(name) & !(name === "0"))
+			{
+				this.zipCodeNotValid = false;
+			}
+			else
+			{
+				this.zipCodeNotValid = true;
+			}
+			this.checkCanSubmit();
 		},
 		ShowLoginForm : function () {
 			router.push(`/`);
@@ -162,7 +272,10 @@ Vue.component("createSportBuilding", {
 			{
 				this.usernameNotValid = true;
 			}
+			if(regMan)
 			this.checkCanConfirm();
+			else this.cantSubmit = false;
+			this.checkCanSubmit();
 		},
 		validatePassword: function(){
 			let password = document.getElementsByName('password')[0].value;
@@ -175,7 +288,10 @@ Vue.component("createSportBuilding", {
 			{
 				this.passwordNotValid = true;
 			}
+			if(regMan)
 			this.checkCanConfirm();
+			else this.cantSubmit = false;
+			this.checkCanSubmit();
 		},
 		validateManName: function(){
 			const regex = new RegExp('^[A-Z.-]+(\s*[A-Za-z.-]+)*$');
@@ -189,7 +305,10 @@ Vue.component("createSportBuilding", {
 			{
 				this.nameNotValid = true;
 			}
+			if(regMan)
 			this.checkCanConfirm();
+			else this.cantSubmit = false;
+			this.checkCanSubmit();
 		},
 		validateSurname: function(){
 			const regex = new RegExp('^[A-Z.-]+(\s*[A-Za-z.-]+)*$');
@@ -203,8 +322,24 @@ Vue.component("createSportBuilding", {
 			{
 				this.surnameNotValid = true;
 			}
+			if(regMan)
 			this.checkCanConfirm();
+			else this.cantSubmit = false;
+			this.checkCanSubmit();
 		},
+		end: function(data) {
+			if(data == "success")
+			{
+				alert("Sport building created");
+				router.push('/');
+			}
+			else alert(data);	
+			},
+		Submit : function() {
+			axios 
+				.post('sportBuilding/add',this.sportBuilding)
+				.then(response => (this.end(response.data)));
+		}
 	},
 	mounted () {
 		//this.user.birthDate = new Date(Date.now()).toISOString().split('T')[0]
