@@ -30,6 +30,8 @@ public class Main {
 		new WorkoutController();
 		
 		CustomerController.addCustomer();
+		CustomerController.GetAllCustomers();
+		
 		UserController.Login();
 		UserController.GetLoggedUser();
 		UserController.IsUserLogged();
@@ -44,8 +46,6 @@ public class Main {
 		SportBuildingController.GetSportBuilding();
 		SportBuildingController.addSportBuilding();
 		
-		CustomerController.GetAllCustomers();
-		
 		ManagerController.GetAllManagers();
 		ManagerController.addManager();
 		ManagerController.CheckSportBuilding();
@@ -57,6 +57,10 @@ public class Main {
 		AdminController.GetAllAdmins();
 		
 		WorkoutController.AddWorkout();
+		WorkoutController.ChangeWorkout();
+		WorkoutController.GetWorkoutsByManager();
+		WorkoutController.GetWorkoutByName();
+		WorkoutController.InvalidateChangingWorkout();
 	}
 
 }

@@ -1,10 +1,10 @@
-Vue.component("createContent", {
+Vue.component("changeContent", {
 	data: function () {
 		    return {
-		      workout: {name:null,type:"Personal",image:"",coachUsername:null,duration:"",description:""},
-		      cantSubmit: true,
-		      nameNotValid: true,
-		      imageNotValid: true,
+		      workout: {name:"",type:"Personal",image:"",coachUsername:"",duration:"",description:""},
+		      cantSubmit: false,
+		      nameNotValid: false,
+		      imageNotValid: false,
 		      isWorkout: true,
 		      coaches:[]
 		    }
@@ -61,7 +61,7 @@ Vue.component("createContent", {
 	        <tr style="height:70px;margin-top:50px;margin-left:50px;">
 	        	<td colspan="3">
 		        	<button v-on:click="addWorkout()" :disabled="cantSubmit" style="font-size: 25px; width: 30%;margin: 0px 10px;"> Submit </button> 
-		        	<button v-on:click="back()"style="font-size: 25px; width: 30%; margin: 0px 10px;">Back main page</button>
+		        	<button v-on:click="back()"style="font-size: 25px; width: 30%; margin: 0px 10px;">Back</button>
 	        	</td>
         	</tr>
     </table>
@@ -81,7 +81,7 @@ Vue.component("createContent", {
 			else this.cantSubmit = true;
 		},
 		back : function () {
-			router.push(`/`);
+			router.push(`/manager/showContents`);
 		},
 		addWorkout : function () {
 			if(this.workout.duration == ""){
@@ -91,12 +91,16 @@ Vue.component("createContent", {
 				this.workout.description = "none";
 			}
 				axios
-		      .post('workout/add',this.workout)
-		      .then(response => (this.afterAdding(response.data)));
+		      .put('workout/change',this.workout)
+		      .then(response => (this.afterChanging(response.data)));
 		},
-		afterAdding : function (data) {
-			this.workout.description = "";
-			alert(data);
+		afterChanging : function (data) {
+			if(data == "Success"){
+			alert("Workout updated successfuly!");
+			router.push(`/manager/showContents`);	
+			} else {
+				alert(data);
+			}
 		},
 		validateName: function(){
 			let name = document.getElementsByName('name')[0].value;
@@ -112,9 +116,9 @@ Vue.component("createContent", {
 			this.checkCanConfirm();
 		},
 		validateImage: function(){
-			let name = document.getElementsByName('image')[0].value;
-			name = name + "e";
-			if(name === "e")
+			let image = document.getElementsByName('image')[0].value;
+			image = image + "e";
+			if(image === "e")
 			{
 				this.imageNotValid = true;
 			}
@@ -136,12 +140,24 @@ Vue.component("createContent", {
 		},
 		initCoaches : function (data) {
 		    this.coaches = data;
-		    this.workout.coachUsername = this.coaches[0].username;
+		},
+		initWorkout : function (data) {
+		    this.workout = data;
+		    if(this.workout.description == "none"){
+				this.workout.description = ""
+			}
+			if(this.workout.duration == "nedefinisano vreme"){
+				this.workout.duration = "";
+			}
+		    this.CheckType();
 		}
 	},
 	mounted () {
 		axios
   		.get('coach/getAll')
   		.then(response => (this.initCoaches(response.data)));
+  		axios
+  		.get('workout/getByName',{params: {ContentName: '' + this.$route.query.ContentName}})
+  		.then(response => (this.initWorkout(response.data)));
     }
 });

@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
@@ -19,17 +21,39 @@ public class WorkoutFileStorage {
 	public WorkoutFileStorage() {
 	}
 	
-	public Boolean isUniqueName(String name) {
+	public Boolean IsUniqueName(String name) {
 		workouts = readWorkouts();
 		if(workouts.get(name) == null) return true;
 		return false;
 	}
 	
-	public String addWorkout(Workout workout) {
+	public String AddWorkout(Workout workout) {
 		workouts = readWorkouts();
 		workouts.put(workout.getName(),workout);
 		writeWorkouts();
 		return "Workout registered successfuly!";
+	}
+	public String ChangeWorkout(Workout workout,String oldWorkoutName) {
+		workouts = readWorkouts();
+		workouts.remove(oldWorkoutName);
+		workouts.put(workout.getName(),workout);
+		writeWorkouts();
+		return "Success";
+	}
+	
+	public Workout GetWorkoutsByName(String workoutName) {
+		return readWorkouts().get(workoutName);
+	}
+	
+	public Collection<Workout> GetWorkoutsBySportBuilding(String sportBuilding) {
+		workouts = readWorkouts();
+		Collection<Workout> workoutsByManager = new HashSet<Workout>();
+		for(Workout workout : workouts.values()) {
+			if(workout.getSportBuildingName().equals(sportBuilding)) {
+				workoutsByManager.add(workout);
+			}
+		}
+		return workoutsByManager;
 	}
 	
 	public boolean writeWorkouts() 

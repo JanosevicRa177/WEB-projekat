@@ -31,8 +31,7 @@ Vue.component("showbar", {
 				  </span>
 				  <span v-if="isManager" class="topnavbar">
 				  <button v-on:click="createContent">Add new content</button>
-				  <button>Change sport object content</button>
-				  <button>Show all trainings</button>
+				  <button v-on:click="showManagersContents">Show all contents</button>
 				  <button>Check customer tranining</button>
 				  </span>
 				  <span v-if="isCustomer" class="topnavbar">
@@ -65,15 +64,27 @@ Vue.component("showbar", {
 		createSportBuilding : function () {
 			router.push('/createSportBuilding');
 		},
+		showManagersContents : function () {
+		      axios
+		      .get('manager/checkSportBuilding')
+		      .then(response => (this.CheckManagerValidityforShow(response.data)));
+		},
 		createContent : function () {
 		      axios
 		      .get('manager/checkSportBuilding')
-		      .then(response => (this.CheckManagerValidity(response.data)));
+		      .then(response => (this.CheckManagerValidityforCreate(response.data)));
 		},
-		CheckManagerValidity : function (data) {
+		CheckManagerValidityforCreate : function (data) {
 			if(data == "True") 
 			{
 				router.push('/createContent');
+			}
+			else alert("You have no sport building signed for you!");
+		},
+		CheckManagerValidityforShow : function (data) {
+			if(data == "True") 
+			{
+				router.push('/manager/showContents');
 			}
 			else alert("You have no sport building signed for you!");
 		},
