@@ -1,7 +1,7 @@
 Vue.component("createContent", {
 	data: function () {
 		    return {
-		      workout: {name:null,type:"Personal",image:"",coachUsername:null,duration:"",description:""},
+		      workout: {name:null,type:"Personal",image:"",coachUsername:null,duration:"",description:"",price:""},
 		      cantSubmit: true,
 		      nameNotValid: true,
 		      imageNotValid: true,
@@ -16,10 +16,10 @@ Vue.component("createContent", {
 	        <tr>
 	            <td align="left"><strong style="font-size: 30px;">Content name:</strong></td>
 	            <td><input type="text" v-model="workout.name" style="font-size: 25px;width: 342px;" v-on:change = "validateName" name="name"></input></td>
-	            <td rowspan="5">
+	            <td rowspan="6">
 	            	<table style="margin-left:100px;">
            				<tr align="center"><p style="font-size:20px;">Image preview</p></tr>
-	        			<tr align="center" style="width:150px;"><img :src="workout.image" style="width:125px; height:125px;"></tr>
+	        			<tr align="center" style="width:200px;"><img :src="workout.image" style="width:150px; height:150px;"></tr>
 	            	</table>
 	            </td>
 	        </tr>
@@ -52,6 +52,10 @@ Vue.component("createContent", {
 	        <tr>
 		        <td align="left"><strong style="font-size: 30px;">Duration (minutes):</strong></td>
 		        <td><input type="number" v-model="workout.duration" style="font-size: 25px;width: 342px;" name="duration"></input></td>
+	        </tr>
+	        <tr>
+		        <td align="left"><strong style="font-size: 30px;">Price:</strong></td>
+		        <td><input type="number" v-model="workout.price" style="font-size: 25px;width: 342px;" name="duration"></input></td>
 	        </tr>
         	<tr>
 	        	<td colspan="3">
@@ -89,6 +93,9 @@ Vue.component("createContent", {
 			}
 			if(this.workout.description == ""){
 				this.workout.description = "none";
+			}
+			if(this.workout.price == ""){
+				this.workout.price = "0";
 			}
 				axios
 		      .post('workout/add',this.workout)
