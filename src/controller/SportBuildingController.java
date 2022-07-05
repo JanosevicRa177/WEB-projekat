@@ -6,7 +6,6 @@ import static spark.Spark.post;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import model.Customer;
 import model.SportBuilding;
 import services.SportBuildingService;
 
