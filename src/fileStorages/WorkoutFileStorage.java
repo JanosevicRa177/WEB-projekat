@@ -73,13 +73,15 @@ public class WorkoutFileStorage {
 				outputString += workout.getDescription() + ";";
 				outputString += workout.getDuration() + ";";
 				if(workout.getType() == WorkoutType.Group)
-				outputString += "Group" + ";";
+					outputString += "Group" + ";";
 				else if(workout.getType() == WorkoutType.Gym)
-				outputString += "Gym" + ";";
+					outputString += "Gym" + ";";
 				else if(workout.getType() == WorkoutType.Personal)
-				outputString += "Personal" + ";";
+					outputString += "Personal" + ";";
 				else
-				outputString += "Sauna" + ";";
+					outputString += "Sauna" + ";";
+				outputString += workout.getPrice() + ";";
+				
 				output.println(outputString);
 			}
 			output.close();
@@ -95,7 +97,7 @@ public class WorkoutFileStorage {
 		try {
 			File file = new File("workouts.txt");
 			in = new BufferedReader(new FileReader(file));
-			String line, name = "", type = "", sportBuildingName = "",duration = "",coachUsername = "", description = "", image = "";
+			String line, name = "", type = "", sportBuildingName = "",duration = "",coachUsername = "", description = "", image = "", price = "";
 			StringTokenizer st;
 			try {
 				while ((line = in.readLine()) != null) {
@@ -111,13 +113,14 @@ public class WorkoutFileStorage {
 						description = st.nextToken().trim();
 						duration = st.nextToken().trim();
 						type = st.nextToken().trim();
+						price = st.nextToken().trim();
 					}
 					WorkoutType workoutType;
 					if(type.equals("Group")) workoutType = WorkoutType.Group;
 					else if(type.equals("Gym")) workoutType = WorkoutType.Gym;
 					else if(type.equals("Personal")) workoutType = WorkoutType.Personal;
 					else workoutType = WorkoutType.Sauna;
-					Workout workout = new Workout(name, workoutType, sportBuildingName, duration, coachUsername, description, image);
+					Workout workout = new Workout(name, workoutType, sportBuildingName, duration, coachUsername, description, image,Integer.parseInt(price));
 					workoutsInner.put(workout.getName(),workout);
 				}
 			} catch (Exception ex) {

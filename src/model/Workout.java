@@ -9,14 +9,22 @@ public class Workout {
 	private String coachUsername;
 	private String description;
 	private String image;
+	private int price;
 	
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
 	public Workout() {
 		super();
 	}
 	public Workout(String name, WorkoutType type, String sportBuildingName, String duration, String coachUsername,
-			String description, String image) {
+			String description, String image,int price) {
 		super();
 		this.name = name;
+		this.price = price;
 		this.type = type;
 		this.sportBuildingName = sportBuildingName;
 		this.duration = duration;
