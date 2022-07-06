@@ -1,1 +1,7 @@
-DW;ime3;Ivo;https://im.ge/i/uwUwQr;asdasd;20;Group;60;
+Grupa xd;ime3;xd;http://bodytechtotalfitness.com/wp-content/uploads/2018/06/Body-Tech-strong-team-training.jpg;xdxdxd;30;Group;150;
+Makro sauna;ime3;None;https://www.fluidra.com/projects//web/app/uploads/2021/07/20-experiencia-wellness.jpg;temperatura vode do 80 stepeni;15;Sauna;1000;
+Masaza u sauni;ime1;None;https://www.fluidra.com/projects//web/app/uploads/2021/07/20-experiencia-wellness.jpg;none;20;Sauna;1500;
+Slobodni trening;ime3;None;https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/man-lifting-dumbells-at-cross-training-gym-royalty-free-image-1625601682.jpg;none;nedefinisano vreme;Gym;0;
+Trening uvece kod ive;ime1;asdasd123;http://www.spookynooksports.com/hubfs/group-exercise.jpg;dok ne umrete;nedefinisano vreme;Group;100;
+Vezbe kod ive;ime3;Iva;https://images.theconversation.com/files/440416/original/file-20220112-17-kouwik.jpg?ixlib=rb-1.1.0&rect=8%2C0%2C5742%2C3837&q=45&auto=format&w=926&fit=clip;vezbe 30 min pauza 30 min;60;Personal;200;
+Vezbe kod jove;ime3;Jovo;https://www.muscleandfitness.com/wp-content/uploads/2018/11/Group-Fitness-Class-Performing-A-Variety-Of-Exercises-1.jpg?quality=86&strip=all;vezbe 30 min pauza 30 min;60;Group;120;

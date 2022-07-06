@@ -2,7 +2,6 @@ package controller;
 
 import static spark.Spark.get;
 import static spark.Spark.post;
-import static spark.Spark.get;
 import static spark.Spark.delete;
 import static spark.Spark.put;
 
@@ -113,6 +112,32 @@ public class WorkoutController {
 				return "You are not Manager!";
 			String sportBuilding = sportBuildingService.GetSportBuildingNameByManager(user.getUsername());
 			return gson.toJson(workoutService.GetWorkoutsBySportBuilding(sportBuilding));
+		});
+	}
+	
+	public static void GetWorkoutsByCoach() {
+		get("/workout/getAllByCoach",(req, res) -> {
+			res.type("application/json");
+			Session ss = req.session(true);
+			User user = ss.attribute("user");
+			if(user == null)
+				return "You are not logged in!";
+			if(user.getUserType() != UserType.Coach)
+				return "You are not Coach!";
+			return gson.toJson(workoutService.GetWorkoutsByCoach(user.getUsername()));
+		});
+	}
+	
+	public static void GetWorkoutsByCustomer() {
+		get("/workout/getAllByCustomer",(req, res) -> {
+			res.type("application/json");
+			Session ss = req.session(true);
+			User user = ss.attribute("user");
+			if(user == null)
+				return "You are not logged in!";
+			if(user.getUserType() != UserType.Customer)
+				return "You are not Customer!";
+			return gson.toJson(workoutService.GetPersonalWorkouts());
 		});
 	}
 	

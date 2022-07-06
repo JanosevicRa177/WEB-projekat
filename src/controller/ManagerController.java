@@ -11,14 +11,24 @@ import com.google.gson.GsonBuilder;
 import enums.UserType;
 import model.Manager;
 import model.User;
+import services.AdminService;
+import services.CoachService;
+import services.CustomerService;
 import services.ManagerService;
 import spark.Session;
 
 public class ManagerController {
 	public static Gson gson;
+	private static CoachService coachService;
+	private static CustomerService customerService;
 	private static ManagerService managerService;
+	private static AdminService adminService;
+	
 	public ManagerController() {
+		coachService = new CoachService();
+		customerService = new CustomerService();
 		managerService = new ManagerService();
+		adminService = new AdminService();
 		gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 	}
 	public static void getManager() {
@@ -49,8 +59,8 @@ public class ManagerController {
 			Manager manager = gson.fromJson(req.body(), Manager.class);
 			if(!manager.getName().matches("^[A-Z.-]+(\\s*[A-Za-z.-]+)*$") || !manager.getSurname().matches("^[A-Z.-]+(\\s*[A-Za-z.-]+)*$"))
 				return "Name and surname should start with uppercase without numbers";
-			if(!managerService.isUniqueUsername(manager.getUsername()) || !managerService.isUniqueUsername(manager.getUsername())
-					|| !managerService.isUniqueUsername(manager.getUsername()) || !managerService.isUniqueUsername(manager.getUsername()))
+			if(!coachService.isUniqueUsername(manager.getUsername()) || !adminService.isUniqueUsername(manager.getUsername())
+					|| !managerService.isUniqueUsername(manager.getUsername()) || !customerService.isUniqueUsername(manager.getUsername()))
 				return "Username is not unique";
 			return managerService.addManager(manager);
 		});

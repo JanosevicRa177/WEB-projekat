@@ -18,14 +18,14 @@ Vue.component("adminShowRegisterUsers", {
 		    }
 	},
 	template: ` 
-<div style="text-align:center;">
+<div style="text-align:center;margin-top:-35px;">
     <table style="margin-left:auto;margin-right:auto;">
 	    <tr>
 	    	<td style="font-size: 65px;padding: 40px 0px;">Users</td>
 	    </tr>
 	    <tr rowspan= "2">
 	    	<td>
-	    		<table style="text-align:center;padding: 0px 30px;">
+	    		<table style="text-align:center;padding: 0px 30px;margin-top:-60px;">
 					<tr colspan ="2"><p style="font-size: 20px;"></p></tr>
 					<tr style="font-size: 40px;"><td colspan ="2">Search/Filter</td></tr>
 					<tr style="font-size: 20px;"><td colspan ="2">================================</td></tr>
@@ -67,7 +67,7 @@ Vue.component("adminShowRegisterUsers", {
 	    	</td>
 	    	<td colspan ="3">
 	    		<p style="font-size:45px;"></p>
-	    		<table border="3" style="margin-left:auto;margin-right:auto;width:1072px;display:block;font-size:25px;">
+	    		<table border="3" style="margin-left:auto;margin-right:auto;width:1072px;display:block;font-size:25px;margin-top:-60px;">
 	    			<thead style="width: 100%;height: 56px; display: inline-block;margin-right:40px;">
 			    		<tr bgcolor="grey" style="width:100%;font-size: 20px;">
 			    			<th style="max-width:140px;min-width:140px;cursor: pointer;" v-on:click="sortByName">Name &#x2191&#x2193</th>

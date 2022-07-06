@@ -9,14 +9,23 @@ import com.google.gson.GsonBuilder;
 import enums.UserType;
 import model.Coach;
 import model.User;
+import services.AdminService;
 import services.CoachService;
+import services.CustomerService;
+import services.ManagerService;
 import spark.Session;
 
 public class CoachController {
 	public static Gson gson;
 	private static CoachService coachService;
+	private static CustomerService customerService;
+	private static ManagerService managerService;
+	private static AdminService adminService;
 	public CoachController() {
 		coachService = new CoachService();
+		customerService = new CustomerService();
+		managerService = new ManagerService();
+		adminService = new AdminService();
 		gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 	}
 	
@@ -33,8 +42,8 @@ public class CoachController {
 			Coach coach = gson.fromJson(req.body(), Coach.class);
 			if(!coach.getName().matches("^[A-Z.-]+(\\s*[A-Za-z.-]+)*$") || !coach.getSurname().matches("^[A-Z.-]+(\\s*[A-Za-z.-]+)*$"))
 				return "Name and surname should start with uppercase without numbers";
-			if(!coachService.isUniqueUsername(coach.getUsername()) || !coachService.isUniqueUsername(coach.getUsername())
-					|| !coachService.isUniqueUsername(coach.getUsername()) || !coachService.isUniqueUsername(coach.getUsername()))
+			if(!coachService.isUniqueUsername(coach.getUsername()) || !adminService.isUniqueUsername(coach.getUsername())
+					|| !managerService.isUniqueUsername(coach.getUsername()) || !customerService.isUniqueUsername(coach.getUsername()))
 				return "Username is not unique";
 			return coachService.addCoach(coach);
 		});

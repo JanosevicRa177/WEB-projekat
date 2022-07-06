@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import fileStorages.CoachFileStorage;
-import java.util.Collection;
 
 import fileStorages.WorkoutFileStorage;
 import model.Coach;
@@ -38,11 +37,21 @@ public class WorkoutService {
 	public String addWorkout(Workout workout) {
 		return workoutFileStorage.AddWorkout(workout);
 	}
+	
 	public String ChangeWorkout(Workout workout,String oldWorkoutName) {
 		return workoutFileStorage.ChangeWorkout(workout, oldWorkoutName);
 	}
+	
 	public Collection<Workout> GetWorkoutsBySportBuilding(String sportBuilding) {
 		return workoutFileStorage.GetWorkoutsBySportBuilding(sportBuilding);
+	}
+	
+	public Collection<Workout> GetWorkoutsByCoach(String coach) {
+		return workoutFileStorage.GetWorkoutsByCoach(coach);
+	}
+	
+	public Collection<Workout> GetPersonalWorkouts() {
+		return workoutFileStorage.GetPersonalWorkouts();
 	}
 	public Workout GetWorkoutsByName(String workoutName) {
 		return workoutFileStorage.GetWorkoutsByName(workoutName);

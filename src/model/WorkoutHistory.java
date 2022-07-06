@@ -1,54 +1,73 @@
 package model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class WorkoutHistory {
-	private LocalDate checkinDate;
-	private Workout workout;
-	private Customer customer;
-	private Coach coach;
+	private Date checkinDate;
+	private int hours;
+	private String workout;
+	private String customer;
+	private String coach;
+	private int id;
 	
 	public WorkoutHistory() {
 		super();
 	}
 
-	public WorkoutHistory(LocalDate checkinDate, Workout workout, Customer customer, Coach coach) {
+	public WorkoutHistory(Date checkinDate, String workout, String customer, String coach,int id,int hours) {
 		super();
+		this.hours = hours;
 		this.checkinDate = checkinDate;
 		this.workout = workout;
 		this.customer = customer;
 		this.coach = coach;
+		this.id = id;
 	}
 
-	public LocalDate getCheckinDate() {
+	public int getHours() {
+		return hours;
+	}
+
+	public void setHours(int hours) {
+		this.hours = hours;
+	}
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Date getCheckinDate() {
 		return checkinDate;
 	}
 
-	public void setCheckinDate(LocalDate checkinDate) {
+	public void setCheckinDate(Date checkinDate) {
 		this.checkinDate = checkinDate;
 	}
 
-	public Workout getWorkout() {
+	public String getWorkout() {
 		return workout;
 	}
 
-	public void setWorkout(Workout workout) {
+	public void setWorkout(String workout) {
 		this.workout = workout;
 	}
 
-	public Customer getCustomer() {
+	public String getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(Customer customer) {
+	public void setCustomer(String customer) {
 		this.customer = customer;
 	}
 
-	public Coach getCoach() {
+	public String getCoach() {
 		return coach;
 	}
 
-	public void setCoach(Coach coach) {
+	public void setCoach(String coach) {
 		this.coach = coach;
 	}
 	
