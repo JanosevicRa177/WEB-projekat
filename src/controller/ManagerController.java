@@ -28,6 +28,15 @@ public class ManagerController {
 		});
 	}
 	
+	public static void getManagersSportBuilding() {
+		get("manager/getManagersSportBuilding", (req, res) -> {
+			res.type("application/json");
+			Session ss = req.session(true);
+			User user = ss.attribute("user");
+			return managerService.getManager(user.getUsername()).getSportBuilding();
+		});
+	}
+	
 	public static void addManager() {
 		post("manager/add",(req, res) -> {
 			res.type("application/json");
@@ -53,10 +62,10 @@ public class ManagerController {
 			User user = ss.attribute("user");
 			if(user.getUserType() == UserType.Admin) {
 				Collection<Manager> cMan = managerService.GetAllManagers();
-				if(cMan.size() == 0) return null;
+				if(cMan.size() == 0) return gson.toJson(null);
 				return gson.toJson(managerService.GetAllManagers());
 			}
-			else return null;
+			else return gson.toJson(null);
 		});
 	}
 	

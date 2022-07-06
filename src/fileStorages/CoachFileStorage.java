@@ -30,6 +30,10 @@ public class CoachFileStorage {
 		return false;
 	}
 	
+	public Coach getCoach(String username) {
+		return this.readCoaches().get(username);
+	}
+	
 	public String addCoach(Coach coach) {
 		coaches = readCoaches();
 		coaches.put(coach.getUsername(),coach);

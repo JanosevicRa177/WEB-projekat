@@ -54,7 +54,7 @@ public class CustomerController {
 			User user = ss.attribute("user");
 			if(user.getUserType() == UserType.Admin)
 				return gson.toJson(customerService.GetAllCustomers());
-			else return null;
+			else return gson.toJson(null);
 		});
 	}
 	

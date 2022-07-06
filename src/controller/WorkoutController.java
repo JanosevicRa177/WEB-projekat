@@ -1,5 +1,6 @@
 package controller;
 
+import static spark.Spark.get;
 import static spark.Spark.post;
 
 import com.google.gson.Gson;
@@ -10,6 +11,7 @@ import enums.WorkoutType;
 import model.User;
 import model.Workout;
 import services.CoachService;
+import services.ManagerService;
 import services.SportBuildingService;
 import services.WorkoutService;
 import spark.Session;
@@ -19,12 +21,24 @@ public class WorkoutController {
 	private static WorkoutService workoutService;
 	private static CoachService coachService;
 	private static SportBuildingService sportBuildingService;
+	private static ManagerService managerService;
 	
 	public WorkoutController() {
 		workoutService = new WorkoutService();
 		coachService = new CoachService();
 		sportBuildingService = new SportBuildingService();
+		managerService = new ManagerService();
 		gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+	}
+	
+	public static void getCoachesforSportBuilding() {
+		get("workout/getCoaches",(req, res) -> {
+			res.type("application/json");
+			Session ss = req.session(true);
+			User user = ss.attribute("user");
+			String spB = managerService.getManager(user.getUsername()).getSportBuilding();
+			return gson.toJson(workoutService.getAllCoachesForSportBuilding(spB));
+		});
 	}
 	
 	public static void AddWorkout() {

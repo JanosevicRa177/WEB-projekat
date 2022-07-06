@@ -47,6 +47,7 @@ public class Main {
 		CustomerController.GetAllCustomers();
 		
 		ManagerController.GetAllManagers();
+		ManagerController.getManagersSportBuilding();
 		ManagerController.addManager();
 		ManagerController.CheckSportBuilding();
 		ManagerController.getAllNoSportBuilding();
@@ -57,6 +58,7 @@ public class Main {
 		AdminController.GetAllAdmins();
 		
 		WorkoutController.AddWorkout();
+		WorkoutController.getCoachesforSportBuilding();
 	}
 
 }

@@ -34,6 +34,7 @@ Vue.component("showbar", {
 				  <button>Change sport object content</button>
 				  <button>Show all trainings</button>
 				  <button>Check customer tranining</button>
+				  <button v-on:click="showSportBuilding">Your sport building</button>
 				  </span>
 				  <span v-if="isCustomer" class="topnavbar">
 				  <button>Show my trainings</button>
@@ -61,6 +62,9 @@ Vue.component("showbar", {
 			else if(data == "Manager") this.isManager = true;
 			else if(data == "Coach") this.isCoach = true;
 			else if(data == "Customer") this.isCustomer = true;
+		},
+		showSportBuilding : function() {
+			router.push('/managersSportBuilding');
 		},
 		createSportBuilding : function () {
 			router.push('/createSportBuilding');

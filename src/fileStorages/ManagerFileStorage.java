@@ -37,6 +37,10 @@ public class ManagerFileStorage {
 		return "Manager registered successfuly!";
 	}
 	
+	public Manager getManager(String username) {
+		return this.readManagers().get(username);
+	}
+	
 	public void setSportBuilding(String manager,String sportBuilding) {
 		managers = readManagers();
 		managers.get(manager).setSportBuilding(sportBuilding);

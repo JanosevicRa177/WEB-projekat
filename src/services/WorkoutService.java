@@ -1,17 +1,36 @@
 package services;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import fileStorages.CoachFileStorage;
 import fileStorages.WorkoutFileStorage;
+import model.Coach;
 import model.Workout;
 
 public class WorkoutService {
 	private static WorkoutFileStorage workoutFileStorage;
+	private static CoachFileStorage coachFileStorage;
 	
 	public WorkoutService() {
 		workoutFileStorage = new WorkoutFileStorage();
+		coachFileStorage = new CoachFileStorage();
 	}
 	
 	public Boolean IsUniqueName(String name) {
 		return workoutFileStorage.isUniqueName(name);
+	}
+	
+	public Collection<Coach> getAllCoachesForSportBuilding(String sportBuilding){
+		Collection<Coach> coaches = new  ArrayList<Coach>();
+		for(Workout work : workoutFileStorage.readWorkouts().values()) {
+			if(work.getSportBuildingName().equals(sportBuilding)) {
+				Coach coach = coachFileStorage.readCoaches().get(work.getCoachUsername());
+				if(!coaches.contains(coach)) 
+					coaches.add(coach);
+			}
+		}
+		return coaches;
 	}
 	
 	public String addWorkout(Workout workout) {

@@ -8,6 +8,7 @@ const BarShow = { template: '<showbar></showbar>' }
 const ShowSportBuilding = { template: '<showBuilding></showBuilding>' }
 const CreateSportBuilding = { template: '<createSportBuilding></createSportBuilding>'}
 const CreateSportBuildingContent = { template: '<createContent></createContent>'}
+const ManagersSportBuilding = { template: '<managersSportBuilding></managersSportBuilding>'}
 
 const router = new VueRouter({
 	  mode: 'hash',	
@@ -18,6 +19,12 @@ const router = new VueRouter({
 			Bar: BarShow
 			}
 		},
+		{ path: '/managersSportBuilding',
+	    components: {
+			default: ManagersSportBuilding,
+			Bar: BarShow
+		    }
+	    },
 		{ path: '/createSportBuilding',
 	    components: {
 			default: CreateSportBuilding,
@@ -103,7 +110,7 @@ router.beforeEach((to,from,next) => {
 					}
             });
 	}
-        else if(to.path == '/createContent'){
+        else if(to.path == '/createContent' || to.path == '/managersSportBuilding'){
 				axios
 			.get('user/userType')
 			.then(response => (Type = response.data))
