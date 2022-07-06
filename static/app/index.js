@@ -16,7 +16,7 @@ Vue.component("index", {
 		}
 	},
 	template: ` 
-<div style="text-align:center;">
+<div style="text-align:center;margin-top:-20px;">
 	<table style="margin-left:auto; margin-right:auto;" >
 		<td style="padding: 0 40px;">
 			<tr>

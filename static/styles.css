@@ -126,6 +126,21 @@ topnavbar {
   color: black;
 }
 
+
+ button.checkButtons {
+	font-size: 25px;
+	color: #8c2222;
+	background-color: black ;
+	text-align: center;
+	text-decoration: none;
+  }
+   button.checkButtons:hover {
+	font-size: 25px;
+	color: black;
+	background-color: #8c2222 ;
+	text-align: center;
+	text-decoration: none;
+  }
 .showa {
   background-color: #161515;
   overflow: hidden;
@@ -135,6 +150,14 @@ topnavbar {
 .showa tr {
   color: red;
   background-color: #161515;
+}
+
+.checkbar{
+	 margin-left:auto;
+	 margin-right:auto;
+	 width: 100%;
+	 border-collapse: collapse;
+	 border-spacing: 0;
 }
 
 .showa tr:hover {

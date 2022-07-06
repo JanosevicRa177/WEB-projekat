@@ -32,7 +32,7 @@ public class AdminController {
 			User user = ss.attribute("user");
 			if(user.getUserType() == UserType.Admin)
 				return gson.toJson(adminService.GetAllAdmins());
-			else return null;
+			else return gson.toJson(null);
 		});
 	}
 }

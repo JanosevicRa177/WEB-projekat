@@ -21,6 +21,10 @@ public class CoachService {
 		return coachFileStorage.addCoach(coach);
 	}
 	
+	public Coach getCoach(String username) {
+		return coachFileStorage.getCoach(username);
+	}
+	
 	public Boolean IsValidCoach(String coachUsername) {
 		return coachFileStorage.IsValidCoach(coachUsername);
 	}

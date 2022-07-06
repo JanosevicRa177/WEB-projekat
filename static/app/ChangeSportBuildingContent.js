@@ -10,7 +10,7 @@ Vue.component("changeContent", {
 		    }
 	},
 	template: ` 
-<div style="text-align:center;">
+<div style="text-align:center;margin-top:-20px;">
     <h2 style="font-size: 55px;">Content registration</h2>
         <table style="margin-left:auto; margin-right:auto;">
 	        <tr>

@@ -15,9 +15,9 @@ Vue.component("registerCoachManager", {
 		    }
 	},
 	template: ` 
-<div style="text-align:center;">
+<div style="text-align:center;margin-top:-20px;">
     <h2 style="font-size: 55px;">Registration of coaches and managers</h2>
-        <table style="margin-left:auto; margin-right:auto;">
+        <table style="margin-left:auto; margin-right:auto;margin-top:-30px;">
         <tr>
         <td align="left" style="width: 250px"><strong style="font-size: 30px;">Role:</strong></td>
             <td><select name="usertype" id="utype" v-model="user.userType" v-on:click="CheckType" style="font-size: 25px; width: 350px;">
@@ -98,7 +98,7 @@ Vue.component("registerCoachManager", {
 		},
 		validateName: function(){
 			const regex = new RegExp('^[A-Z.-]+(\s*[A-Za-z.-]+)*$');
-			let name = document.getElementsByName('name')[0].value;
+			let name = this.user.name;
 			name = name + "e";
 			if(regex.test(name) & !(name === "e"))
 			{
@@ -112,7 +112,7 @@ Vue.component("registerCoachManager", {
 		},
 		validateSurname: function(){
 			const regex = new RegExp('^[A-Z.-]+(\s*[A-Za-z.-]+)*$');
-			let surname = document.getElementsByName('surname')[0].value;
+			let surname = this.user.surname;
 			surname = surname + "e";
 			if(regex.test(surname) & !(surname === "e"))
 			{
@@ -125,7 +125,7 @@ Vue.component("registerCoachManager", {
 			this.checkCanConfirm();
 		},
 		validateUsername: function(){
-			let username = document.getElementsByName('username')[0].value;
+			let username = this.user.username;
 			username = username + "e";
 			if(!(username === "e"))
 			{
@@ -138,7 +138,7 @@ Vue.component("registerCoachManager", {
 			this.checkCanConfirm();
 		},
 		validatePassword: function(){
-			let password = document.getElementsByName('password')[0].value;
+			let password = this.user.password;
 			password = password + "e";
 			if(!(password === "e"))
 			{

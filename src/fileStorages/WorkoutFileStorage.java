@@ -56,6 +56,28 @@ public class WorkoutFileStorage {
 		return workoutsByManager;
 	}
 	
+	public Collection<Workout> GetWorkoutsByCoach(String coach) {
+		workouts = readWorkouts();
+		Collection<Workout> workoutsByCoach = new HashSet<Workout>();
+		for(Workout workout : workouts.values()) {
+			if(workout.getCoachUsername().equals(coach)) {
+				workoutsByCoach.add(workout);
+			}
+		}
+		return workoutsByCoach;
+	}
+	
+	public Collection<Workout> GetPersonalWorkouts() {
+		workouts = readWorkouts();
+		Collection<Workout> workoutsByCustomer = new HashSet<Workout>();
+		for(Workout workout : workouts.values()) {
+			if(workout.getType() == WorkoutType.Personal || workout.getType() == WorkoutType.Gym) {
+				workoutsByCustomer.add(workout);
+			}
+		}
+		return workoutsByCustomer;
+	}
+	
 	public boolean writeWorkouts() 
 	{
 		FileWriter fileWriter;

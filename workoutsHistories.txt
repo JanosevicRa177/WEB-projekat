@@ -1,0 +1,3 @@
+0;Vezbe kod ive;Iva;eva;26-07-2022;6;
+1;Slobodni trening;None;eva;06-08-2022;12;
+2;Slobodni trening;None;eva;28-07-2022;16;

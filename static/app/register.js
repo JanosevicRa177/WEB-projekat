@@ -7,7 +7,7 @@ Vue.component("register", {
 		      nameNotValid: true,
 		      surnameNotValid: true,
 		      usernameNotValid: true,
-		      passwordNotValid: true,
+		      passwordNotValid: true
 		    }
 	},
 	template: ` 
@@ -70,7 +70,7 @@ Vue.component("register", {
 		},
 		validateName: function(){
 			const regex = new RegExp('^[A-Z.-]+(\s*[A-Za-z.-]+)*$');
-			let name = document.getElementsByName('name')[0].value;
+			let name = this.user.name;
 			name = name + "e";
 			if(regex.test(name) & !(name === "e"))
 			{
@@ -84,7 +84,7 @@ Vue.component("register", {
 		},
 		validateSurname: function(){
 			const regex = new RegExp('^[A-Z.-]+(\s*[A-Za-z.-]+)*$');
-			let surname = document.getElementsByName('surname')[0].value;
+			let surname = this.user.surname;
 			surname = surname + "e";
 			if(regex.test(surname) & !(surname === "e"))
 			{
@@ -97,7 +97,7 @@ Vue.component("register", {
 			this.checkCanConfirm();
 		},
 		validateUsername: function(){
-			let username = document.getElementsByName('username')[0].value;
+			let username = this.user.username;
 			username = username + "e";
 			if(!(username === "e"))
 			{
@@ -110,7 +110,7 @@ Vue.component("register", {
 			this.checkCanConfirm();
 		},
 		validatePassword: function(){
-			let password = document.getElementsByName('password')[0].value;
+			let password = this.user.password;
 			password = password + "e";
 			if(!(password === "e"))
 			{
@@ -128,8 +128,12 @@ Vue.component("register", {
 		ShowLoginForm : function () {
 			router.push(`/`);
 		},
+		GoToLogin : function () {
+			router.push(`/login`);
+		},
 		loginFinal : function(data){
 			if (data == "success"){
+				this.GoToLogin();
 				alert("You are now registered, please login.");
 			}
 			else alert(data);

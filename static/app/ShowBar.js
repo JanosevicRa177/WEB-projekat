@@ -11,7 +11,7 @@ Vue.component("showbar", {
 		    }
 	},
 	template: ` 
-<div style="text-align:center;width:calc(100% + 80px);margin-left:-50px;margin-top:-35px " class="bar">
+<div style="text-align:center;width:calc(100% + 80px);margin-left:-50px;margin-top:-35px;" class="bar">
 	<table style="width:calc(100% - 22px);margin-left:22px;">
 		<tr>
 			<td style="text-align:left">
@@ -32,17 +32,18 @@ Vue.component("showbar", {
 				  <span v-if="isManager" class="topnavbar">
 				  <button v-on:click="createContent">Add new content</button>
 				  <button v-on:click="showManagersContents">Show all contents</button>
-				  <button>Check customer tranining</button>
+				  <button>Show traingings in my building</button>
+				  <button v-on:click="showSportBuilding">Your sport building</button>
 				  </span>
 				  <span v-if="isCustomer" class="topnavbar">
 				  <button>Show my trainings</button>
-				  <button>Customer</button>
+				  <button v-on:click="CheckWorkout">Check workout</button>
 				  <button>Customer</button>
 				  <button>Customer</button>
 				  </span>
 				  <span v-if="isCoach" class="topnavbar">
 				  <button>Show my trainings</button>
-				  <button>Coach</button>
+				  <button v-on:click="CheckGroupWorkout">Check group workout</button>
 				  <button>Coach</button>
 				  <button>Coach</button>
 				  </span>
@@ -60,6 +61,15 @@ Vue.component("showbar", {
 			else if(data == "Manager") this.isManager = true;
 			else if(data == "Coach") this.isCoach = true;
 			else if(data == "Customer") this.isCustomer = true;
+		},
+		showSportBuilding : function() {
+			router.push('/managersSportBuilding');
+		},
+		CheckWorkout : function() {
+			router.push('/checkWorkout');
+		},
+		CheckGroupWorkout : function() {
+			router.push('/checkGroupWorkout');
 		},
 		createSportBuilding : function () {
 			router.push('/createSportBuilding');

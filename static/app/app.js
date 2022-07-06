@@ -8,8 +8,11 @@ const BarShow = { template: '<showbar></showbar>' }
 const ShowSportBuilding = { template: '<showBuilding></showBuilding>' }
 const CreateSportBuilding = { template: '<createSportBuilding></createSportBuilding>'}
 const CreateSportBuildingContent = { template: '<createContent></createContent>'}
+const ManagersSportBuilding = { template: '<managersSportBuilding></managersSportBuilding>'}
 const ChangeSportBuildingContent = { template: '<changeContent></changeContent>'}
 const ShowSportBuildingContentByManager = { template: '<showSportBuildingContentByManager></showSportBuildingContentByManager>'}
+const CheckWorkout = { template: '<checkWorkout></checkWorkout>'}
+const CheckGroupWorkout = { template: '<checkGroupWorkout></checkGroupWorkout>'}
 
 const router = new VueRouter({
 	  mode: 'hash',	
@@ -20,6 +23,24 @@ const router = new VueRouter({
 			Bar: BarShow
 			}
 		},
+		{ path: '/checkWorkout',
+	    components: {
+			default: CheckWorkout,
+			Bar: BarShow
+		    }
+	    },
+		{ path: '/checkGroupWorkout',
+	    components: {
+			default: CheckGroupWorkout,
+			Bar: BarShow
+		    }
+	    },
+		{ path: '/managersSportBuilding',
+	    components: {
+			default: ManagersSportBuilding,
+			Bar: BarShow
+		    }
+	    },
 		{ path: '/createSportBuilding',
 	    components: {
 			default: CreateSportBuilding,
@@ -96,24 +117,37 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to,from,next) => {
-	if(from.path == '/changeContent'){
+	if(from.path == '/changeContent') {
 		axios
 		.delete('/workout/invalidateChange')
 	}
-   	if(to.path == '/myprofile')  { 
+	if(to.path == '/login'|| to.path == '/register'){
 		axios
 			.get('user/getlogged')
 			.then(response => (logged = response.data))
 			.finally(() => {
                     if(logged == false) {
+						return next({path:to});
+					}
+					else {
+						alert("You are already logged in!");
+						return next({path:'/'});
+					}
+            });
+	} else if(to.path == '/myprofile') { 
+		axios
+			.get('user/getlogged')
+			.then(response => (logged = response.data))
+			.finally(() => {
+                    if(logged == true) {
+						return next({path:to});
+					}
+					else {
 						alert("No user logged in!");
 						return next({path:'/'});
 					}
-					else {
-						return next({path:to});
-					}
             });
-	} else if(to.path == '/adminShowRegisterUsers' || to.path == '/registerCoachManager' || to.path == '/createSportBuilding'){
+	} else if(to.path == '/adminShowRegisterUsers' || to.path == '/registerCoachManager' || to.path == '/createSportBuilding') {
 				axios
 			.get('user/userType')
 			.then(response => (Type = response.data))
@@ -126,8 +160,7 @@ router.beforeEach((to,from,next) => {
 						return next({path:'/'});
 					}
             });
-	}
-        else if(to.path == '/createContent'){
+	} else if(to.path == '/createContent' || to.path == '/managersSportBuilding' || to.path == '/changeContent') {
 				axios
 			.get('user/userType')
 			.then(response => (Type = response.data))
@@ -140,8 +173,33 @@ router.beforeEach((to,from,next) => {
 						return next({path:'/'});
 					}
             });
-       }
-    else {
+       } else if(to.path == '/checkGroupWorkout') {
+				axios
+			.get('user/userType')
+			.then(response => (Type = response.data))
+			.finally(() => {
+                    if(Type == "Coach") {
+						return next({path:to});
+					}
+					else {
+						alert("You have no rights to be here! >:(");
+						return next({path:'/'});
+					}
+            });
+       } else if(to.path == '/checkWorkout') {
+				axios
+			.get('user/userType')
+			.then(response => (Type = response.data))
+			.finally(() => {
+                    if(Type == "Customer") {
+						return next({path:to});
+					}
+					else {
+						alert("You have no rights to be here! >:(");
+						return next({path:'/'});
+					}
+            });
+       } else {
 		return next({path:to});	
 	}
 });

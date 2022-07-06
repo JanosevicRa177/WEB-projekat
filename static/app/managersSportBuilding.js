@@ -1,4 +1,4 @@
-Vue.component("adminShowRegisterUsers", {
+Vue.component("managersSportBuilding", {
 	data: function () {
 		    return {
 				name: "",
@@ -6,6 +6,7 @@ Vue.component("adminShowRegisterUsers", {
 				username: "",
 				userType: "",
 				customerType: "",
+				sportBuilding:"",
 				allUsers: [],
 				customers: null,
 				managers: null,
@@ -18,56 +19,15 @@ Vue.component("adminShowRegisterUsers", {
 		    }
 	},
 	template: ` 
-<div style="text-align:center;margin-top:-35px;">
+<div style="text-align:center;">
     <table style="margin-left:auto;margin-right:auto;">
 	    <tr>
-	    	<td style="font-size: 65px;padding: 40px 0px;">Users</td>
+	    	<td style="font-size: 65px;padding: 40px 0px;">Sport Building: {{this.sportBuilding}}</td>
 	    </tr>
 	    <tr rowspan= "2">
-	    	<td>
-	    		<table style="text-align:center;padding: 0px 30px;margin-top:-60px;">
-					<tr colspan ="2"><p style="font-size: 20px;"></p></tr>
-					<tr style="font-size: 40px;"><td colspan ="2">Search/Filter</td></tr>
-					<tr style="font-size: 20px;"><td colspan ="2">================================</td></tr>
-					<tr style="font-size: 30px;"><td colspan ="2">Name:</td></tr>
-					<tr><td colspan ="2"><input type="text" v-model="name" style="font-size: 25px; width: 250px;" name="name"></input></td></tr>
-					<tr style="font-size: 30px;"><td colspan ="2">Surname:</td></tr>
-					<tr><td colspan ="2"><input type="text" v-model="surname" style="font-size: 25px; width: 250px;" name="surname"></input></td></tr>
-					<tr style="font-size: 30px;"><td colspan ="2">Username:</td></tr>
-					<tr><td colspan ="2"><input type="text" v-model="username" style="font-size: 25px; width: 250px;" name="username"></input></td></tr>
-					<tr style="font-size: 30px;"><td colspan ="2">User Type:</td></tr>
-					<tr>
-						<td colspan ="2">
-							<select name="type" v-model="userType" style="font-size: 25px; width: 259px;">
-								<option value=""></option>
-				            	<option value="Admin">Admin</option>
-				            	<option value="Coach">Coach</option>
-				            	<option value="Manager">Manager</option>
-				            	<option value="Customer">Customer</option>
-		            		</select>
-		            	</td>
-					</tr>
-					<tr style="font-size: 30px;"><td colspan ="2">Customer Type:</td></tr>
-					<tr>
-						<td colspan ="2">
-							<select name="type" v-model="customerType" style="font-size: 25px; width: 259px;">
-								<option value=""></option>
-				            	<option value="Gold">Gold</option>
-				            	<option value="Silver">Silver</option>
-				            	<option value="Bronze">Bronze</option>
-		            		</select>
-		            	</td>
-					</tr>
-					<tr>
-						<td>
-							<button style="font-size: 20px; width: 180px;margin: 0px 5px 0px 0px;" v-on:click="Search">Search users</button>
-						</td>
-					</tr>
-				</table>
-	    	</td>
 	    	<td colspan ="3">
-	    		<p style="font-size:45px;"></p>
-	    		<table border="3" style="margin-left:auto;margin-right:auto;width:1072px;display:block;font-size:25px;margin-top:-60px;">
+	    		<p style="font-size:45px;"> Coaches in sport building:</p>
+	    		<table border="3" style="margin-left:auto;margin-right:auto;width:1072px;display:block;font-size:25px;">
 	    			<thead style="width: 100%;height: 56px; display: inline-block;margin-right:40px;">
 			    		<tr bgcolor="grey" style="width:100%;font-size: 20px;">
 			    			<th style="max-width:140px;min-width:140px;cursor: pointer;" v-on:click="sortByName">Name &#x2191&#x2193</th>
@@ -102,54 +62,6 @@ Vue.component("adminShowRegisterUsers", {
 	methods : {
 		init : function() {
 		},
-		Search : function () {
-			this.allUsers = [];
-			this.allUsersToCheck = [];
-			this.allUsersToCheck.push.apply(this.allUsersToCheck,this.customers);
-			this.allUsersToCheck.push.apply(this.allUsersToCheck,this.admins);
-			this.allUsersToCheck.push.apply(this.allUsersToCheck,this.managers);
-			this.allUsersToCheck.push.apply(this.allUsersToCheck,this.coaches);
-			let shouldAddbyName = true;
-			let shouldAddbySurname= true;
-			let shouldAddbyUsername = true;
-			let shouldAddbyUserType = true;
-			let shouldAddbyCustomerType = true;
-			for (const i in this.allUsersToCheck){
-				if(this.name != ""){
-					if(!this.allUsersToCheck[i].name.toLowerCase().includes(this.name.toLowerCase())){
-						shouldAddbyName = false;
-						}
-					}
-				if(this.surname != ""){
-					if(!this.allUsersToCheck[i].surname.toLowerCase().includes(this.surname.toLowerCase())){
-						shouldAddbySurname = false;
-						}
-					}
-				if(this.username != ""){
-					if(!this.allUsersToCheck[i].username.toLowerCase().includes(this.username.toLowerCase())){
-						shouldAddbyUsername = false;
-						}
-					}
-				if(this.userType != ""){
-					if(this.allUsersToCheck[i].userType != this.userType){
-						shouldAddbyUserType = false;
-						}
-					}
-				if(this.customerType != ""){
-					if(this.allUsersToCheck[i].customerType != this.customerType){
-						shouldAddbyUserType = false;
-						}
-					}
-				if(shouldAddbyName && shouldAddbySurname && shouldAddbyUsername && shouldAddbyUserType && shouldAddbyCustomerType){
-				this.allUsers.push(this.allUsersToCheck[i]);
-				}
-				shouldAddbyName = true;
-				shouldAddbySurname= true;
-				shouldAddbyUsername = true;
-				shouldAddbyUserType = true;
-				shouldAddbyCustomerType = true;
-				}
-			},
 		sortByNameAscending : function (a, b){
 			if ( a.name.toLowerCase() < b.name.toLowerCase()){
     			return -1;
@@ -271,6 +183,7 @@ Vue.component("adminShowRegisterUsers", {
 			}
 		},
 		initialiseCustomers : function(data){
+			alert("cus");
 			this.customers = data;
 			for (const i in this.customers){
 				this.customers[i].birthDate = this.customers[i].birthDate.split("-").reverse().join("/");
@@ -307,16 +220,10 @@ Vue.component("adminShowRegisterUsers", {
 	},
 	mounted () {
 		axios
-			.get('customer/getAll')
-			.then(response => (this.initialiseCustomers(response.data)));
+			.get('manager/getManagersSportBuilding')
+			.then(response => (this.sportBuilding = response.data))
 		axios
-			.get('manager/getAll')
-			.then(response => (this.initialiseManagers(response.data)));
-		axios
-			.get('admin/getAll')
-			.then(response => (this.initialiseAdmins(response.data)));
-		axios
-			.get('coach/getAll')
+			.get('workout/getCoaches')
 			.then(response => (this.initialiseCoaches(response.data)));
     }
 });

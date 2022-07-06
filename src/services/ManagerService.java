@@ -21,6 +21,10 @@ public class ManagerService {
 		return managerFileStorage.isUniqueUsername(username);
 	}
 	
+	public Manager getManager(String username) {
+		return managerFileStorage.getManager(username);
+	}
+	
 	
 	public String addManager(Manager man) {
 		if(!man.getSportBuilding().equals("None")) {

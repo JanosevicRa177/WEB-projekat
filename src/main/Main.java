@@ -6,6 +6,7 @@ import static spark.Spark.staticFiles;
 import java.io.File;
 import java.io.IOException;
 
+import controller.ActiveGroupWorkoutController;
 import controller.AdminController;
 import controller.CoachController;
 import controller.CustomerController;
@@ -13,6 +14,7 @@ import controller.ManagerController;
 import controller.SportBuildingController;
 import controller.UserController;
 import controller.WorkoutController;
+import controller.WorkoutHistoryController;
 
 public class Main {
 
@@ -28,6 +30,8 @@ public class Main {
 		new SportBuildingController();
 		new UserController();
 		new WorkoutController();
+		new WorkoutHistoryController();
+		new ActiveGroupWorkoutController();
 		
 		CustomerController.addCustomer();
 		CustomerController.GetAllCustomers();
@@ -47,6 +51,7 @@ public class Main {
 		SportBuildingController.addSportBuilding();
 		
 		ManagerController.GetAllManagers();
+		ManagerController.getManagersSportBuilding();
 		ManagerController.addManager();
 		ManagerController.CheckSportBuilding();
 		ManagerController.getAllNoSportBuilding();
@@ -57,10 +62,17 @@ public class Main {
 		AdminController.GetAllAdmins();
 		
 		WorkoutController.AddWorkout();
+		WorkoutController.getCoachesforSportBuilding();
 		WorkoutController.ChangeWorkout();
 		WorkoutController.GetWorkoutsByManager();
+		WorkoutController.GetWorkoutsByCustomer();
+		WorkoutController.GetWorkoutsByCoach();
 		WorkoutController.GetWorkoutByName();
 		WorkoutController.InvalidateChangingWorkout();
+		
+		WorkoutHistoryController.AddToWorkoutHistoryPersonal();
+		
+		ActiveGroupWorkoutController.AddActiveGroupWorkout();
 	}
 
 }
