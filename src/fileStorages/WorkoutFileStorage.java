@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
@@ -21,17 +22,39 @@ public class WorkoutFileStorage {
 	public WorkoutFileStorage() {
 	}
 	
-	public Boolean isUniqueName(String name) {
+	public Boolean IsUniqueName(String name) {
 		workouts = readWorkouts();
 		if(workouts.get(name) == null) return true;
 		return false;
 	}
 	
-	public String addWorkout(Workout workout) {
+	public String AddWorkout(Workout workout) {
 		workouts = readWorkouts();
 		workouts.put(workout.getName(),workout);
 		writeWorkouts();
 		return "Workout registered successfuly!";
+	}
+	public String ChangeWorkout(Workout workout,String oldWorkoutName) {
+		workouts = readWorkouts();
+		workouts.remove(oldWorkoutName);
+		workouts.put(workout.getName(),workout);
+		writeWorkouts();
+		return "Success";
+	}
+	
+	public Workout GetWorkoutsByName(String workoutName) {
+		return readWorkouts().get(workoutName);
+	}
+	
+	public Collection<Workout> GetWorkoutsBySportBuilding(String sportBuilding) {
+		workouts = readWorkouts();
+		Collection<Workout> workoutsByManager = new HashSet<Workout>();
+		for(Workout workout : workouts.values()) {
+			if(workout.getSportBuildingName().equals(sportBuilding)) {
+				workoutsByManager.add(workout);
+			}
+		}
+		return workoutsByManager;
 	}
 	
 	public boolean writeWorkouts() 
@@ -51,13 +74,15 @@ public class WorkoutFileStorage {
 				outputString += workout.getDescription() + ";";
 				outputString += workout.getDuration() + ";";
 				if(workout.getType() == WorkoutType.Group)
-				outputString += "Group" + ";";
+					outputString += "Group" + ";";
 				else if(workout.getType() == WorkoutType.Gym)
-				outputString += "Gym" + ";";
+					outputString += "Gym" + ";";
 				else if(workout.getType() == WorkoutType.Personal)
-				outputString += "Personal" + ";";
+					outputString += "Personal" + ";";
 				else
-				outputString += "Sauna" + ";";
+					outputString += "Sauna" + ";";
+				outputString += workout.getPrice() + ";";
+				
 				output.println(outputString);
 			}
 			output.close();
@@ -73,7 +98,7 @@ public class WorkoutFileStorage {
 		try {
 			File file = new File("workouts.txt");
 			in = new BufferedReader(new FileReader(file));
-			String line, name = "", type = "", sportBuildingName = "",duration = "",coachUsername = "", description = "", image = "";
+			String line, name = "", type = "", sportBuildingName = "",duration = "",coachUsername = "", description = "", image = "", price = "";
 			StringTokenizer st;
 			try {
 				while ((line = in.readLine()) != null) {
@@ -89,13 +114,14 @@ public class WorkoutFileStorage {
 						description = st.nextToken().trim();
 						duration = st.nextToken().trim();
 						type = st.nextToken().trim();
+						price = st.nextToken().trim();
 					}
 					WorkoutType workoutType;
 					if(type.equals("Group")) workoutType = WorkoutType.Group;
 					else if(type.equals("Gym")) workoutType = WorkoutType.Gym;
 					else if(type.equals("Personal")) workoutType = WorkoutType.Personal;
 					else workoutType = WorkoutType.Sauna;
-					Workout workout = new Workout(name, workoutType, sportBuildingName, duration, coachUsername, description, image);
+					Workout workout = new Workout(name, workoutType, sportBuildingName, duration, coachUsername, description, image,Integer.parseInt(price));
 					workoutsInner.put(workout.getName(),workout);
 				}
 			} catch (Exception ex) {

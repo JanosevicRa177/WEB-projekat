@@ -8,7 +8,12 @@ const BarShow = { template: '<showbar></showbar>' }
 const ShowSportBuilding = { template: '<showBuilding></showBuilding>' }
 const CreateSportBuilding = { template: '<createSportBuilding></createSportBuilding>'}
 const CreateSportBuildingContent = { template: '<createContent></createContent>'}
+<<<<<<< HEAD
 const ManagersSportBuilding = { template: '<managersSportBuilding></managersSportBuilding>'}
+=======
+const ChangeSportBuildingContent = { template: '<changeContent></changeContent>'}
+const ShowSportBuildingContentByManager = { template: '<showSportBuildingContentByManager></showSportBuildingContentByManager>'}
+>>>>>>> 3dae72c1912d163bf77eee85051c631ff9d0a972
 
 const router = new VueRouter({
 	  mode: 'hash',	
@@ -37,6 +42,18 @@ const router = new VueRouter({
 			Bar: BarShow
 		    }
 	    },
+		{ path: '/changeContent',
+	    components: {
+			default: ChangeSportBuildingContent,
+			Bar: BarShow
+		    }
+	    },
+		{ path: '/manager/showContents',
+	    components: {
+			default: ShowSportBuildingContentByManager,
+			Bar: BarShow
+		    }
+	    },
 		{ path: '/ShowSportBuilding',
 	    components: {
 			default: ShowSportBuilding,
@@ -44,6 +61,12 @@ const router = new VueRouter({
 		    }
 	    },
 	    { path: '/register',
+	    components: {
+			default: Register,
+			Bar: BarShow
+		    }
+	    },
+	   { path: '/register',
 	    components: {
 			default: Register,
 			Bar: BarShow
@@ -83,6 +106,10 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to,from,next) => {
+	if(from.path == '/changeContent'){
+		axios
+		.delete('/workout/invalidateChange')
+	}
    	if(to.path == '/myprofile')  { 
 		axios
 			.get('user/getlogged')

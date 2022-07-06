@@ -57,8 +57,6 @@ Vue.component("index", {
 		<td style="padding: 0 30px;">
 			<div style="text-align:center;">
 			<h1 style="font-size: 63px;">WELCOME TO SPORT ARENA</h1>
-			<div style="text-align:right;">
-	        </div>
 	        <h2>Sport objects:</h2>
 	    		<table border="3" style="margin-left:auto;margin-right:auto;height:50%;width:1010px;display:block;font-size:25px">
 	    			<thead style="width: 100%;height: 56px; display: inline-block;margin-right:40px;">
