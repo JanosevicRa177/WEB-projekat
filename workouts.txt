@@ -1,6 +1,1 @@
-Makro sauna;ime1;None;https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/man-lifting-dumbells-at-cross-training-gym-royalty-free-image-1625601682.jpg;temperatura vode do 80 stepeni;15;Sauna;
-Masaza u sauni;ime1;None;http://www.spookynooksports.com/hubfs/group-exercise.jpg;none;20;Sauna;
-Slobodni trening;ime2;None;https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/man-lifting-dumbells-at-cross-training-gym-royalty-free-image-1625601682.jpg;none;nedefinisano vreme;Gym;
-Trening uvece kod ive;ime1;asdasd123;http://www.spookynooksports.com/hubfs/group-exercise.jpg;dok ne umrete;nedefinisano vreme;Group;
-Vezbe kod ive;ime3;asdasd123;https://images.theconversation.com/files/440416/original/file-20220112-17-kouwik.jpg?ixlib=rb-1.1.0&rect=8%2C0%2C5742%2C3837&q=45&auto=format&w=926&fit=clip;vezbe 30 min pauza 30 min;60;Personal;
-Vezbe kod jove;ime3;Jovo;https://www.muscleandfitness.com/wp-content/uploads/2018/11/Group-Fitness-Class-Performing-A-Variety-Of-Exercises-1.jpg?quality=86&strip=all;vezbe 30 min pauza 30 min;60;Group;
+DW;ime3;Ivo;https://im.ge/i/uwUwQr;asdasd;20;Group;60;

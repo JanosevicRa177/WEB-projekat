@@ -28,7 +28,7 @@ public class WorkoutService {
 		for(Workout work : workoutFileStorage.readWorkouts().values()) {
 			if(work.getSportBuildingName().equals(sportBuilding)) {
 				Coach coach = coachFileStorage.readCoaches().get(work.getCoachUsername());
-				if(!coaches.contains(coach)) 
+				if(!coaches.contains(coach) && coach!=null) 
 					coaches.add(coach);
 			}
 		}

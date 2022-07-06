@@ -8,12 +8,9 @@ const BarShow = { template: '<showbar></showbar>' }
 const ShowSportBuilding = { template: '<showBuilding></showBuilding>' }
 const CreateSportBuilding = { template: '<createSportBuilding></createSportBuilding>'}
 const CreateSportBuildingContent = { template: '<createContent></createContent>'}
-<<<<<<< HEAD
 const ManagersSportBuilding = { template: '<managersSportBuilding></managersSportBuilding>'}
-=======
 const ChangeSportBuildingContent = { template: '<changeContent></changeContent>'}
 const ShowSportBuildingContentByManager = { template: '<showSportBuildingContentByManager></showSportBuildingContentByManager>'}
->>>>>>> 3dae72c1912d163bf77eee85051c631ff9d0a972
 
 const router = new VueRouter({
 	  mode: 'hash',	
