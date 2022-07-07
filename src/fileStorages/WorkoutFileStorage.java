@@ -33,6 +33,11 @@ public class WorkoutFileStorage {
 		writeWorkouts();
 		return "Workout registered successfuly!";
 	}
+	
+	public Map<String, Workout> GetAllWorkouts() {
+		return readWorkouts();
+	}
+	
 	public String ChangeWorkout(Workout workout,String oldWorkoutName) {
 		workouts = readWorkouts();
 		workouts.remove(oldWorkoutName);

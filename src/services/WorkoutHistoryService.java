@@ -1,9 +1,11 @@
 package services;
 
+import java.util.Collection;
 import java.util.Date;
 
 import fileStorages.WorkoutHistoryFileStorage;
 import model.Workout;
+import model.WorkoutHistory;
 
 public class WorkoutHistoryService {
 
@@ -15,5 +17,9 @@ public class WorkoutHistoryService {
 	
 	public String AddWorkoutHistory(Date date,int hours,Workout workout,String customerUsername) {
 		return workoutHistoryFileStorage.AddWorkoutHistory(date,hours,workout,customerUsername);
+	}
+	
+	public Collection<WorkoutHistory> GetWorkoutHistoryByCustomer(String customer) {
+		return workoutHistoryFileStorage.GetWorkoutHistoryByCustomer(customer);
 	}
 }

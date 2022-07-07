@@ -36,7 +36,7 @@ Vue.component("showbar", {
 				  <button v-on:click="showSportBuilding">Your sport building</button>
 				  </span>
 				  <span v-if="isCustomer" class="topnavbar">
-				  <button>Show my trainings</button>
+				  <button v-on:click="ShowWorkoutHistoryCustomer">Show my trainings</button>
 				  <button v-on:click="CheckWorkout">Check workout</button>
 				  <button>Customer</button>
 				  <button>Customer</button>
@@ -67,6 +67,9 @@ Vue.component("showbar", {
 		},
 		CheckWorkout : function() {
 			router.push('/checkWorkout');
+		},
+		ShowWorkoutHistoryCustomer : function() {
+			router.push('/Customer/WorkoutHistory');
 		},
 		CheckGroupWorkout : function() {
 			router.push('/checkGroupWorkout');

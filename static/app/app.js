@@ -13,6 +13,7 @@ const ChangeSportBuildingContent = { template: '<changeContent></changeContent>'
 const ShowSportBuildingContentByManager = { template: '<showSportBuildingContentByManager></showSportBuildingContentByManager>'}
 const CheckWorkout = { template: '<checkWorkout></checkWorkout>'}
 const CheckGroupWorkout = { template: '<checkGroupWorkout></checkGroupWorkout>'}
+const WorkoutHistoryCustomer = { template: '<workoutHistoryCustomer></workoutHistoryCustomer>'}
 
 const router = new VueRouter({
 	  mode: 'hash',	
@@ -20,6 +21,12 @@ const router = new VueRouter({
 		{ path: '/login', 
 		components: {
 			default: Login,
+			Bar: BarShow
+			}
+		},
+		{ path: '/Customer/WorkoutHistory', 
+		components: {
+			default: WorkoutHistoryCustomer,
 			Bar: BarShow
 			}
 		},
@@ -186,7 +193,7 @@ router.beforeEach((to,from,next) => {
 						return next({path:'/'});
 					}
             });
-       } else if(to.path == '/checkWorkout') {
+       } else if(to.path == '/checkWorkout' || to.path == '/Customer/WorkoutHistory') {
 				axios
 			.get('user/userType')
 			.then(response => (Type = response.data))

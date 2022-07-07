@@ -1,8 +1,10 @@
 package services;
 
+import java.util.Collection;
 import java.util.Date;
 
 import fileStorages.ActiveGroupWorkoutFileStorage;
+import model.ActiveGroupWorkout;
 import model.Workout;
 
 public class ActiveGroupWorkoutService {
@@ -14,5 +16,8 @@ public class ActiveGroupWorkoutService {
 	
 	public String AddActiveGroupWorkout(Date date,int hours,Workout workout) {
 		return activeGroupWorkoutFileStorage.AddActiveGroupWorkout(date,hours,workout);
+	}
+	public Collection<ActiveGroupWorkout> GetActiveGroupWorkoutsByCustomer() {
+		return activeGroupWorkoutFileStorage.GetActiveGroupWorkoutsByCustomer();
 	}
 }

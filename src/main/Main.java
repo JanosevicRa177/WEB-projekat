@@ -71,8 +71,11 @@ public class Main {
 		WorkoutController.InvalidateChangingWorkout();
 		
 		WorkoutHistoryController.AddToWorkoutHistoryPersonal();
+		WorkoutHistoryController.AddToWorkoutHistoryGroup();
+		WorkoutHistoryController.GetWorkoutHistoryCustomer();
 		
 		ActiveGroupWorkoutController.AddActiveGroupWorkout();
+		ActiveGroupWorkoutController.GetActiveGroupWorkoutsByCustomer();
 	}
 
 }

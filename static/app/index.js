@@ -240,12 +240,6 @@ Vue.component("index", {
 		this.sportObjects = data;
 		this.showSportObjects = data;
 		},
-		initialiseUserType : function (data) {
-			if(data == "Admin") this.isAdmin = true;
-			else if(data == "Manager") this.isManager = true;
-			else if(data == "Coach") this.isCoach = true;
-			else if(data == "Customer") this.isCustomer = true;
-		},
 		logchange : function(data) {
 			this.loggedin = data;
 			if(this.loggedin)  { 

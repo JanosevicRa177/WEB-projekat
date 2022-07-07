@@ -29,6 +29,10 @@ public class SportBuildingFileStorage {
 		return sportBuildings.values();
 	}
 	
+	public Map<String, SportBuilding> GetSportBuildingsMap(){
+		return readSportBuildings();
+	}
+	
 	public String GetSportBuildingNameByManager(String managerUserame) {
 		for(SportBuilding sportBuilding : this.readSportBuildings().values()) {
 			if(sportBuilding.getManager().equals(managerUserame)) {

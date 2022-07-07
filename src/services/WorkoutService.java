@@ -2,6 +2,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 import fileStorages.CoachFileStorage;
 
@@ -48,6 +49,9 @@ public class WorkoutService {
 	
 	public Collection<Workout> GetWorkoutsByCoach(String coach) {
 		return workoutFileStorage.GetWorkoutsByCoach(coach);
+	}
+	public Map<String, Workout> GetAllWorkouts() {
+		return workoutFileStorage.GetAllWorkouts();
 	}
 	
 	public Collection<Workout> GetPersonalWorkouts() {

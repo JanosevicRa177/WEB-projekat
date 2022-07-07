@@ -10,8 +10,10 @@ Vue.component("checkWorkout", {
 				workoutNotChecked: true,
 				hourNotValid: true,
 				cantSubmit: true,
+				cantGroupSubmit: true,
 				hour:"",
-				selectedPersonalWorkout: {name: ""}
+				selectedPersonalWorkout: {name: ""},
+				selectedGroupWorkout: {workout: ""}
 		    }
 	},
 	template: ` 
@@ -29,7 +31,7 @@ Vue.component("checkWorkout", {
 	<table style="margin-left:auto; margin-right:auto;">
 	<td v-if="checkedPersonal">
 		<p>Possible Personal/Gym trainings</p>
-		<table border="3" style="margin-left:auto;margin-right:auto;height:50%;width:1309px;display:block;font-size:25px;margin-top:-15px;">
+		<table border="3" style="margin-left:auto;margin-right:auto;height:50%;width:1249px;display:block;font-size:25px;margin-top:-15px;">
 			<thead style="width: 100%;height: 29px; display: inline-block;margin-right:40px;">
 	    		<tr bgcolor="grey" style="width:100%;font-size: 20px;">
 	    			<th style="max-width:170px;min-width:170px;">Name</th>
@@ -37,7 +39,7 @@ Vue.component("checkWorkout", {
 	    			<th style="max-width:300px;min-width:300px">Image</th>
 	    			<th style="max-width:170px;min-width:170px;">Coach</th>
 	    			<th style="max-width:170px;min-width:170px;">Description</th>
-	    			<th style="max-width:170px;min-width:170px;">Duration</th>
+	    			<th style="max-width:110px;min-width:110px;">Duration</th>
 	    			<th style="max-width:140px;min-width:140px;">Price</th>
 	    		</tr>
     		</thead>
@@ -48,7 +50,7 @@ Vue.component("checkWorkout", {
 	    			<td style="max-width:300px;min-width:300px"><img :src="object.image" style="width:200px; height:200px;"></td>
 	    			<td style="max-width:170px;min-width:170px">{{object.coachUsername}}</td>
 	    			<td style="max-width:170px;min-width:170px">{{object.description}}</td>
-	    			<td style="max-width:170px;min-width:170px">{{object.duration}}</td>
+	    			<td style="max-width:110px;min-width:110px">{{object.duration}}</td>
 	    			<td style="max-width:140px;min-width:140px;">{{object.price}}</td>
 	    		</tr>
     		</tbody>
@@ -93,8 +95,50 @@ Vue.component("checkWorkout", {
 	</td>
 	<td v-if="checkedGroup">
 		<p>Possible Group trainings</p>
-		<table style="margin-left:auto; margin-right:auto;">
-	    </table>
+		<table border="3" style="margin-left:auto;margin-right:auto;height:50%;width:1316px;display:block;font-size:25px;margin-top:-15px;">
+			<thead style="width: 100%;height: 29px; display: inline-block;margin-right:40px;">
+	    		<tr bgcolor="grey" style="width:100%;font-size: 20px;">
+	    			<th style="max-width:170px;min-width:170px;">Name</th>
+	    			<th style="max-width:300px;min-width:300px">Image</th>
+	    			<th style="max-width:170px;min-width:170px;">Coach</th>
+	    			<th style="max-width:170px;min-width:170px;">Description</th>
+	    			<th style="max-width:110px;min-width:110px;">Duration</th>
+	    			<th style="max-width:140px;min-width:140px;">Price</th>
+	    			<th style="max-width:140px;min-width:140px;">Date</th>
+	    			<th style="max-width:60px;min-width:60px;">Hour</th>
+	    		</tr>
+    		</thead>
+    		<tbody style="width: calc(100% + 20px);height: 400px;display: inline-block; overflow: auto;" class="showa">
+	    		<tr v-for="(object, index) in this.groupContents" v-on:click="SelectGroup(object)">
+	    			<td style="max-width:170px;min-width:170px">{{object.workout}}</td>
+	    			<td style="max-width:300px;min-width:300px"><img :src="object.image" style="width:200px; height:200px;"></td>
+	    			<td style="max-width:170px;min-width:170px">{{object.coachUsername}}</td>
+	    			<td style="max-width:170px;min-width:170px">{{object.description}}</td>
+	    			<td style="max-width:110px;min-width:110px">{{object.duration}}</td>
+	    			<td style="max-width:140px;min-width:140px;">{{object.price}}</td>
+	    			<td style="max-width:140px;min-width:140px">{{object.checkinDate}}</td>
+	    			<td style="max-width:60px;min-width:60px">{{object.hours}}</td>
+	    		</tr>
+    		</tbody>
+    	</table>
+    	<table>
+	    	<tr>
+				<td style="width:250px">
+				<p style="font-size: 25px;text-align:left;height: 25px;">Checking date: {{selectedGroupWorkout.checkinDate}}</p>
+				</td>
+				<td style="width:100px">
+					<p style="font-size: 25px;text-align:left;height: 25px;">Hours: {{selectedGroupWorkout.hours}}</p>
+				</td>
+				<td style="width:220px">
+					<p style="font-size: 25px;text-align:left;height: 25px;">Workout name: {{selectedGroupWorkout.workout}}</p>
+				</td>
+				<td style="width: 300px;">
+				</td>
+				<td>
+					<button v-on:click="CheckingGroupWorkout()" :disabled="cantGroupSubmit" style="font-size: 20px; width: 400px; margin: 0px 10px;">Check workout</button>
+				</td>
+			</tr>
+    	</table>
 	</td>
     </table>
 </div> 
@@ -177,6 +221,12 @@ Vue.component("checkWorkout", {
 	          .post('workoutHistory/add',null,{params: {workoutName: '' + this.selectedPersonalWorkout.name, date: '' + this.date, hour: '' + this.hour}})
 	          .then(response => (this.afterAdding(response.data)));
 		},
+		CheckingGroupWorkout : function() {
+			this.selectedGroupWorkout.checkinDate = this.selectedGroupWorkout.checkinDate.split("/").reverse().join("-");
+			axios
+	          .post('workoutHistory/addGroup',null,{params: {workoutName: '' + this.selectedGroupWorkout.workout, date: '' + this.selectedGroupWorkout.checkinDate, hour: '' + this.selectedGroupWorkout.hours}})
+	          .then(response => (this.afterAdding(response.data)));
+		},
 		CheckGroup : function() {
 			this.checkedPersonal = false;
 			this.checkedGroup = true;
@@ -185,13 +235,27 @@ Vue.component("checkWorkout", {
 			this.selectedPersonalWorkout = object;
 			this.validateName();
 		},
+		SelectGroup : function(object) {
+			this.selectedGroupWorkout = object;
+			this.cantGroupSubmit = false;
+		},
 		initialisePersonalContents : function (data) {
 			this.personalContents = data;
+		},
+		initialiseGroupContents : function (data) {
+			this.groupContents = data;
+				for (const i in this.groupContents){
+				this.groupContents[i].checkinDate = this.groupContents[i].checkinDate.split("-").reverse().join("/");
+			}
 		}
 	},
 	mounted () {
 				axios
 			.get('workout/getAllByCustomer')
 			.then(response => (this.initialisePersonalContents(response.data)));
+			
+						axios
+			.get('ActiveGroupworkout/getAllByCustomer')
+			.then(response => (this.initialiseGroupContents(response.data)));
     }
 });

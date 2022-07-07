@@ -1,6 +1,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.Map;
 
 import fileStorages.ManagerFileStorage;
 import fileStorages.SportBuildingFileStorage;
@@ -37,4 +38,7 @@ public class SportBuildingService {
 		return sportBuildingFileStorage.GetSportBuildingNameByManager(managerName);
 	}
 	
+	public Map<String, SportBuilding> GetSportBuildingsMap(){
+		return sportBuildingFileStorage.GetSportBuildingsMap();
+	}
 }

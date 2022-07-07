@@ -7,7 +7,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
@@ -27,6 +31,19 @@ public class ActiveGroupWorkoutFileStorage {
 		activeGroupWorkouts.put(Integer.toString(activeGroupWorkout.getId()),activeGroupWorkout);
 		writeActiveGroupWorkouts();
 		return "Success";
+	}
+	
+	public Collection<ActiveGroupWorkout> GetActiveGroupWorkoutsByCustomer() {
+		activeGroupWorkouts = readActiveGroupWorkouts();
+		Collection<ActiveGroupWorkout> activeGroupWorkoutByCustomer = new HashSet<ActiveGroupWorkout>();
+		ZoneId defaultZoneId = ZoneId.systemDefault();
+		Date dateTodayPlus1 = Date.from(LocalDate.now().plusDays(1).atStartOfDay(defaultZoneId).toInstant());
+		for(ActiveGroupWorkout workout : activeGroupWorkouts.values()) {
+			if(workout.getCheckinDate().compareTo(dateTodayPlus1) > 0) {
+				activeGroupWorkoutByCustomer.add(workout);
+			}
+		}
+		return activeGroupWorkoutByCustomer;
 	}
 	
 	public boolean writeActiveGroupWorkouts() 
