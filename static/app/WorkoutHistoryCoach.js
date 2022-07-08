@@ -1,4 +1,4 @@
-Vue.component("workoutHistoryCustomer", {
+Vue.component("workoutHistoryCoach", {
 	data: function () {
 		return {
 			workoutHistories: [],
@@ -64,6 +64,7 @@ Vue.component("workoutHistoryCustomer", {
 								<input type="number" v-model="priceTo" style="font-size: 20px; width: 140px;"></input>
 							</td>
 						</tr>
+						<tr><p></tr>
 						<tr>
 							<td>
 								<button style="font-size: 20px; width: 145px;margin: 0px 5px 0px 0px;" v-on:click="Search">Search workouts</button>
@@ -300,7 +301,7 @@ Vue.component("workoutHistoryCustomer", {
 	},
 	mounted () {
 		axios
-			.get('workoutHistory/getAllByCustomer')
+			.get('workoutHistory/getAllByCoach')
 			.then(response => (this.initialiseWorkoutHistory(response.data)));
 	
     }

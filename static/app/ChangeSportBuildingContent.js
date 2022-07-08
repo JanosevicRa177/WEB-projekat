@@ -11,11 +11,11 @@ Vue.component("changeContent", {
 	},
 	template: ` 
 <div style="text-align:center;margin-top:-20px;">
-    <h2 style="font-size: 55px;">Content registration</h2>
+    <h2 style="font-size: 55px;">Content change</h2>
         <table style="margin-left:auto; margin-right:auto;">
 	        <tr>
 	            <td align="left"><strong style="font-size: 30px;">Content name:</strong></td>
-	            <td><input type="text" v-model="workout.name" style="font-size: 25px;width: 342px;" v-on:change = "validateName" name="name"></input></td>
+	            <td><input type="text" v-model="workout.name" style="font-size: 25px;width: 342px;" v-on:change = "validateName" name="name" disabled></input></td>
 	            <td rowspan="6">
 	            	<table style="margin-left:100px;">
            				<tr align="center"><p style="font-size:20px;">Image preview</p></tr>

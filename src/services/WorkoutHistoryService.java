@@ -22,4 +22,10 @@ public class WorkoutHistoryService {
 	public Collection<WorkoutHistory> GetWorkoutHistoryByCustomer(String customer) {
 		return workoutHistoryFileStorage.GetWorkoutHistoryByCustomer(customer);
 	}
+	public Collection<WorkoutHistory> GetWorkoutHistoryByCoach(String coach) {
+		return workoutHistoryFileStorage.GetWorkoutHistoryByCoach(coach);
+	}
+	public Collection<WorkoutHistory> GetWorkoutHistory() {
+		return workoutHistoryFileStorage.GetWorkoutHistory();
+	}
 }

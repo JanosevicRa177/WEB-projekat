@@ -46,6 +46,22 @@ public class WorkoutHistoryFileStorage {
 		return customerWorkoutHistory;
 	}
 	
+	public Collection<WorkoutHistory> GetWorkoutHistoryByCoach(String coach) {
+		workoutsHistories = readWorkoutsHistories();
+		ZoneId defaultZoneId = ZoneId.systemDefault();
+		Date dateTodayMinusMonth = Date.from(LocalDate.now().plusMonths(-1).atStartOfDay(defaultZoneId).toInstant());
+		Collection<WorkoutHistory> customerWorkoutHistory = new HashSet<WorkoutHistory>();
+		for(WorkoutHistory workout : workoutsHistories.values()) {
+			if(workout.getCoach().equals(coach) && (workout.getCheckinDate().compareTo(dateTodayMinusMonth) > 0)) {
+				customerWorkoutHistory.add(workout);
+			}
+		}
+		return customerWorkoutHistory;
+	}
+	public Collection<WorkoutHistory> GetWorkoutHistory() {
+		return readWorkoutsHistories().values();
+	}
+	
 	public boolean writeWorkoutsHistories() 
 	{
 		FileWriter fileWriter;

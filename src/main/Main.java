@@ -73,6 +73,8 @@ public class Main {
 		WorkoutHistoryController.AddToWorkoutHistoryPersonal();
 		WorkoutHistoryController.AddToWorkoutHistoryGroup();
 		WorkoutHistoryController.GetWorkoutHistoryCustomer();
+		WorkoutHistoryController.GetWorkoutHistoryManager();
+		WorkoutHistoryController.GetWorkoutHistoryCoach();
 		
 		ActiveGroupWorkoutController.AddActiveGroupWorkout();
 		ActiveGroupWorkoutController.GetActiveGroupWorkoutsByCustomer();
