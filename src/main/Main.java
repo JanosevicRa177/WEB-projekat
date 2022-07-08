@@ -11,6 +11,7 @@ import controller.AdminController;
 import controller.CoachController;
 import controller.CustomerController;
 import controller.ManagerController;
+import controller.MembershipController;
 import controller.SportBuildingController;
 import controller.UserController;
 import controller.WorkoutController;
@@ -35,6 +36,7 @@ public class Main {
 		
 		CustomerController.addCustomer();
 		CustomerController.GetAllCustomers();
+		CustomerController.getCustomersSportBuilding();
 		
 		UserController.Login();
 		UserController.GetLoggedUser();
@@ -78,6 +80,8 @@ public class Main {
 		
 		ActiveGroupWorkoutController.AddActiveGroupWorkout();
 		ActiveGroupWorkoutController.GetActiveGroupWorkoutsByCustomer();
+		
+		MembershipController.createMembership();
 	}
 
 }

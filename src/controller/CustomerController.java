@@ -58,4 +58,18 @@ public class CustomerController {
 		});
 	}
 	
+	
+	public static void getCustomersSportBuilding() {
+		get("customer/getCustomersSportBuilding",(req, res) -> {
+			res.type("application/json");
+			Session ss = req.session(true);
+			User user = ss.attribute("user");
+			if(user.getUserType() == UserType.Manager) {
+				return gson.toJson(customerService.getCustomersSportBuilding(managerService.getManager(user.getUsername()).getSportBuilding()));
+			}
+			else return gson.toJson(null);
+		});
+	}
+	
+	
 }

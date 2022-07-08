@@ -8,9 +8,8 @@ Vue.component("managersSportBuilding", {
 				customerType: "",
 				sportBuilding:"",
 				allUsers: [],
-				customers: null,
-				managers: null,
-				admins: null,
+				customerUsers: [],
+				customers:null,
 				coaches:null,
 				nameSorted: false,
 				surnameSorted: false,
@@ -21,12 +20,40 @@ Vue.component("managersSportBuilding", {
 	template: ` 
 <div style="text-align:center;">
     <table style="margin-left:auto;margin-right:auto;">
-	    <tr>
+	    <tr colspan="3">
 	    	<td style="font-size: 65px;padding: 40px 0px;">Sport Building: {{this.sportBuilding}}</td>
 	    </tr>
 	    <tr rowspan= "2">
-	    	<td colspan ="3">
-	    		<p style="font-size:45px;"> Coaches in sport building:</p>
+	    	<td colspan ="1">
+	    		<p style="font-size:45px;"> Coaches in sport building: {{this.sportBuilding}}</p>
+	    		<table border="3" style="margin-left:auto;margin-right:auto;width:811px;display:block;font-size:25px;">
+	    			<thead style="width: 100%;height: 56px; display: inline-block;margin-right:40px;">
+			    		<tr bgcolor="grey" style="width:100%;font-size: 20px;">
+			    			<th style="max-width:140px;min-width:140px;cursor: pointer;" v-on:click="sortByName">Name &#x2191&#x2193</th>
+			    			<th style="max-width:170px;min-width:170px;cursor: pointer;" v-on:click="sortBySurname">Surname &#x2191&#x2193</th>
+			    			<th style="max-width:150px;min-width:150px;cursor: pointer;" v-on:click="sortByUsername">Username &#x2191&#x2193</th>
+			    			<th style="max-width:120px;min-width:120px;">Birth date</th>
+			    			<th style="max-width:70px;min-width:70px;">Gender</th>
+			    			<th style="max-width:125px;min-width:123px">User Type</th>
+			    		</tr>	
+		    		</thead>
+		    		<tbody style="width: calc(100% + 20px);height: 480px;display: inline-block; overflow: auto;" class="showa">
+			    		<tr v-for="(object, index) in this.allUsers">
+			    			<td style="max-width:140px;min-width:140px">{{object.name}}</td>
+			    			<td style="max-width:170px;min-width:170px">{{object.surname}}</td>
+			    			<td style="max-width:150px;min-width:150px">{{object.username}}</td>
+			    			<td style="max-width:120px;min-width:120px">{{object.birthDate}}</td>
+			    			<td style="max-width:70px;min-width:70px">{{object.gender}}</td>
+			    			<td style="max-width:125px;min-width:123px">{{object.userType}}</td>
+			    		</tr>
+		    		</tbody>
+		    	</table>
+	    	</td>
+	    	<td>
+	    	<div class="space"> </div>
+	    	<td>
+	    	<td colspan ="1">
+	    		<p style="font-size:45px;"> Customers in sport building: {{this.sportBuilding}}</p>
 	    		<table border="3" style="margin-left:auto;margin-right:auto;width:1072px;display:block;font-size:25px;">
 	    			<thead style="width: 100%;height: 56px; display: inline-block;margin-right:40px;">
 			    		<tr bgcolor="grey" style="width:100%;font-size: 20px;">
@@ -41,7 +68,7 @@ Vue.component("managersSportBuilding", {
 			    		</tr>	
 		    		</thead>
 		    		<tbody style="width: calc(100% + 20px);height: 480px;display: inline-block; overflow: auto;" class="showa">
-			    		<tr v-for="(object, index) in this.allUsers">
+			    		<tr v-for="(object, index) in this.customerUsers">
 			    			<td style="max-width:140px;min-width:140px">{{object.name}}</td>
 			    			<td style="max-width:170px;min-width:170px">{{object.surname}}</td>
 			    			<td style="max-width:150px;min-width:150px">{{object.username}}</td>
@@ -183,29 +210,10 @@ Vue.component("managersSportBuilding", {
 			}
 		},
 		initialiseCustomers : function(data){
-			alert("cus");
 			this.customers = data;
 			for (const i in this.customers){
 				this.customers[i].birthDate = this.customers[i].birthDate.split("-").reverse().join("/");
-				this.allUsers.push(this.customers[i]);
-			}
-		},
-		initialiseManagers : function(data){
-			this.managers = data;
-			for (const i in this.managers){
-				this.managers[i].points = -1;
-				this.managers[i].customerType = "None";
-				this.managers[i].birthDate = this.managers[i].birthDate.split("-").reverse().join("/");
-				this.allUsers.push(this.managers[i]);
-			}
-		},
-		initialiseAdmins : function(data){
-			this.admins = data;
-			for (const i in this.admins){
-				this.admins[i].points = -1;
-				this.admins[i].customerType = "None";
-				this.admins[i].birthDate = this.admins[i].birthDate.split("-").reverse().join("/");
-				this.allUsers.push(this.admins[i]);
+				this.customerUsers.push(this.customers[i]);
 			}
 		},
 		initialiseCoaches : function(data){
@@ -225,5 +233,8 @@ Vue.component("managersSportBuilding", {
 		axios
 			.get('workout/getCoaches')
 			.then(response => (this.initialiseCoaches(response.data)));
+		axios
+			.get('customer/getCustomersSportBuilding')
+			.then(response => (this.initialiseCustomers(response.data)));
     }
 });

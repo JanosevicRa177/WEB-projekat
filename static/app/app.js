@@ -16,6 +16,7 @@ const CheckGroupWorkout = { template: '<checkGroupWorkout></checkGroupWorkout>'}
 const WorkoutHistoryCustomer = { template: '<workoutHistoryCustomer></workoutHistoryCustomer>'}
 const WorkoutHistoryManager = { template: '<workoutHistoryManager></workoutHistoryManager>'}
 const WorkoutHistoryCoach = { template: '<workoutHistoryCoach></workoutHistoryCoach>'}
+const CustomerMemberships = {template : '<customerMemberships></customerMemberships>'}
 
 const router = new VueRouter({
 	  mode: 'hash',	
@@ -23,6 +24,12 @@ const router = new VueRouter({
 		{ path: '/login', 
 		components: {
 			default: Login,
+			Bar: BarShow
+			}
+		},
+		{ path: '/Customer/customerMemberships', 
+		components: {
+			default: CustomerMemberships,
 			Bar: BarShow
 			}
 		},
@@ -207,7 +214,7 @@ router.beforeEach((to,from,next) => {
 						return next({path:'/'});
 					}
             });
-       } else if(to.path == '/checkWorkout' || to.path == '/Customer/WorkoutHistory') {
+       } else if(to.path == '/checkWorkout' || to.path == '/Customer/WorkoutHistory' || to.path=='/Customer/customerMemberships') {
 				axios
 			.get('user/userType')
 			.then(response => (Type = response.data))
