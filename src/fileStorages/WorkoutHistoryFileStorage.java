@@ -33,6 +33,10 @@ public class WorkoutHistoryFileStorage {
 		return "Success";
 	}
 	
+	public Collection<WorkoutHistory> getAllWorkoutHistories(){
+		return this.readWorkoutsHistories().values();
+	}
+	
 	public Collection<WorkoutHistory> GetWorkoutHistoryByCustomer(String customer) {
 		workoutsHistories = readWorkoutsHistories();
 		ZoneId defaultZoneId = ZoneId.systemDefault();

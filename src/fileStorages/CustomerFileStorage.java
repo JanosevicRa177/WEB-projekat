@@ -31,6 +31,15 @@ public class CustomerFileStorage {
 		return "Registration successful!";
 	}
 	
+	public Customer getCustomer(String username) {
+		for (Customer cus : this.readCustomers().values()) {
+			if(cus.getUsername().equals(username)) {
+				return cus;
+			}
+		}
+		return null;
+	}
+	
 	public Boolean changeUser(User user) {
 		customers = readCustomers();
 		Customer customer = customers.get(user.getUsername());
