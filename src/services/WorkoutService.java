@@ -35,6 +35,14 @@ public class WorkoutService {
 		return coaches;
 	}
 	
+	public Collection<Workout> getallWorkoutsforSportBuilding(String sportBuilding){
+		Collection<Workout> workouts = new  ArrayList<Workout>();
+		for(Workout work : workoutFileStorage.readWorkouts().values()) {
+			if(work.getSportBuildingName().equals(sportBuilding)) workouts.add(work);
+		}
+		return workouts;
+	}
+	
 	public String addWorkout(Workout workout) {
 		return workoutFileStorage.AddWorkout(workout);
 	}
