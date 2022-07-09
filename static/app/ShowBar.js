@@ -26,8 +26,6 @@ Vue.component("showbar", {
 				  <button v-on:click="adminUserShowAndRegister">Show Registered users</button>
 				  <button v-on:click="createSportBuilding">Register building</button>
 				  <button v-on:click="registerCoachManager">Register managers / coaches </button>
-				  <button>Admin</button>
-				  <button>Admin</button>
 				  </span>
 				  <span v-if="isManager" class="topnavbar">
 				  <button v-on:click="createContent">Add new content</button>
@@ -39,13 +37,10 @@ Vue.component("showbar", {
 				  <button v-on:click="ShowWorkoutHistoryCustomer">Show my trainings</button>
 				  <button v-on:click="CheckWorkout">Check workout</button>
 				  <button v-on:click="Memberships">Membership</button>
-				  <button>Customer</button>
 				  </span>
 				  <span v-if="isCoach" class="topnavbar">
 				  <button v-on:click="ShowWorkoutHistoryCoach">Show my trainings</button>
 				  <button v-on:click="CheckGroupWorkout">Check group workout</button>
-				  <button>Coach</button>
-				  <button>Coach</button>
 				  </span>
 			</td>
 		</tr>

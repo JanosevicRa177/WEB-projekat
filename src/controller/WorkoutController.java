@@ -115,6 +115,14 @@ public class WorkoutController {
 		});
 	}
 	
+	public static void GetWorkoutsBySportBuilding() {
+		get("/workout/getAllBySportBuilding",(req, res) -> {
+			res.type("application/json");
+			String sportBuilding = req.queryParams("sportBuildingName");
+			return gson.toJson(workoutService.GetWorkoutsBySportBuilding(sportBuilding));
+		});
+	}
+	
 	public static void GetWorkoutsByCoach() {
 		get("/workout/getAllByCoach",(req, res) -> {
 			res.type("application/json");

@@ -13,9 +13,10 @@ public class WorkoutHistoryDTO {
 	private String sportBuildingName;
 	private int price;
 	private SportBuildingType sportBuildingtype;
+	private int id;
 	
 	public WorkoutHistoryDTO(Date checkinDate, int hours, String workoutName, WorkoutType workoutType,
-			String sportBuildingName, int price, SportBuildingType sportBuildingtype) {
+			String sportBuildingName, int price, SportBuildingType sportBuildingtype,int id) {
 		super();
 		this.checkinDate = checkinDate;
 		this.hours = hours;
@@ -24,6 +25,13 @@ public class WorkoutHistoryDTO {
 		this.sportBuildingName = sportBuildingName;
 		this.price = price;
 		this.sportBuildingtype = sportBuildingtype;
+		this.id = id;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public Date getCheckinDate() {
 		return checkinDate;

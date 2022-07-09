@@ -6,7 +6,9 @@ import static spark.Spark.put;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import enums.MembershipStatus;
 import enums.UserType;
+import fileStorages.CustomerFileStorage;
 import model.User;
 import services.MembershipService;
 import services.UserService;
@@ -18,9 +20,11 @@ public class UserController {
 	
 	private static UserService userService;
 	private static MembershipService  membershipService;
+	private static CustomerFileStorage customerFileStorage;
 	
 	public UserController() {
 		userService = new UserService();
+		customerFileStorage = new CustomerFileStorage();
 		membershipService = new MembershipService();
 		gson = new GsonBuilder()
 		        .setPrettyPrinting()
@@ -66,7 +70,7 @@ public class UserController {
 			User loggeduser = ss.attribute("user");
 			if(loggeduser != null)
 			return gson.toJson( userService.getUser(loggeduser.getUsername()));
-			return null;
+			return "";
 		});
 		
 	}
@@ -104,7 +108,45 @@ public class UserController {
 				if(use != null) {
 					loggeduser = use;
 					ss.attribute("user", use);
-					if(use.getUserType() == UserType.Customer) membershipService.checkMembership(use.getUsername());
+					if(use.getUserType() == UserType.Customer)  { 
+						if(!membershipService.checkMembership(use.getUsername()) && membershipService.getMembership(use.getUsername()).getStatus() == MembershipStatus.Active) {
+							if(membershipService.getMembership(use.getUsername()).getVisitedSportArena() >
+									membershipService.getMembership(use.getUsername()).getWorkoutNumber()/3) {
+								if(membershipService.getMembership(use.getUsername()).getId().equals("cheap")) {
+									customerFileStorage.setPoints(use.getUsername(),
+											customerFileStorage.getCustomer(use.getUsername()).getPoints() + (5.0*117.0)/1000.0 * membershipService.getMembership(use.getUsername()).getVisitedSportArena());
+								}
+								else if(membershipService.getMembership(use.getUsername()).getId().equals("expensive")) {
+									customerFileStorage.setPoints(use.getUsername(),
+											customerFileStorage.getCustomer(use.getUsername()).getPoints() + (20.0*117.0)/1000.0 * membershipService.getMembership(use.getUsername()).getVisitedSportArena());
+								}
+								else {
+									customerFileStorage.setPoints(use.getUsername(),
+											customerFileStorage.getCustomer(use.getUsername()).getPoints() + (50.0*117.0)/1000.0 * membershipService.getMembership(use.getUsername()).getVisitedSportArena());
+								}
+								
+							}
+
+							else {
+								if(membershipService.getMembership(use.getUsername()).getId().equals("cheap")) {
+									customerFileStorage.setPoints(use.getUsername(),
+											customerFileStorage.getCustomer(use.getUsername()).getPoints() + 
+											(5*117)/1000 * membershipService.getMembership(use.getUsername()).getVisitedSportArena() - (5.0*117.0)/1000.0 * 113.0 * 4.0);
+								}
+								else if(membershipService.getMembership(use.getUsername()).getId().equals("expensive")) {
+									customerFileStorage.setPoints(use.getUsername(),
+											customerFileStorage.getCustomer(use.getUsername()).getPoints() + 
+											(20*117)/1000 * membershipService.getMembership(use.getUsername()).getVisitedSportArena() - (20.0*117.0)/1000.0 * 113.0* 4.0);
+								}
+								else {
+									customerFileStorage.setPoints(use.getUsername(),
+											customerFileStorage.getCustomer(use.getUsername()).getPoints() + 
+											(50*117)/1000 * membershipService.getMembership(use.getUsername()).getVisitedSportArena() - (50.0*117.0)/1000.0* 113.0 * 4.0);
+								}
+							}
+							membershipService.inactive(use.getUsername());
+						}
+					}
 					return "logged";
 				}
 				return "wrong";

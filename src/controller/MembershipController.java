@@ -8,7 +8,6 @@ import java.util.Date;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import model.Membership;
 import model.User;
 import services.MembershipService;
 import spark.Session;

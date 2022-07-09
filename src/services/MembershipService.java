@@ -19,18 +19,21 @@ public class MembershipService {
 		memebershipFileStorage = new MembershipFileSotrage();
 	}
 	
-	public void checkMembership(String customer) {
-		memebershipFileStorage.checkMembership(customer);
+	public boolean checkMembership(String customer) {
+		return memebershipFileStorage.checkMembership(customer);
 	}
 	
 	public Membership getMembership(String username) {
 		for(Membership mem : memebershipFileStorage.readMemberships().values()) {
 			if(mem.getCustomer().equals(username)) {
-				if(mem.getStatus() == MembershipStatus.Inactive) return null;
 				return mem;
 			}
 		}
 		return null;
+	}
+	
+	public void inactive(String username) {
+		memebershipFileStorage.inactive(username);
 	}
 	
 	public void createMembership(String memb,int price,String customer,Date today) {
@@ -53,7 +56,7 @@ public class MembershipService {
 			WN = 200;
 		}
 		Date date = Date.from(locD.atStartOfDay(ZoneId.systemDefault()).toInstant());
-		Membership mem = new Membership(memb,type,today,date,price,customer,MembershipStatus.Active,WN);
+		Membership mem = new Membership(memb,type,today,date,price,customer,MembershipStatus.Active,WN,0);
 		memebershipFileStorage.createMembership(mem);
 	}
 }

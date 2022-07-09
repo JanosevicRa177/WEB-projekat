@@ -14,12 +14,13 @@ public class Membership {
 	private String customer;
 	private MembershipStatus status;
 	private int workoutNumber;
+	private int visitedSportArena;
 	
 	public Membership() {
 		super();
 	}
 	public Membership(String id, MembershipType type, Date paymentDate, Date expires, int price,String customer,MembershipStatus status
-			, int workoutNumber) {
+			, int workoutNumber ,int visitedSportArena) {
 		super();
 		this.id = id;
 		this.type = type;
@@ -29,6 +30,7 @@ public class Membership {
 		this.customer = customer;
 		this.status = status;
 		this.workoutNumber = workoutNumber;
+		this.visitedSportArena = visitedSportArena;
 	}
 	public String getId() {
 		return id;
@@ -78,8 +80,15 @@ public class Membership {
 	public void setWorkoutNumber(int workoutNumber) {
 		this.workoutNumber = workoutNumber;
 	}
-	
-	
+	public int getVisitedSportArena() {
+		return visitedSportArena;
+	}
+	public void setVisitedSportArena(int visitedSportArena) {
+		this.visitedSportArena = visitedSportArena;
+	}
+	public void incVisitedSportArena() {
+		this.visitedSportArena = this.visitedSportArena + 1;
+	}
 	
 	
 }
