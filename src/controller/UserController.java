@@ -69,7 +69,7 @@ public class UserController {
 			User loggeduser = ss.attribute("user");
 			if(loggeduser != null)
 			return gson.toJson( userService.getUser(loggeduser.getUsername()));
-			return null;
+			return "";
 		});
 		
 	}

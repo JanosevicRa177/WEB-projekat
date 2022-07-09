@@ -43,11 +43,37 @@ public class WorkoutHistoryFileStorage {
 		Date dateTodayMinusMonth = Date.from(LocalDate.now().plusMonths(-1).atStartOfDay(defaultZoneId).toInstant());
 		Collection<WorkoutHistory> customerWorkoutHistory = new HashSet<WorkoutHistory>();
 		for(WorkoutHistory workout : workoutsHistories.values()) {
-			if(workout.getCustomer().equals(customer) && (workout.getCheckinDate().compareTo(dateTodayMinusMonth) > 0)) {
+			if(workout.getCustomer().equals(customer) && (workout.getCheckinDate().compareTo(dateTodayMinusMonth) > 0) && (workout.getIsDeclined() == 0)) {
 				customerWorkoutHistory.add(workout);
 			}
 		}
 		return customerWorkoutHistory;
+	}
+	
+	public Collection<WorkoutHistory> GetWorkoutHistoryByCoach(String coach) {
+		workoutsHistories = readWorkoutsHistories();
+		ZoneId defaultZoneId = ZoneId.systemDefault();
+		Date dateTodayMinusMonth = Date.from(LocalDate.now().plusMonths(-1).atStartOfDay(defaultZoneId).toInstant());
+		Collection<WorkoutHistory> customerWorkoutHistory = new HashSet<WorkoutHistory>();
+		for(WorkoutHistory workout : workoutsHistories.values()) {
+			if(workout.getCoach().equals(coach) && (workout.getCheckinDate().compareTo(dateTodayMinusMonth) > 0) && (workout.getIsDeclined() == 0)) {
+				customerWorkoutHistory.add(workout);
+			}
+		}
+		return customerWorkoutHistory;
+	}
+	
+	public String CancelWorkout(int id) {
+		workoutsHistories = readWorkoutsHistories();
+		WorkoutHistory workoutToCancel = workoutsHistories.get(Integer.toString(id));
+		workoutsHistories.remove(Integer.toString(id));
+		workoutToCancel.setIsDeclined(1);
+		workoutsHistories.put(Integer.toString(id),workoutToCancel);
+		writeWorkoutsHistories();
+		return "Success";
+	}
+	public Collection<WorkoutHistory> GetWorkoutHistory() {
+		return readWorkoutsHistories().values();
 	}
 	
 	public boolean writeWorkoutsHistories() 
@@ -67,6 +93,7 @@ public class WorkoutHistoryFileStorage {
 				outputString += workoutHistory.getCustomer() + ";";
 				outputString += formatter.format(workoutHistory.getCheckinDate()) + ";";
 				outputString += workoutHistory.getHours() + ";";
+				outputString += workoutHistory.getIsDeclined() + ";";
 				output.println(outputString);
 			}
 			output.close();
@@ -82,7 +109,7 @@ public class WorkoutHistoryFileStorage {
 		try {
 			File file = new File("workoutsHistories.txt");
 			in = new BufferedReader(new FileReader(file));
-			String line,id = "", workoutName = "", coach = "", customer = "",dateString = "",hours = "";
+			String line,id = "", workoutName = "", coach = "", customer = "",dateString = "",hours = "", isDeclined = "";
 			StringTokenizer st;
 			try {
 				while ((line = in.readLine()) != null) {
@@ -97,10 +124,12 @@ public class WorkoutHistoryFileStorage {
 						customer = st.nextToken().trim();
 						dateString = st.nextToken().trim();
 						hours = st.nextToken().trim();
+						isDeclined = st.nextToken().trim();
 					}
 					SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy"); 
 					Date date = formatter.parse(dateString);
 					WorkoutHistory workoutHistory = new WorkoutHistory(date,workoutName,customer,coach,Integer.parseInt(id),Integer.parseInt(hours));
+					workoutHistory.setIsDeclined(Integer.parseInt(isDeclined));
 					workoutsHistoryInner.put(id,workoutHistory);
 				}
 			} catch (Exception ex) {

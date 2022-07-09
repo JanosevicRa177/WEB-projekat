@@ -15,8 +15,6 @@ import java.util.TreeMap;
 import enums.MembershipStatus;
 import enums.MembershipType;
 import model.Membership;
-import model.User;
-import spark.Session;
 
 public class MembershipFileSotrage {
 

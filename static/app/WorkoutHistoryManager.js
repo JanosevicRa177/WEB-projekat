@@ -1,17 +1,14 @@
-Vue.component("workoutHistoryCustomer", {
+Vue.component("workoutHistoryManager", {
 	data: function () {
 		return {
 			workoutHistories: [],
 			showWorkoutHistories: [],
-			sportBuildingName: "",
-			sportBuildingType: "",
 			workoutType: "",
 			priceFrom: "",
 			priceTo: "",
 			dateFrom: "",
 			dateTo: "",
 			showJustHistory: false,
-			nameSorted: false,
 			priceSorted: false,
 			dateSorted:false,
 		}
@@ -25,20 +22,6 @@ Vue.component("workoutHistoryCustomer", {
 						<tr colspan ="2"><p style="font-size: 20px;"></p></tr>
 						<tr style="font-size: 40px;"><td colspan ="2">Search/Filter</td></tr>
 						<tr style="font-size: 20px;"><td colspan ="2">================================</td></tr>
-						<tr style="font-size: 25px;"><td colspan ="2">Sport building name:</td></tr>
-						<tr><td colspan ="2"><input type="text" v-model="sportBuildingName" style="font-size: 25px; width: 250px;" name="name"></input></td></tr>
-						<tr style="font-size: 25px;"><td colspan ="2">Sport building type</td></tr>
-						<tr>
-							<td colspan ="2">
-								<select name="type" v-model="sportBuildingType" style="font-size: 25px; width: 259px;">
-									<option value=""></option>
-					            	<option value="Gym">Gym</option>
-					            	<option value="Pool">Pool</option>
-					            	<option value="sportCenter">SportCenter</option>
-					            	<option value="danceStudio">danceStudio</option>
-			            		</select>
-			            	</td>
-						</tr>
 						<tr style="font-size: 25px;"><td colspan ="2">Workout type</td></tr>
 						<tr>
 							<td colspan ="2">
@@ -64,6 +47,7 @@ Vue.component("workoutHistoryCustomer", {
 								<input type="number" v-model="priceTo" style="font-size: 20px; width: 140px;"></input>
 							</td>
 						</tr>
+						<tr><p></tr>
 						<tr>
 							<td>
 								<button style="font-size: 20px; width: 145px;margin: 0px 5px 0px 0px;" v-on:click="Search">Search workouts</button>
@@ -76,11 +60,9 @@ Vue.component("workoutHistoryCustomer", {
 		<td style="padding: 0 30px;">
 			<div style="text-align:center;">
 	        <h2>Future workouts and workout history:</h2>
-	    		<table border="3" style="margin-left:auto;margin-right:auto;height:50%;width:929px;display:block;font-size:25px;margin-top:-20px;">
+	    		<table border="3" style="margin-left:auto;margin-right:auto;height:50%;width:608px;display:block;font-size:25px;margin-top:-20px;">
 	    			<thead style="width: 100%;height: 30px; display: inline-block;margin-right:40px;">
 			    		<tr bgcolor="grey" style="width:100%;font-size: 20px;">
-			    			<th style="max-width:170px;min-width:170px;cursor: pointer;" v-on:click="sortByName">Building name &#x2191&#x2193</th>
-			    			<th style="max-width:140px;min-width:140px">Building type</th>
 			    			<th style="max-width:140px;min-width:140px">Workout name</th>
 			    			<th style="max-width:140px;min-width:140px">Workout type</th>
 			    			<th style="max-width:90px;min-width:90px;cursor: pointer;" v-on:click="sortByPrice">Price &#x2191&#x2193</th>
@@ -90,8 +72,6 @@ Vue.component("workoutHistoryCustomer", {
 		    		</thead>
 		    		<tbody style="width: calc(100% + 20px);height: 450px;display: inline-block; overflow: auto;" class="showa">
 			    		<tr v-for="(object, index) in this.showWorkoutHistories" style="height: 60px;">
-			    			<td style="max-width:170px;min-width:170px">{{object.sportBuildingName}}</td>
-			    			<td style="max-width:140px;min-width:140px">{{object.sportBuildingtype}}</td>
 			    			<td style="max-width:140px;min-width:140px">{{object.workoutName}}</td>
 			    			<td style="max-width:140px;min-width:140px">{{object.workoutType}}</td>
 			    			<td style="max-width:90px;min-width:90px">{{object.price}}</td>
@@ -125,24 +105,6 @@ Vue.component("workoutHistoryCustomer", {
   			}
   		return 0;
 		},
-		sortByNameAscending : function (a, b){
-			if ( a.sportBuildingName.toLowerCase() < b.sportBuildingName.toLowerCase()){
-    			return -1;
-  			}
-  			if ( a.sportBuildingName.toLowerCase() > b.sportBuildingName.toLowerCase()){
-    			return 1;
-  			}
-  		return 0;
-		},
-		sortByNameDescending : function (a, b){
-			if ( a.sportBuildingName.toLowerCase() < b.sportBuildingName.toLowerCase()){
-    			return 1;
-  			}
-  			if ( a.sportBuildingName.toLowerCase() > b.sportBuildingName.toLowerCase()){
-    			return -1;
-  			}
-  		return 0;
-		},
 		sortByDateAscending : function (a, b){
 			let dateString1 = a.checkinDate.split("/").reverse().join("-");
 			let dateString2 = b.checkinDate.split("/").reverse().join("-");
@@ -170,7 +132,6 @@ Vue.component("workoutHistoryCustomer", {
   		return 0;
 		},
 		sortByDate : function () {
-			this.nameSorted = false;
 			this.priceSorted = false;
 			if(!this.dateSorted){
 			this.dateSorted = true;
@@ -182,7 +143,6 @@ Vue.component("workoutHistoryCustomer", {
 		},
 		sortByPrice : function () {
 			this.dateSorted = false;
-			this.nameSorted = false;
 			if(!this.priceSorted){
 			this.priceSorted = true;
 			this.showWorkoutHistories.sort(this.sortByPriceAscending);
@@ -191,22 +151,11 @@ Vue.component("workoutHistoryCustomer", {
 			this.showWorkoutHistories.sort(this.sortByPriceDescending);
 			}
 		},
-		sortByName : function () {
-			this.dateSorted = false;
-			this.priceSorted = false;
-			if(!this.nameSorted){
-				this.nameSorted = true;
-				this.showWorkoutHistories.sort(this.sortByNameAscending);
-			} else {
-				this.nameSorted = false;
-				this.showWorkoutHistories.sort(this.sortByNameDescending);
-			}
-		},
 		Search : function () {
 			this.showWorkoutHistories = [];
 			let today = new Date();
-			if(this.sportBuildingName === "" && this.sportBuildingType === "" && this.workoutType === "" && this.priceFrom === "" 
-			&& this.priceTo === "" && this.dateFrom === "" && this.dateTo === ""){
+			if(this.workoutType === "" && this.priceFrom === "" && this.priceTo === ""
+			 && this.dateFrom === "" && this.dateTo === ""){
 				if(this.showJustHistory){
 					for (const i in this.workoutHistories){
 						let workoutDateString = this.workoutHistories[i].checkinDate.split("/").reverse().join("-");
@@ -217,24 +166,12 @@ Vue.component("workoutHistoryCustomer", {
 					}
 				} else this.showWorkoutHistories = this.workoutHistories;
 			} else {
-				let shouldAddbySportBuildingName = true;
-				let shouldAddbySportBuildingType = true;
 				let shouldAddbyWorkoutType = true;
 				let shouldAddbyPriceFrom = true;
 				let shouldAddbyPriceTo = true;
 				let shouldAddbyDateFrom = true;
 				let shouldAddbyDateTo = true;
 				for (const i in this.workoutHistories){
-					if(this.sportBuildingName != ""){
-						if(!this.workoutHistories[i].sportBuildingName.toLowerCase().includes(this.sportBuildingName.toLowerCase())){
-							shouldAddbySportBuildingName = false;
-						}
-					}
-					if(this.sportBuildingType != ""){
-						if(this.workoutHistories[i].sportBuildingtype != this.sportBuildingType){
-							shouldAddbySportBuildingType = false;
-						}
-					}
 					if(this.workoutType != ""){
 						if(this.workoutHistories[i].workoutType != this.workoutType){
 							shouldAddbyWorkoutType = false;
@@ -269,19 +206,17 @@ Vue.component("workoutHistoryCustomer", {
 					if(this.showJustHistory){
 						let workoutDateString = this.workoutHistories[i].checkinDate.split("/").reverse().join("-");
 						let workoutDate = new Date(workoutDateString);
-						if(shouldAddbySportBuildingName && shouldAddbySportBuildingType && shouldAddbyWorkoutType && shouldAddbyPriceFrom
+						if(shouldAddbyWorkoutType && shouldAddbyPriceFrom
 						&& shouldAddbyPriceTo && shouldAddbyDateFrom && shouldAddbyDateTo && (workoutDate < today)){
 						this.showWorkoutHistories.push(this.workoutHistories[i]);
 						}
 					}
 					else{
-						if(shouldAddbySportBuildingName && shouldAddbySportBuildingType && shouldAddbyWorkoutType && shouldAddbyPriceFrom
+						if(shouldAddbyWorkoutType && shouldAddbyPriceFrom
 						&& shouldAddbyPriceTo && shouldAddbyDateFrom && shouldAddbyDateTo){
 						this.showWorkoutHistories.push(this.workoutHistories[i]);
 						}
 					}
-					shouldAddbySportBuildingName = true;
-					shouldAddbySportBuildingType = true;
 					shouldAddbyWorkoutType = true;
 					shouldAddbyPriceFrom = true;
 					shouldAddbyPriceTo = true;
@@ -300,7 +235,7 @@ Vue.component("workoutHistoryCustomer", {
 	},
 	mounted () {
 		axios
-			.get('workoutHistory/getAllByCustomer')
+			.get('workoutHistory/getAllByManager')
 			.then(response => (this.initialiseWorkoutHistory(response.data)));
 	
     }

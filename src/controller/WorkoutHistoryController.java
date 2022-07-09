@@ -2,6 +2,7 @@ package controller;
 
 import static spark.Spark.post;
 import static spark.Spark.get;
+import static spark.Spark.put;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -16,6 +17,7 @@ import com.google.gson.GsonBuilder;
 
 import DTOs.WorkoutHistoryDTO;
 import enums.UserType;
+import enums.WorkoutType;
 import model.SportBuilding;
 import model.User;
 import model.Workout;
@@ -118,11 +120,92 @@ public class WorkoutHistoryController {
 			Collection<WorkoutHistory> customerWorkoutHistory = workoutHistoryService.GetWorkoutHistoryByCustomer(user.getUsername());
 			Collection<WorkoutHistoryDTO> workoutsDTOS = new HashSet<WorkoutHistoryDTO>();
 			
-			for(WorkoutHistory WorkoutHistory : customerWorkoutHistory) {
-				Workout workout = workouts.get(WorkoutHistory.getWorkout());
+			for(WorkoutHistory workoutHistory : customerWorkoutHistory) {
+				Workout workout = workouts.get(workoutHistory.getWorkout());
 				SportBuilding sportbuilding = sportBuildings.get(workout.getSportBuildingName());
-				WorkoutHistoryDTO workoutDTO = new WorkoutHistoryDTO(WorkoutHistory.getCheckinDate(),WorkoutHistory.getHours(),
-						WorkoutHistory.getWorkout(),workout.getType(),workout.getSportBuildingName(),workout.getPrice(),sportbuilding.getType());
+				WorkoutHistoryDTO workoutDTO = new WorkoutHistoryDTO(workoutHistory.getCheckinDate(),workoutHistory.getHours(),
+						workoutHistory.getWorkout(),workout.getType(),workout.getSportBuildingName(),workout.getPrice(),sportbuilding.getType(),workoutHistory.getId());
+				workoutsDTOS.add(workoutDTO);
+			}
+			return gson.toJson(workoutsDTOS);
+		});
+	}
+	public static void GetWorkoutHistoryCoach() {
+		get("/workoutHistory/getAllByCoach",(req, res) -> {
+			res.type("application/json");
+			Session ss = req.session(true);
+			User user = ss.attribute("user");
+			if(user == null)
+				return "You are not logged in!";
+			if(user.getUserType() != UserType.Coach)
+				return "You are not Coach!";
+			
+			Map<String, Workout> workouts = workoutService.GetAllWorkouts();
+			Map<String, SportBuilding> sportBuildings = sportBuildingService.GetSportBuildingsMap();
+			Collection<WorkoutHistory> customerWorkoutHistory = workoutHistoryService.GetWorkoutHistoryByCoach(user.getUsername());
+			Collection<WorkoutHistoryDTO> workoutsDTOS = new HashSet<WorkoutHistoryDTO>();
+			
+			for(WorkoutHistory workoutHistory : customerWorkoutHistory) {
+				Workout workout = workouts.get(workoutHistory.getWorkout());
+				SportBuilding sportbuilding = sportBuildings.get(workout.getSportBuildingName());
+				WorkoutHistoryDTO workoutDTO = new WorkoutHistoryDTO(workoutHistory.getCheckinDate(),workoutHistory.getHours(),
+						workoutHistory.getWorkout(),workout.getType(),workout.getSportBuildingName(),workout.getPrice(),sportbuilding.getType(),workoutHistory.getId());
+				workoutsDTOS.add(workoutDTO);
+			}
+			return gson.toJson(workoutsDTOS);
+		});
+	}
+	
+	public static void CancelWorkout() {
+		put("/workoutHistory/cancel",(req, res) -> {
+			res.type("application/json");
+			Session ss = req.session(true);
+			User user = ss.attribute("user");
+			if(user == null)
+				return "You are not logged in!";
+			if(user.getUserType() != UserType.Coach)
+				return "You are not Coach!";
+			WorkoutHistoryDTO workoutHistoryToDelete = gson.fromJson(req.body(), WorkoutHistoryDTO.class);
+			ZoneId defaultZoneId = ZoneId.systemDefault();
+			Date dateTodayPlus2 = Date.from(LocalDate.now().plusDays(2).atStartOfDay(defaultZoneId).toInstant());
+			if((workoutHistoryToDelete.getWorkoutType() != WorkoutType.Personal) || (workoutHistoryToDelete.getCheckinDate().compareTo(dateTodayPlus2) < 0)) {
+				return "You cant delete this workout!";
+			}
+				
+			return workoutHistoryService.CancelWorkout(workoutHistoryToDelete.getId());
+		});
+	}
+	public static void GetWorkoutHistoryManager() {
+		get("/workoutHistory/getAllByManager",(req, res) -> {
+			res.type("application/json");
+			Session ss = req.session(true);
+			User user = ss.attribute("user");
+			if(user == null)
+				return "You are not logged in!";
+			if(user.getUserType() != UserType.Manager)
+				return "You are not Manager!";
+			
+			Map<String, Workout> workouts = workoutService.GetAllWorkouts();
+			Map<String, SportBuilding> sportBuildings = sportBuildingService.GetSportBuildingsMap();
+			String sportBuilding = "";
+			
+			for(SportBuilding sportBuildingTemp : sportBuildings.values()) {
+				if(sportBuildingTemp.getManager().equals(user.getUsername())) {
+					sportBuilding = sportBuildingTemp.getName();
+					break;
+				}
+			}
+			Collection<WorkoutHistory> customerWorkoutHistory = workoutHistoryService.GetWorkoutHistory();
+			Collection<WorkoutHistoryDTO> workoutsDTOS = new HashSet<WorkoutHistoryDTO>();
+			
+			for(WorkoutHistory workoutHistory : customerWorkoutHistory) {
+				Workout workout = workouts.get(workoutHistory.getWorkout());
+				if(!workout.getSportBuildingName().equals(sportBuilding) || (workoutHistory.getIsDeclined() == 1)) {
+					continue;
+				}
+				SportBuilding sportbuilding = sportBuildings.get(workout.getSportBuildingName());
+				WorkoutHistoryDTO workoutDTO = new WorkoutHistoryDTO(workoutHistory.getCheckinDate(),workoutHistory.getHours(),
+						workoutHistory.getWorkout(),workout.getType(),workout.getSportBuildingName(),workout.getPrice(),sportbuilding.getType(),workoutHistory.getId());
 				workoutsDTOS.add(workoutDTO);
 			}
 			return gson.toJson(workoutsDTOS);

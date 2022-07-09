@@ -26,26 +26,21 @@ Vue.component("showbar", {
 				  <button v-on:click="adminUserShowAndRegister">Show Registered users</button>
 				  <button v-on:click="createSportBuilding">Register building</button>
 				  <button v-on:click="registerCoachManager">Register managers / coaches </button>
-				  <button>Admin</button>
-				  <button>Admin</button>
 				  </span>
 				  <span v-if="isManager" class="topnavbar">
 				  <button v-on:click="createContent">Add new content</button>
 				  <button v-on:click="showManagersContents">Show all contents</button>
-				  <button>Show traingings in my building</button>
+				  <button v-on:click="ShowWorkoutHistoryManager">Show traingings in my building</button>
 				  <button v-on:click="showSportBuilding">Your sport building</button>
 				  </span>
 				  <span v-if="isCustomer" class="topnavbar">
 				  <button v-on:click="ShowWorkoutHistoryCustomer">Show my trainings</button>
 				  <button v-on:click="CheckWorkout">Check workout</button>
 				  <button v-on:click="Memberships">Membership</button>
-				  <button>Customer</button>
 				  </span>
 				  <span v-if="isCoach" class="topnavbar">
-				  <button>Show my trainings</button>
+				  <button v-on:click="ShowWorkoutHistoryCoach">Show my trainings</button>
 				  <button v-on:click="CheckGroupWorkout">Check group workout</button>
-				  <button>Coach</button>
-				  <button>Coach</button>
 				  </span>
 			</td>
 		</tr>
@@ -73,6 +68,12 @@ Vue.component("showbar", {
 		},
 		ShowWorkoutHistoryCustomer : function() {
 			router.push('/Customer/WorkoutHistory');
+		},
+		ShowWorkoutHistoryCoach : function() {
+			router.push('/Coach/WorkoutHistory');
+		},
+		ShowWorkoutHistoryManager : function() {
+			router.push('/Manager/WorkoutHistory');
 		},
 		CheckGroupWorkout : function() {
 			router.push('/checkGroupWorkout');

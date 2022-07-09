@@ -14,6 +14,8 @@ const ShowSportBuildingContentByManager = { template: '<showSportBuildingContent
 const CheckWorkout = { template: '<checkWorkout></checkWorkout>'}
 const CheckGroupWorkout = { template: '<checkGroupWorkout></checkGroupWorkout>'}
 const WorkoutHistoryCustomer = { template: '<workoutHistoryCustomer></workoutHistoryCustomer>'}
+const WorkoutHistoryManager = { template: '<workoutHistoryManager></workoutHistoryManager>'}
+const WorkoutHistoryCoach = { template: '<workoutHistoryCoach></workoutHistoryCoach>'}
 const CustomerMemberships = {template : '<customerMemberships></customerMemberships>'}
 
 const router = new VueRouter({
@@ -34,6 +36,18 @@ const router = new VueRouter({
 		{ path: '/Customer/WorkoutHistory', 
 		components: {
 			default: WorkoutHistoryCustomer,
+			Bar: BarShow
+			}
+		},
+		{ path: '/Manager/WorkoutHistory', 
+		components: {
+			default: WorkoutHistoryManager,
+			Bar: BarShow
+			}
+		},
+		{ path: '/Coach/WorkoutHistory', 
+		components: {
+			default: WorkoutHistoryCoach,
 			Bar: BarShow
 			}
 		},
@@ -174,7 +188,7 @@ router.beforeEach((to,from,next) => {
 						return next({path:'/'});
 					}
             });
-	} else if(to.path == '/createContent' || to.path == '/managersSportBuilding' || to.path == '/changeContent') {
+	} else if(to.path == '/createContent' || to.path == '/managersSportBuilding' || to.path == '/changeContent'|| to.path == '/Manager/WorkoutHistory') {
 				axios
 			.get('user/userType')
 			.then(response => (Type = response.data))
@@ -187,7 +201,7 @@ router.beforeEach((to,from,next) => {
 						return next({path:'/'});
 					}
             });
-       } else if(to.path == '/checkGroupWorkout') {
+       } else if(to.path == '/checkGroupWorkout'|| to.path == '/Coach/WorkoutHistory') {
 				axios
 			.get('user/userType')
 			.then(response => (Type = response.data))
