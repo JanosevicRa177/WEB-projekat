@@ -35,6 +35,7 @@ public class SportBuildingController {
 		post("sportBuilding/add",(req, res) -> {
 			res.type("application/json");
 			SportBuilding spB = gson.fromJson(req.body(), SportBuilding.class);
+			System.out.println(spB.getWorkTime());
 			if(!spB.getName().matches("^[A-Z.-]+(\\s*[A-Za-z.-]+)*$") || !spB.getLocation().getAddress().getCity().matches("^[A-Z.-]+(\\s*[A-Za-z.-]+)*$") || !spB.getLocation().getAddress().getStreet().matches("^[A-Z.-]+(\\s*[A-Za-z.-]+)*$"))
 				return "Name,city and street should start with uppercase without numbers";
 			if(!spB.getLocation().getAddress().getNumber().matches("^(\s*[A-Za-z0-9.-]+)*$"))

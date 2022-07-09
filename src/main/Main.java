@@ -33,6 +33,7 @@ public class Main {
 		new WorkoutController();
 		new WorkoutHistoryController();
 		new ActiveGroupWorkoutController();
+		new MembershipController();
 		
 		CustomerController.addCustomer();
 		CustomerController.GetAllCustomers();
@@ -80,6 +81,7 @@ public class Main {
 		ActiveGroupWorkoutController.GetActiveGroupWorkoutsByCustomer();
 		
 		MembershipController.createMembership();
+		MembershipController.getMemebership();
 	}
 
 }

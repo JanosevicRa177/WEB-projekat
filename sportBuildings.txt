@@ -1,3 +1,4 @@
+ASD;danceStudio;0.0;0.0;ASDSAD;ASdSDA;SADasda;213123123;asdasdsaddsa;10.0;2:30-4:30;SADasd;
 ime1;Pool;400.1;300.2;ulica1;19a;Novi Sad;12345;https://image.shutterstock.com/image-vector/creative-clean-water-pool-logo-260nw-1931658023.jpg;10.0;09:00-15:00;Miki;
 ime2;sportCenter;500.3;600.7;ulica2;64;Beograd;54321;https://thumbs.dreamstime.com/b/strong-favorite-fitness-body-building-logo-design-template-124915529.jpg;5.0;15:00-22:00;Simi;
 ime3;Gym;1000.5;900.6;ulica3;19b;Novi Sad;21000;https://img0-placeit-net.s3-accelerate.amazonaws.com/uploads/stage/stage_image/48721/optimized_large_thumb_stage.jpg;7.0;13:00-14:30;Tarzance;
@@ -5,4 +6,6 @@ Kristiax;Pool;0.0;0.0;Janka Jesenskog;30;Kisac;21211213;https://image.shuttersto
 Kristiaxsds;sportCenter;0.0;0.0;Janka Jesenskog;30;Kisacqwe;21211;https://img.freepik.com/free-vector/gym-logo_219982-7.jpg;0.0;00:00-00:00;xd2;
 Name;Gym;0.0;0.0;SDA;12;Csad;345435;https://i.pinimg.com/originals/6a/87/b0/6a87b06ee4f2c9ff739f1a4eaa901785.jpg;0.0;00:00-00:00;DarkoLazic;
 Namesdsd;Gym;0.0;0.0;SADsad;12321;Csad;213213;https://img.freepik.com/free-vector/fitness-gym-sport-body-building-logo-icon-template_227744-214.jpg;0.0;00:00-00:00;asdsadasd;
+SADasd;danceStudio;0.0;0.0;SADsd;21323;DWasdasd;21312312123;adsfdsgdfgdf;7.0;0:0-0:0;DarkoLazic;
+Sdaasd;sportCenter;0.0;0.0;SADsad;SADsad;ASdasd;213123213;asdf321rd;9.0;0:0-0:0;DarkoLazic;
 Wwadasd;sportCenter;0.0;0.0;Cweasd;21321a;Cwqdwsa;213213213;https://image.shutterstock.com/z/stock-vector-fitness-gym-logo-design-template-with-exercising-athletic-man-and-woman-isolated-on-white-vector-1663692082.jpg;0.0;00:00-00:00;Waras;

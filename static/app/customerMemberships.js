@@ -5,6 +5,8 @@ Vue.component("customerMemberships", {
 			averageGrade: "",
 			choosenMembShip: "",
 			currentMembership: null,
+			id:'None',
+			expires:'',
 			showJustOpen: false,
 			nameSorted: false,
 			locationSorted: false,
@@ -41,8 +43,8 @@ Vue.component("customerMemberships", {
 						</td>
 						<div class="hspace"/>					
 						<td>
-						<p>Your current paid membership:{{currentMembership}}</p>
-						<p>Expires at: {{expireDate}} 
+						<p>Your current paid membership: {{this.id}}</p>
+						<p>Expires at:  <br/> {{this.expires}} </p>
 						</td>
 						</tr>
 				<tr>
@@ -68,7 +70,7 @@ Vue.component("customerMemberships", {
 		pay :function(){
 			axios
 			.post('membership/createMembership',null,{params: {membership: this.choosenMembShip.name + "", price:  this.choosenMembShip.price + ""}})
-			.then(response => (alert(reponse.data)));
+			.then(response => (alert("success, refresh page!")));
 		},
 		initialiseSportObjects : function (data) {
 		this.sportObjects = data;
@@ -82,11 +84,21 @@ Vue.component("customerMemberships", {
 					.then(response => this.usernameText = "Welcome " + response.data + "!");
 			}else this.usernameText = null;
 		},
+		init22 : function(data) {
+			this.currentMembership = data;
+			if(this.currentMembership != null) {
+				this.id = this.currentMembership.id;
+				this.expires = this.currentMembership.expires;
+			}
+		}
 	},
 	mounted () {
 		this.choosenMembShip = this.memberships[0];
 		axios
 			.get('user/getlogged')
 			.then(response => (this.logchange(response.data)));
+		axios
+			.get('membership/getMembership')
+			.then(response => (this.init22(response.data)));
     }
 });

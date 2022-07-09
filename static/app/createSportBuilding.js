@@ -2,7 +2,7 @@ Vue.component("createSportBuilding", {
 	data: function () {
 		    return {
 			user: {name:null,surname:null,username:null,password:null,gender:"Male",birthDate:"2000-03-20",userType:"Manager",sportBuilding:"None"},
-			  sportBuilding: {name:null,type:null,image:null,manager:null,location:{longitude:0,latitude:0,address:{city:null,street:null,number:null,zipCode:null}}},
+			  sportBuilding: {wrokTime:'',averageGrade:5,name:null,type:null,image:null,manager:null,location:{longitude:0,latitude:0,address:{city:null,street:null,number:null,zipCode:null}}},
 			  allManagers:[],
 		      birthDateString: null,
 		      cantSubmit: true,
@@ -19,6 +19,10 @@ Vue.component("createSportBuilding", {
 		      nameNotValid:true,
 		      surnameNotValid:true,
 		      passwordNotValid:true,
+		      open:00,
+		      openhalf:00,
+		      close:00,
+		      closehalf:00
 		    }	
 	},
 	template: ` 
@@ -75,6 +79,35 @@ Vue.component("createSportBuilding", {
 				            <input readonly v-if="regMan" type="text" v-model="user.username" style="font-size: 25px;width: 342px;" name="c"></input>
 			            </td>
 			        </tr>
+			        <tr>
+			        	<td align="left"><strong  style="font-size: 30px;">Grade:</strong></td>
+			            <td>
+				             <select v-model="sportBuilding.averageGrade" style="font-size: 25px; width: 350px;">
+				            	<option value="5">5</option>
+				            	<option value="6">6</option>
+				            	<option value="7">7</option>
+				            	<option value="8">8</option>
+				            	<option value="9">9</option>
+				            	<option value="10">10</option>
+		            		</select>
+	            		</td>
+			        </tr>
+			        	<tr>
+			        	<td align="left"><strong style="font-size: 30px;">Work Time:</strong></td>
+			        	<td>
+			        	<table>
+			        	<tr>
+			        	<td><input v-model="open" v-on:change="openclosechanged" type="number" style="font-size: 25px;width:  45px;" min="0"max="23" ></input></td>
+			        	<td>:</td>
+			        	<td><input v-model="openhalf" v-on:change="openclosechanged" type="number" style="font-size: 25px;width:  45px;" min="0"max="30"step="30" ></input></td>
+			        	<td>-</td>
+			        	<td><input v-model="close" v-on:change="openclosechanged" type="number" style="font-size: 25px;width:  45px;" min="0"max="23" ></input></td>
+			        	<td>:</td>
+			        	<td><input v-model="closehalf" v-on:change="openclosechanged" type="number" style="font-size: 25px;width:  45px;" min="0"max="30"step="30" ></input></td>
+			        	</tr>
+			        	</table>
+			        	</td>
+			        	</tr>
 			        <tr style="height:70px">
 			        	<td colspan="2">
 				        	<button v-on:click="Submit()" :disabled="cantAllSubmit" style="font-size: 25px; width: 42%;margin: 0px 10px;"> Submit </button> 
@@ -146,6 +179,10 @@ Vue.component("createSportBuilding", {
 `
 	, 
 	methods : {
+		openclosechanged : function() {
+			this.sportBuilding.workTime = this.open + ":" + this.openhalf + "-" + this.close + ":" + this.closehalf; 
+			alert(this.sportBuilding.workTime);
+		},
 		checkCanConfirm: function(){
 			if(!this.nameNotValid & !this.surnameNotValid & !this.usernameNotValid & !this.passwordNotValid)
 			{
