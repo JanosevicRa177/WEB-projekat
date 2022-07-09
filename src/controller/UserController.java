@@ -6,6 +6,7 @@ import static spark.Spark.put;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import enums.MembershipStatus;
 import enums.UserType;
 import fileStorages.CustomerFileStorage;
 import model.User;
@@ -108,41 +109,42 @@ public class UserController {
 					loggeduser = use;
 					ss.attribute("user", use);
 					if(use.getUserType() == UserType.Customer)  { 
-						if(!membershipService.checkMembership(use.getUsername())) {
+						if(!membershipService.checkMembership(use.getUsername()) && membershipService.getMembership(use.getUsername()).getStatus() == MembershipStatus.Active) {
 							if(membershipService.getMembership(use.getUsername()).getVisitedSportArena() >
 									membershipService.getMembership(use.getUsername()).getWorkoutNumber()/3) {
 								if(membershipService.getMembership(use.getUsername()).getId().equals("cheap")) {
-									customerFileStorage.getCustomer(use.getUsername()).setPoints(
-											customerFileStorage.getCustomer(use.getUsername()).getPoints() + (5*117)/1000 * membershipService.getMembership(use.getUsername()).getVisitedSportArena());
+									customerFileStorage.setPoints(use.getUsername(),
+											customerFileStorage.getCustomer(use.getUsername()).getPoints() + (5.0*117.0)/1000.0 * membershipService.getMembership(use.getUsername()).getVisitedSportArena());
 								}
 								else if(membershipService.getMembership(use.getUsername()).getId().equals("expensive")) {
-									customerFileStorage.getCustomer(use.getUsername()).setPoints(
-											customerFileStorage.getCustomer(use.getUsername()).getPoints() + (20*117)/1000 * membershipService.getMembership(use.getUsername()).getVisitedSportArena());
+									customerFileStorage.setPoints(use.getUsername(),
+											customerFileStorage.getCustomer(use.getUsername()).getPoints() + (20.0*117.0)/1000.0 * membershipService.getMembership(use.getUsername()).getVisitedSportArena());
 								}
 								else {
-									customerFileStorage.getCustomer(use.getUsername()).setPoints(
-											customerFileStorage.getCustomer(use.getUsername()).getPoints() + (50*117)/1000 * membershipService.getMembership(use.getUsername()).getVisitedSportArena());
+									customerFileStorage.setPoints(use.getUsername(),
+											customerFileStorage.getCustomer(use.getUsername()).getPoints() + (50.0*117.0)/1000.0 * membershipService.getMembership(use.getUsername()).getVisitedSportArena());
 								}
 								
 							}
 
 							else {
 								if(membershipService.getMembership(use.getUsername()).getId().equals("cheap")) {
-									customerFileStorage.getCustomer(use.getUsername()).setPoints(
+									customerFileStorage.setPoints(use.getUsername(),
 											customerFileStorage.getCustomer(use.getUsername()).getPoints() + 
-											(5*117)/1000 * membershipService.getMembership(use.getUsername()).getVisitedSportArena() - (5*117)/1000 * 113 * 4);
+											(5*117)/1000 * membershipService.getMembership(use.getUsername()).getVisitedSportArena() - (5.0*117.0)/1000.0 * 113.0 * 4.0);
 								}
 								else if(membershipService.getMembership(use.getUsername()).getId().equals("expensive")) {
-									customerFileStorage.getCustomer(use.getUsername()).setPoints(
+									customerFileStorage.setPoints(use.getUsername(),
 											customerFileStorage.getCustomer(use.getUsername()).getPoints() + 
-											(20*117)/1000 * membershipService.getMembership(use.getUsername()).getVisitedSportArena() - (20*117)/1000 * 113 * 4);
+											(20*117)/1000 * membershipService.getMembership(use.getUsername()).getVisitedSportArena() - (20.0*117.0)/1000.0 * 113.0* 4.0);
 								}
 								else {
-									customerFileStorage.getCustomer(use.getUsername()).setPoints(
+									customerFileStorage.setPoints(use.getUsername(),
 											customerFileStorage.getCustomer(use.getUsername()).getPoints() + 
-											(50*117)/1000 * membershipService.getMembership(use.getUsername()).getVisitedSportArena() - (50*117)/1000 * 113 * 4);
+											(50*117)/1000 * membershipService.getMembership(use.getUsername()).getVisitedSportArena() - (50.0*117.0)/1000.0* 113.0 * 4.0);
 								}
 							}
+							membershipService.inactive(use.getUsername());
 						}
 					}
 					return "logged";

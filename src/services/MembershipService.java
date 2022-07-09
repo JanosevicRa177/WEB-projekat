@@ -26,11 +26,14 @@ public class MembershipService {
 	public Membership getMembership(String username) {
 		for(Membership mem : memebershipFileStorage.readMemberships().values()) {
 			if(mem.getCustomer().equals(username)) {
-				if(mem.getStatus() == MembershipStatus.Inactive) return null;
 				return mem;
 			}
 		}
 		return null;
+	}
+	
+	public void inactive(String username) {
+		memebershipFileStorage.inactive(username);
 	}
 	
 	public void createMembership(String memb,int price,String customer,Date today) {

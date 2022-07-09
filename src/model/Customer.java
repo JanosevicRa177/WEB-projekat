@@ -13,7 +13,7 @@ public class Customer extends User{
 	private Membership membership;
 	private CustomerType customerType;
 	private List<SportBuilding> visitedBuildings;
-	private int points;
+	private double points;
 	
 	public Customer() {
 		super();
@@ -26,7 +26,7 @@ public class Customer extends User{
 	public void initCustomer() {
 		this.membership = new Membership();
 		this.visitedBuildings = new ArrayList<SportBuilding>();
-		this.points = 0;
+		this.points = 0.0;
 	}
 	
 	public Customer change(User us) {
@@ -60,11 +60,11 @@ public class Customer extends User{
 		this.visitedBuildings = visitedBuildings;
 	}
 
-	public int getPoints() {
+	public double getPoints() {
 		return points;
 	}
 
-	public void setPoints(int points) {
+	public void setPoints(double points) {
 		this.points = points;
 	}
 

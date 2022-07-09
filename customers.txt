@@ -1,8 +1,8 @@
-adsas;sadsad;Kristian;Kov;Alien;20-03-2000;0
-ascsacsac;test123;Sony;Janosevic;Male;20-03-2000;3100
-Asfsf;Asfasfs;Asfsfs;Asfsfsf;Male;20-03-2000;0
-Asfsfs;sfsffs;Asfs;Asfsf;Male;20-03-2000;1750
-Asssfsfs;sfssssssffs;Asssfs;Asssfsf;Male;20-03-2000;1751
-drago;drag2;Dragana;Prc;Male;14-06-2022;1500
-eva;xd123;Eva;Adam;Female;25-02-2001;1250
-xd;xd222;Ivan;Kov;Male;20-03-2000;0
+adsas;sadsad;Kristian;Kov;Alien;20-03-2000;0.0
+ascsacsac;test123;Sony;Janosevic;Male;20-03-2000;3100.0
+Asfsf;Asfasfs;Asfsfs;Asfsfsf;Male;20-03-2000;0.0
+Asfsfs;sfsffs;Asfs;Asfsf;Male;20-03-2000;1750.0
+Asssfsfs;sfssssssffs;Asssfs;Asssfsf;Male;20-03-2000;1751.0
+drago;drag2;Dragana;Prc;Male;14-06-2022;1500.0
+eva;xd123;Eva;Adam;Female;25-02-2001;1264.04
+xd;xd222;Ivan;Kov;Male;20-03-2000;0.0

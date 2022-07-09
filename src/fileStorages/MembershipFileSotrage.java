@@ -33,6 +33,15 @@ public class MembershipFileSotrage {
 		memberships.put(memb.getCustomer(), memb);
 		this.writeMemberships();
 	}
+	 
+	public void inactive(String username) {
+		memberships = this.readMemberships();
+		Membership mem = memberships.get(username);
+		if(mem != null) {
+			mem.setStatus(MembershipStatus.Inactive);
+		}
+		this.writeMemberships();
+	}
 	
 	public Membership getCustomersMembership(String customer) {
 		for(Membership mem : this.readMemberships().values() ) {
@@ -57,7 +66,6 @@ public class MembershipFileSotrage {
 		memberships = this.readMemberships();
 		Membership memb = memberships.get(customer);
 		if(memb.getExpires().before(new Date())) {
-			memb.setStatus(MembershipStatus.Inactive);
 			this.writeMemberships();
 			return false;
 		}

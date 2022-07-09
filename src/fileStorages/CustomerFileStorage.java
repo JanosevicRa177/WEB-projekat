@@ -31,6 +31,16 @@ public class CustomerFileStorage {
 		return "Registration successful!";
 	}
 	
+	public void setPoints(String username,double points) {
+		customers = readCustomers();
+		for (Customer cus : customers.values()) {
+			if(cus.getUsername().equals(username)) {
+				cus.setPoints(points);
+			}
+		}
+		this.writeCustomers();
+	}
+	
 	public Customer getCustomer(String username) {
 		for (Customer cus : this.readCustomers().values()) {
 			if(cus.getUsername().equals(username)) {
@@ -118,8 +128,8 @@ public class CustomerFileStorage {
 					else gen = Gender.Alien;
 					
 					CustomerType customerType;
-					if(Integer.parseInt(points) < 1500) customerType = CustomerType.Bronze;
-					else if(Integer.parseInt(points) < 3000) customerType = CustomerType.Silver;
+					if(Double.parseDouble(points) < 1500) customerType = CustomerType.Bronze;
+					else if(Double.parseDouble(points) < 3000) customerType = CustomerType.Silver;
 					else customerType = CustomerType.Gold;
 					
 					SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy"); 
@@ -127,7 +137,7 @@ public class CustomerFileStorage {
 					Customer customer = new Customer(username, password, name, surname, gen, date);
 					customersInner.put(customer.getUsername(),customer);
 					customer.setCustomerType(customerType);
-					customer.setPoints(Integer.parseInt(points));
+					customer.setPoints(Double.parseDouble(points));
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();
