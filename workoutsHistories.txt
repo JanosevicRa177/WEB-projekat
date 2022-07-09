@@ -4,3 +4,4 @@
 3;Vezbe kod ive;Iva;eva;27-07-2022;15;
 4;Trening uvece kod ive;Iva;eva;01-08-2022;13;
 5;Trening uvece kod ive;Iva;eva;03-08-2022;16;
+6;Slobodni trening;None;eva;21-07-2022;10;

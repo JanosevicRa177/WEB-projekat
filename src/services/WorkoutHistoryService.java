@@ -3,6 +3,7 @@ package services;
 import java.util.Collection;
 import java.util.Date;
 
+import fileStorages.MembershipFileSotrage;
 import fileStorages.WorkoutHistoryFileStorage;
 import model.Workout;
 import model.WorkoutHistory;
@@ -10,12 +11,19 @@ import model.WorkoutHistory;
 public class WorkoutHistoryService {
 
 	private static WorkoutHistoryFileStorage workoutHistoryFileStorage;
+	private static MembershipFileSotrage membershipFileStorage;
 	
 	public WorkoutHistoryService() {
 		workoutHistoryFileStorage = new WorkoutHistoryFileStorage();
+		membershipFileStorage = new MembershipFileSotrage();
 	}
 	
 	public String AddWorkoutHistory(Date date,int hours,Workout workout,String customerUsername) {
+		if(membershipFileStorage.getCustomersMembership(customerUsername).getVisitedSportArena() >=  
+				membershipFileStorage.getCustomersMembership(customerUsername).getWorkoutNumber()) {
+			return "You cannot go to trainings anymore";
+		}
+			membershipFileStorage.increase(customerUsername);
 		return workoutHistoryFileStorage.AddWorkoutHistory(date,hours,workout,customerUsername);
 	}
 	

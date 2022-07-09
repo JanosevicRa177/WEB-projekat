@@ -19,8 +19,8 @@ public class MembershipService {
 		memebershipFileStorage = new MembershipFileSotrage();
 	}
 	
-	public void checkMembership(String customer) {
-		memebershipFileStorage.checkMembership(customer);
+	public boolean checkMembership(String customer) {
+		return memebershipFileStorage.checkMembership(customer);
 	}
 	
 	public Membership getMembership(String username) {
@@ -53,7 +53,7 @@ public class MembershipService {
 			WN = 200;
 		}
 		Date date = Date.from(locD.atStartOfDay(ZoneId.systemDefault()).toInstant());
-		Membership mem = new Membership(memb,type,today,date,price,customer,MembershipStatus.Active,WN);
+		Membership mem = new Membership(memb,type,today,date,price,customer,MembershipStatus.Active,WN,0);
 		memebershipFileStorage.createMembership(mem);
 	}
 }

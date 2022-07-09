@@ -36,13 +36,34 @@ public class MembershipFileSotrage {
 		this.writeMemberships();
 	}
 	
-	public void checkMembership(String customer) {
+	public Membership getCustomersMembership(String customer) {
+		for(Membership mem : this.readMemberships().values() ) {
+			if(mem.getCustomer().equals(customer)){
+				return mem;
+			}
+		}
+		return null;
+	}
+	
+	public void increase(String customer) {
+		memberships = this.readMemberships();
+		for(Membership mem :  memberships.values()) {
+			if(mem.getCustomer().equals(customer)){
+				mem.incVisitedSportArena();
+			}
+		}
+		this.writeMemberships();
+	}
+	
+	public boolean checkMembership(String customer) {
 		memberships = this.readMemberships();
 		Membership memb = memberships.get(customer);
 		if(memb.getExpires().before(new Date())) {
 			memb.setStatus(MembershipStatus.Inactive);
 			this.writeMemberships();
+			return false;
 		}
+		return true;
 	}
 	
 	public boolean writeMemberships() 
@@ -70,6 +91,7 @@ public class MembershipFileSotrage {
 				else
 				outputString += "Inactive" + ";";
 				outputString += membership.getWorkoutNumber() + ";";
+				outputString += membership.getVisitedSportArena() + ";";
 				output.println(outputString);
 			}
 			output.close();
@@ -85,7 +107,7 @@ public class MembershipFileSotrage {
 		try {
 			File file = new File("./memberships.txt");
 			in = new BufferedReader(new FileReader(file));
-			String line, id = "", type = "", paymentDate = "",expires = "",price = "", customer = "",status="",workoutNumber="";
+			String line, id = "", type = "", paymentDate = "",expires = "",price = "", customer = "",status="",workoutNumber="",visitedSportArena="";
 			StringTokenizer st;
 			try {
 				while ((line = in.readLine()) != null) {
@@ -102,6 +124,7 @@ public class MembershipFileSotrage {
 						customer = st.nextToken().trim();
 						status = st.nextToken().trim();
 						workoutNumber = st.nextToken().trim();
+						visitedSportArena = st.nextToken().trim();
 					}
 					MembershipType memt;
 					MembershipStatus memst;
@@ -112,7 +135,7 @@ public class MembershipFileSotrage {
 					SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy"); 
 					Date payDate = formatter.parse(paymentDate);
 					Date expDate = formatter.parse(expires);
-					Membership membership = new Membership(id,memt,payDate,expDate,Integer.parseInt(price),customer,memst,Integer.parseInt(workoutNumber));
+					Membership membership = new Membership(id,memt,payDate,expDate,Integer.parseInt(price),customer,memst,Integer.parseInt(workoutNumber),Integer.parseInt(visitedSportArena));
 					coachesInner.put(membership.getCustomer(),membership);
 				}
 			} catch (Exception ex) {

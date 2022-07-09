@@ -67,4 +67,5 @@ public class Customer extends User{
 	public void setPoints(int points) {
 		this.points = points;
 	}
+
 }
