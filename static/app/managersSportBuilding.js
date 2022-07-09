@@ -57,12 +57,12 @@ Vue.component("managersSportBuilding", {
 	    		<table border="3" style="margin-left:auto;margin-right:auto;width:1072px;display:block;font-size:25px;">
 	    			<thead style="width: 100%;height: 56px; display: inline-block;margin-right:40px;">
 			    		<tr bgcolor="grey" style="width:100%;font-size: 20px;">
-			    			<th style="max-width:140px;min-width:140px;cursor: pointer;" v-on:click="sortByName">Name &#x2191&#x2193</th>
-			    			<th style="max-width:170px;min-width:170px;cursor: pointer;" v-on:click="sortBySurname">Surname &#x2191&#x2193</th>
-			    			<th style="max-width:150px;min-width:150px;cursor: pointer;" v-on:click="sortByUsername">Username &#x2191&#x2193</th>
+			    			<th style="max-width:140px;min-width:140px;" >Name </th>
+			    			<th style="max-width:170px;min-width:170px;" >Surname</th>
+			    			<th style="max-width:150px;min-width:150px;" >Username</th>
 			    			<th style="max-width:120px;min-width:120px;">Birth date</th>
 			    			<th style="max-width:70px;min-width:70px;">Gender</th>
-			    			<th style="max-width:120px;min-width:120px;cursor: pointer;" v-on:click="sortByPoints">Points &#x2191&#x2193</th>
+			    			<th style="max-width:120px;min-width:120px;" >Points </th>
 			    			<th style="max-width:125px;min-width:123px;">Customer Type</th>
 			    			<th style="max-width:125px;min-width:123px">User Type</th>
 			    		</tr>	

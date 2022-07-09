@@ -77,7 +77,7 @@ Vue.component("workoutHistoryCoach", {
 		<td style="padding: 0 30px;">
 			<div style="text-align:center;">
 	        <h2>Future workouts and workout history:</h2>
-	    		<table border="3" style="margin-left:auto;margin-right:auto;height:50%;width:929px;display:block;font-size:25px;margin-top:-20px;">
+	    		<table border="3" style="margin-left:auto;margin-right:auto;height:50%;width:1035px;display:block;font-size:25px;margin-top:-20px;">
 	    			<thead style="width: 100%;height: 30px; display: inline-block;margin-right:40px;">
 			    		<tr bgcolor="grey" style="width:100%;font-size: 20px;">
 			    			<th style="max-width:170px;min-width:170px;cursor: pointer;" v-on:click="sortByName">Building name &#x2191&#x2193</th>
@@ -87,6 +87,7 @@ Vue.component("workoutHistoryCoach", {
 			    			<th style="max-width:90px;min-width:90px;cursor: pointer;" v-on:click="sortByPrice">Price &#x2191&#x2193</th>
 			    			<th style="max-width:140px;min-width:140px;cursor: pointer;" v-on:click="sortByDate">Date &#x2191&#x2193</th>
 			    			<th style="max-width:60px;min-width:60px;">Hour</th>
+			    			<th style="max-width:100px;min-width:100px;"></th>
 			    		</tr>	
 		    		</thead>
 		    		<tbody style="width: calc(100% + 20px);height: 450px;display: inline-block; overflow: auto;" class="showa">
@@ -98,6 +99,7 @@ Vue.component("workoutHistoryCoach", {
 			    			<td style="max-width:90px;min-width:90px">{{object.price}}</td>
 			    			<td style="max-width:140px;min-width:140px">{{object.checkinDate}}</td>
 			    			<td style="max-width:60px;min-width:60px">{{object.hours}}</td>
+			    			<td style="max-width:100px;min-width:100px"><button :disabled="object.cantDelete" style="font-size:20px;width:90px" v-on:click="cancelWorkout(object)">Cancel</button></td>
 			    		</tr>
 		    		</tbody>
 		    	</table>
@@ -108,6 +110,25 @@ Vue.component("workoutHistoryCoach", {
 `
 	,
 	methods : {
+		cancelWorkout : function (workout){
+			if (confirm('Are you sure you want to cancel this workout?')) {
+				workout.checkinDate = workout.checkinDate.split("/").reverse().join("-");
+				axios
+				.put('workoutHistory/cancel',workout)
+				.then(response => (this.afterCanceling(response.data,workout)));
+			}else {}
+		},
+		afterCanceling : function (data,workout){
+			if(data == "Success"){
+				for (const i in this.workoutHistories){
+					if(this.workoutHistories[i].id == workout.id){
+						this.workoutHistories.splice(i,1);
+						break;
+					}
+				}
+				alert("Workout successfuly canceled!");
+			}else alert(data);
+		},
 		sortByPriceAscending : function (a, b){
 			if ( a.price < b.price){
     			return -1;
@@ -294,6 +315,11 @@ Vue.component("workoutHistoryCoach", {
 		initialiseWorkoutHistory : function (data) {
 		this.workoutHistories = data;
 		for (const i in this.workoutHistories){
+			let date = new Date(this.workoutHistories[i].checkinDate);
+			let todayplus2 = new Date();
+			todayplus2.setDate(todayplus2.getDate() + 2)
+			if((date > todayplus2) && (this.workoutHistories[i].workoutType == "Personal")) this.workoutHistories[i].cantDelete = false;
+			else this.workoutHistories[i].cantDelete = true;
 			this.workoutHistories[i].checkinDate = this.workoutHistories[i].checkinDate.split("-").reverse().join("/");
 		}
 		this.showWorkoutHistories = this.workoutHistories;

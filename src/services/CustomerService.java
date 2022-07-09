@@ -7,6 +7,7 @@ import fileStorages.CustomerFileStorage;
 import fileStorages.WorkoutHistoryFileStorage;
 import model.Coach;
 import model.Customer;
+import model.Workout;
 import model.WorkoutHistory;
 
 public class CustomerService {
@@ -29,12 +30,12 @@ public class CustomerService {
 	
 	public Collection<Customer> getCustomersSportBuilding(String sportBuilding){
 		Collection<Customer> customers = new ArrayList<Customer>();
-		Collection<Coach> coaches = workoutService.getAllCoachesForSportBuilding(sportBuilding);
+		Collection<Workout> workouts = workoutService.getallWorkoutsforSportBuilding(sportBuilding);
 		boolean bol=true;
 		for(WorkoutHistory WH : workoutHistoryFileStorage.getAllWorkoutHistories()) {
 			bol = true;
-			for(Coach co : coaches) {
-				if(co.getUsername().equals(WH.getCoach())) {
+			for(Workout wo : workouts) {
+				if(wo.getName().equals(WH.getWorkout())) {
 					for(Customer cus : customers) {
 						if(cus.getUsername().equals(WH.getCustomer())) {
 							bol = false;

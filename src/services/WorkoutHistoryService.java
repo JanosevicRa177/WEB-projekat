@@ -28,4 +28,7 @@ public class WorkoutHistoryService {
 	public Collection<WorkoutHistory> GetWorkoutHistory() {
 		return workoutHistoryFileStorage.GetWorkoutHistory();
 	}
+	public String CancelWorkout(int id) {
+		return workoutHistoryFileStorage.CancelWorkout(id);
+	}
 }

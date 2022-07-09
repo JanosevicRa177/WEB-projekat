@@ -9,7 +9,8 @@ public class WorkoutHistory {
 	private String customer;
 	private String coach;
 	private int id;
-	
+	private int isDeclined;
+
 	public WorkoutHistory() {
 		super();
 	}
@@ -22,6 +23,15 @@ public class WorkoutHistory {
 		this.customer = customer;
 		this.coach = coach;
 		this.id = id;
+		this.isDeclined = 0;
+	}
+	
+	public int getIsDeclined() {
+		return isDeclined;
+	}
+
+	public void setIsDeclined(int isDeclined) {
+		this.isDeclined = isDeclined;
 	}
 
 	public int getHours() {

@@ -1,6 +1,8 @@
-0;Vezbe kod ive;Iva;eva;26-07-2022;6;
-1;Slobodni trening;None;eva;06-08-2022;12;
-2;Slobodni trening;None;eva;28-06-2022;16;
-3;Vezbe kod ive;Iva;eva;27-07-2022;15;
-4;Trening uvece kod ive;Iva;eva;01-08-2022;13;
-5;Trening uvece kod ive;Iva;eva;03-08-2022;16;
+0;Vezbe kod ive;Iva;eva;10-07-2022;6;0;
+1;Slobodni trening;None;eva;06-08-2022;12;0;
+2;Slobodni trening;None;eva;28-06-2022;16;0;
+3;Vezbe kod ive;Iva;eva;27-07-2022;15;0;
+4;Trening uvece kod ive;Iva;eva;01-08-2022;13;0;
+5;Trening uvece kod ive;Iva;eva;03-08-2022;16;0;
+6;Vezbe kod ive;Iva;drago;12-06-2022;13;0;
+7;Vezbe kod ive;Iva;eva;20-07-2022;7;0;

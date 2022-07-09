@@ -25,6 +25,24 @@ public class MembershipFileSotrage {
 		
 	}
 	
+	public void createMembership(Membership memb) {
+		memberships = this.readMemberships();
+		if(memberships.get(memb.getCustomer()) == null) {
+			memberships.remove(memb.getCustomer());
+		}
+		memberships.put(memb.getCustomer(), memb);
+		this.writeMemberships();
+	}
+	
+	public void checkMembership(String customer) {
+		memberships = this.readMemberships();
+		Membership memb = memberships.get(customer);
+		if(memb.getExpires().before(new Date())) {
+			memb.setStatus(MembershipStatus.Inactive);
+			this.writeMemberships();
+		}
+	}
+	
 	public boolean writeMemberships() 
 	{
 		FileWriter fileWriter;
@@ -93,7 +111,7 @@ public class MembershipFileSotrage {
 					Date payDate = formatter.parse(paymentDate);
 					Date expDate = formatter.parse(expires);
 					Membership membership = new Membership(id,memt,payDate,expDate,Integer.parseInt(price),customer,memst,Integer.parseInt(workoutNumber));
-					coachesInner.put(membership.getId(),membership);
+					coachesInner.put(membership.getCustomer(),membership);
 				}
 			} catch (Exception ex) {
 				ex.printStackTrace();

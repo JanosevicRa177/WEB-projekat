@@ -6,7 +6,9 @@ import static spark.Spark.put;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import enums.UserType;
 import model.User;
+import services.MembershipService;
 import services.UserService;
 import spark.Session;
 
@@ -15,9 +17,11 @@ public class UserController {
 	public static Gson gson;
 	
 	private static UserService userService;
+	private static MembershipService  membershipService;
 	
 	public UserController() {
 		userService = new UserService();
+		membershipService = new MembershipService();
 		gson = new GsonBuilder()
 		        .setPrettyPrinting()
 		        .setDateFormat("yyyy-MM-dd")
@@ -62,7 +66,7 @@ public class UserController {
 			User loggeduser = ss.attribute("user");
 			if(loggeduser != null)
 			return gson.toJson( userService.getUser(loggeduser.getUsername()));
-			return null;
+			return "";
 		});
 		
 	}
@@ -100,6 +104,7 @@ public class UserController {
 				if(use != null) {
 					loggeduser = use;
 					ss.attribute("user", use);
+					if(use.getUserType() == UserType.Customer) membershipService.checkMembership(use.getUsername());
 					return "logged";
 				}
 				return "wrong";

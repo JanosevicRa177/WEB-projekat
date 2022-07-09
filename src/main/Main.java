@@ -33,6 +33,7 @@ public class Main {
 		new WorkoutController();
 		new WorkoutHistoryController();
 		new ActiveGroupWorkoutController();
+		new MembershipController();
 		
 		CustomerController.addCustomer();
 		CustomerController.GetAllCustomers();
@@ -71,17 +72,20 @@ public class Main {
 		WorkoutController.GetWorkoutsByCoach();
 		WorkoutController.GetWorkoutByName();
 		WorkoutController.InvalidateChangingWorkout();
+		WorkoutController.GetWorkoutsBySportBuilding();
 		
 		WorkoutHistoryController.AddToWorkoutHistoryPersonal();
 		WorkoutHistoryController.AddToWorkoutHistoryGroup();
 		WorkoutHistoryController.GetWorkoutHistoryCustomer();
 		WorkoutHistoryController.GetWorkoutHistoryManager();
 		WorkoutHistoryController.GetWorkoutHistoryCoach();
+		WorkoutHistoryController.CancelWorkout();
 		
 		ActiveGroupWorkoutController.AddActiveGroupWorkout();
 		ActiveGroupWorkoutController.GetActiveGroupWorkoutsByCustomer();
 		
 		MembershipController.createMembership();
+		MembershipController.getMemebership();
 	}
 
 }
