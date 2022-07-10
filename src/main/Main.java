@@ -9,6 +9,7 @@ import java.io.IOException;
 import controller.ActiveGroupWorkoutController;
 import controller.AdminController;
 import controller.CoachController;
+import controller.CommentController;
 import controller.CustomerController;
 import controller.ManagerController;
 import controller.MembershipController;
@@ -34,6 +35,7 @@ public class Main {
 		new WorkoutHistoryController();
 		new ActiveGroupWorkoutController();
 		new MembershipController();
+		new CommentController();
 		
 		CustomerController.addCustomer();
 		CustomerController.GetAllCustomers();
@@ -86,6 +88,12 @@ public class Main {
 		
 		MembershipController.createMembership();
 		MembershipController.getMemebership();
+		
+		CommentController.ApproveComment();
+		CommentController.DenyComment();
+		CommentController.CommentSportBuildingByCustomer();
+		CommentController.GetCommentsBySportBuilding();
+		CommentController.CheckSportBuildingCommentByCustomer();
 	}
 
 }
