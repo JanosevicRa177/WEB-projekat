@@ -12,6 +12,8 @@ Vue.component("showBuilding", {
 		      	commentContentNotValid: true,
 		      	commentGradeNotValid: true,
 		      	cantSubmit: true,
+		      	isAdmin: false,
+		      	isntAdmin: true
 		    }
 	},
 	template: ` 
@@ -75,19 +77,25 @@ Vue.component("showBuilding", {
 					<td style="padding: 0 30px;">
 						<div style="text-align:center;">
 				        	<h2 style="height: 40px;">Comments:</h2>
-				    		<table border="3" style="margin-left:auto;margin-right:auto;height:50%;width:1550px;display:block;font-size:25px;margin-top:-10px;">
+				    		<table border="1" style="margin-left:auto;margin-right:auto;height:50%;width:1550px;display:block;font-size:25px;margin-top:-10px;">
 					    		<thead style="width: 100%;height: 29px; display: inline-block;margin-right:40px;">
 						    		<tr bgcolor="grey" style="width:100%;font-size: 20px;">
 						    			<th style="max-width:170px;min-width:170px;">customer</th>
-						    			<th style="max-width:1253px;min-width:1253px">comment</th>
+						    			<th style="max-width:1033px;min-width:1033px" v-if="isAdmin">comment</th>
+						    			<th style="max-width:1253px;min-width:1253px" v-if="isntAdmin">comment</th>
 						    			<th style="max-width:100px;min-width:100px">grade</th>
+						    			<th style="max-width:105px;min-width:105px" v-if="isAdmin"></th>
+						    			<th style="max-width:105px;min-width:105px" v-if="isAdmin"></th>
 						    		</tr>
 					    		</thead>
 					    		<tbody style="width: calc(100% + 20px);display: inline-block; overflow: auto;" class="showa">
 						    		<tr v-for="(object, index) in this.Comments">
 						    			<td style="max-width:170px;min-width:170px">{{object.customer}} </td>
-						    			<td style="max-width:1253px;min-width:1253px">{{object.comment}}</td>
+						    			<td style="max-width:1033px;min-width:1033px" v-if="isAdmin">{{object.comment}}</td>
+						    			<td style="max-width:1253px;min-width:1253px" v-if="isntAdmin">{{object.comment}}</td>
 						    			<td style="max-width:100px;min-width:100px">{{object.grade}}</td>
+						    			<td style="max-width:105px;min-width:105px" v-if="isAdmin"><button :disabled="object.reviewed" style="font-size:15px;width:80px" v-on:click="ApproveComment(object)">Approve</button></td>
+						    			<td style="max-width:105px;min-width:105px" v-if="isAdmin"><button :disabled="object.reviewed" style="font-size:15px;width:80px" v-on:click="DenyComment(object)">Deny</button></td>
 						    		</tr>
 					    		</tbody>
 					    	</table>
@@ -143,6 +151,40 @@ Vue.component("showBuilding", {
 			}
 			else this.cantSubmit = true;
 		},
+		ApproveComment: function(comment){
+			axios
+			.put('comment/approveComment',null,{params: {Id: '' + comment.id}})
+	        .then(response => (this.AfterApproving(response.data,comment)));
+		},
+		AfterApproving: function(data,comment){
+			if(data == "Success"){
+				for (const i in this.Comments){
+					if(this.Comments[i].id == comment.id){
+						this.Comments[i].status = "Approved";
+						this.Comments[i].reviewed = true;
+						break;
+					}
+				}
+				alert("Comment successfuly approved!");
+			}else alert(data);
+		},
+		DenyComment: function(comment){
+			axios
+			.put('comment/denyComment',null,{params: {Id: '' + comment.id}})
+	        .then(response => (this.AfterDenying(response.data,comment)));
+		},
+		AfterDenying: function(data,comment){
+			if(data == "Success"){
+				for (const i in this.Comments){
+					if(this.Comments[i].id == comment.id){
+						this.Comments[i].status = "Denied";
+						this.Comments[i].reviewed = true;
+						break;
+					}
+				}
+				alert("Comment successfuly denied!");
+			}else alert(data);
+		},
 		validateContent: function(){
 			let Content = this.commentContent;
 			Content = Content + "e";
@@ -190,6 +232,25 @@ Vue.component("showBuilding", {
 			this.checkedComments = true;
 			this.checkedWorkouts = false;
 		},
+		InitComments : function(data) {
+			this.Comments = data;
+			for (const i in this.Comments){
+			if((this.Comments[i].status == "NotEvaluated")) {
+				this.Comments[i].reviewed = false;
+			} else {
+				this.Comments[i].reviewed = true;
+			}
+		}
+		},
+		InitLoggedin : function(data) {
+			if(data == "Admin")  {
+		      	this.isAdmin = true;
+		      	this.isntAdmin = false;
+			}else {
+		      	this.isAdmin = false;
+		      	this.isntAdmin = true;
+			}
+		},
 	},
 	mounted () {
 		axios
@@ -200,9 +261,12 @@ Vue.component("showBuilding", {
 		.then(response => (this.Workouts = response.data));
 		axios
 		.get('comment/getCommentsBySportBuilding',{params: {sportBuildingName: '' + this.$route.query.sportBuildingName}})
-		.then(response => (this.Comments = response.data));
+		.then(response => (this.InitComments(response.data)));
 		axios
 		.get('comment/checkCustomer',{params: {sportBuildingName: '' + this.$route.query.sportBuildingName}})
 		.then(response => (this.canComment = !response.data));
+		axios
+		.get('user/userType')
+		.then(response => (this.InitLoggedin(response.data)));
     }
 });

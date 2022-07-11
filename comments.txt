@@ -1,1 +1,2 @@
-0;eva;ime3;Bas super!;9;NotEvaluated;
+0;eva;ime3;Bas super!;9;Approved;
+1;drago;ime3;Nije bas sjajno;4;NotEvaluated;
