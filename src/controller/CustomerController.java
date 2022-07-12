@@ -59,6 +59,19 @@ public class CustomerController {
 	}
 	
 	
+	public static void GetCustomerType() {
+		get("customer/getCustomerType",(req, res) -> {
+			res.type("application/json");
+			Session ss = req.session(true);
+			User user = ss.attribute("user");
+			if(user.getUserType() == UserType.Customer)
+				return gson.toJson(customerService.getCustoemrType(user.getUsername()));
+			else return gson.toJson(null);
+		});
+	}
+	
+	
+	
 	public static void getCustomersSportBuilding() {
 		get("customer/getCustomersSportBuilding",(req, res) -> {
 			res.type("application/json");

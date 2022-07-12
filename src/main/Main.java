@@ -40,6 +40,7 @@ public class Main {
 		CustomerController.addCustomer();
 		CustomerController.GetAllCustomers();
 		CustomerController.getCustomersSportBuilding();
+		CustomerController.GetCustomerType();
 		
 		UserController.Login();
 		UserController.GetLoggedUser();

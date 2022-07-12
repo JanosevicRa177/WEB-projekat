@@ -27,6 +27,10 @@ public class CustomerService {
 			return customerFileStorage.addCustomer(cus);
 	}
 	
+	public String getCustoemrType(String username) {
+		return customerFileStorage.readCustomers().get(username).getCustomerType().toString();
+	}
+	
 	public Collection<Customer> getCustomersSportBuilding(String sportBuilding){
 		Collection<Customer> customers = new ArrayList<Customer>();
 		Collection<Workout> workouts = workoutService.getallWorkoutsforSportBuilding(sportBuilding);
