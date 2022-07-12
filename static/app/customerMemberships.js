@@ -12,6 +12,10 @@ Vue.component("customerMemberships", {
 			locationSorted: false,
 			averageGradeSorted:false,
 			loggedin : null,
+			discountString : '',
+			discount : 0,
+			gold : false,
+			silver : false
 		}
 	},
 	template: ` 
@@ -28,15 +32,15 @@ Vue.component("customerMemberships", {
 	    			<thead style="width: 100%;height: 56px; display: inline-block;margin-right:40px;">
 			    		<tr bgcolor="grey" style="width:100%;font-size: 40px;">
 			    			<th style="max-width:170px;min-width:230px;cursor: pointer;">Membership </th>
-			    			<th style="max-width:140px;min-width:140px">Price</th>
-			    			<th style="max-width:154px;min-width:1100px;cursor: pointer;">Description </th>
+			    			<th style="max-width:140px;min-width:300px">Price</th>
+			    			<th style="max-width:154px;min-width:950px;cursor: pointer;">Description </th>
 			    		</tr>	
 		    		</thead>
 		    		<tbody style="width: calc(100% + 20px);height: 300px;display: inline-block; overflow: auto;" class="showa">
 			    		<tr style="font-size: 40px;" v-for="(object, index) in this.memberships" v-on:click="ChoosenMem(object)">
 			    			<td style="max-width:170px;min-width:230px">{{object.name}}</td>
-			    			<td style="max-width:140px;min-width:140px">{{object.price}} e</td>
-			    			<td style="max-width:152px;min-width:1100px"> {{object.description}}</td>
+			    			<td style="max-width:140px;min-width:300px">{{object.price}} e {{discountString}}</td>
+			    			<td style="max-width:152px;min-width:950px"> {{object.description}}</td>
 			    		</tr>
 		    		</tbody>
 		    	</table>
@@ -57,6 +61,8 @@ Vue.component("customerMemberships", {
 				</td>
 				</tr>
 		    	</table>
+		    	<p style="font-size:35px;" v-show=gold>You get 5% discount on prices because you are gold member!</p>
+		    	<p style="font-size:35px;" v-show=silver>You get 5% discount on prices because you are silver member!</p>
 		    </div>
 `
 	,
@@ -90,6 +96,16 @@ Vue.component("customerMemberships", {
 				this.id = this.currentMembership.id;
 				this.expires = this.currentMembership.expires;
 			}
+		},
+		initDiscount : function (data) {
+			if(data == "Gold") {
+				this.discountString = "-5% discount";
+				this.gold = true;
+			}
+			else if(data == "Silver"){
+				this.discountString = "-3% discount";
+				this.silver = true;
+			}
 		}
 	},
 	mounted () {
@@ -100,5 +116,8 @@ Vue.component("customerMemberships", {
 		axios
 			.get('membership/getMembership')
 			.then(response => (this.init22(response.data)));
+		axios
+			.get('customer/getCustomerType')
+			.then(response => (this.initDiscount(response.data)));
     }
 });
