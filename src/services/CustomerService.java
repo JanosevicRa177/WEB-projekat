@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import fileStorages.CustomerFileStorage;
 import fileStorages.WorkoutHistoryFileStorage;
-import model.Coach;
 import model.Customer;
 import model.Workout;
 import model.WorkoutHistory;

@@ -1,31 +1,51 @@
 package model;
 
+import enums.CommentStatus;
+
 public class Comment {
-	private Customer customer;
-	private SportBuilding sportBuilding;
+	private int id;
+	private String customer;
+	private String sportBuilding;
 	private String comment;
 	private int grade;
+	private CommentStatus status;
+	
 	
 	public Comment() {
 		super();
 	}
-	public Comment(Customer customer, SportBuilding sportBuilding, String comment, int grade) {
+	public Comment(String customer, String sportBuilding, String comment, int grade, int id,CommentStatus status) {
 		super();
 		this.customer = customer;
 		this.sportBuilding = sportBuilding;
 		this.comment = comment;
 		this.grade = grade;
+		this.id = id;
+		this.status = status;
 	}
-	public Customer getCustomer() {
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public CommentStatus getStatus() {
+		return status;
+	}
+	public void setStatus(CommentStatus status) {
+		this.status = status;
+	}
+	public String getCustomer() {
 		return customer;
 	}
-	public void setCustomer(Customer customer) {
+	public void setCustomer(String customer) {
 		this.customer = customer;
 	}
-	public SportBuilding getSportBuilding() {
+	public String getSportBuilding() {
 		return sportBuilding;
 	}
-	public void setSportBuilding(SportBuilding sportBuilding) {
+	public void setSportBuilding(String sportBuilding) {
 		this.sportBuilding = sportBuilding;
 	}
 	public String getComment() {
